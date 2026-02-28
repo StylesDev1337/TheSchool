@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>工农小学 - 六年九班</title>
-    <audio src="./whatsup.mp4" controls></audio>
+    <title>🥇工农小学 - 六年九班🎪</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <audio src="./music.mp3" controls></audio>
 </head>
 <body>
     <style>
@@ -88,9 +90,29 @@
         }
 
         #stus li {
-            margin-bottom: 5px;
-            padding: 3px 0;
-            border-bottom: 1px dashed rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        #stus li:hover {
+            transform: translateX(5px);
+            color: #ffd700 !important;  /* 悬停变金色 */
+            text-shadow: 0 0 10px gold;
+        }
+
+        /* 添加小图标装饰 */
+        #stus li::before {
+            content: "👤-";
+            position: absolute;
+            left: -5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #stus li:hover::before {
+            opacity: 1;
         }
 
         .w {
@@ -160,6 +182,24 @@
             border-radius: 15px;
             font-family: MyFont, sans-serif;
             transform: translateY(0);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subtitle {
+            background-color: rgba(120, 120, 120, 0.607);
+            text-align: center;
+            border-left: 4px solid rgb(107, 107, 255);
+            backdrop-filter: blur(10px);
+            margin-left: auto;
+            margin-right: auto;
+            width: 1000px;
+            height: auto;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-family: MyFont, sans-serif;
+            transform: translateY(0);
             transition: transform 0.9s ease;
             position: relative;
             overflow: hidden;
@@ -198,6 +238,11 @@
             padding: 10px 15px;
             border-radius: 15px;
             font-family: MyFont, sans-serif;
+        }
+
+        :root {
+            --swal2-border-radius: 25px;  /* 更柔和的圆角 */
+            --swal2-background: rgba(255, 255, 255, 0.699); 
         }
 
         @keyframes pulse {
@@ -255,6 +300,15 @@
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        .teacher-tribute {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 20px;
+            padding: 15px;
+            margin: 20px 0 10px 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(5px);
         }
 
         .button:hover {
@@ -318,134 +372,26 @@
         }
     </style>
 
-    <script>
-        function getChineseName(days) {
-            let chineseNames = [
-                '星期一',
-                '星期二',
-                '星期三',
-                '星期四',
-                '星期五'
-            ]
-            return chineseNames[days - 1]
-        }
-
-        let coursesDays = {
-            1:['语文','数学','音乐','英语','美术','体育'],
-            2:['数学','语文','道法','体育','综合','科学'],
-            3:['英语','数学','语文','美术','道法','体活'],
-            4:['数学','语文','语文','音乐','劳动','体育(大操)'],
-            5:['语文','数学','校本','信息','科学','家乡']
-        }
-
-        let courseNames = {
-            '数学':'一二三四五都有~',
-            '语文':'一二三四五都有~',
-            '美术':'1,3',
-            '体育':'一二三四五都有~(并非...)',
-            '科学':'2,5',
-            '信息':'Only 5'
-        }
-
-        // 新的查询函数
-        function searchCourse() {
-            let input = document.getElementById('courseInput').value.trim();
-            let resultDiv = document.getElementById('searchResult');
-            
-            if (input === '') {
-                resultDiv.innerHTML = '🔍 请输入内容';
-                resultDiv.style.color = '#ff9999';
-                return;
-            }
-
-            // 情况1：输入是数字（日期）
-            if (!isNaN(input) && input >= 1 && input <= 5) {
-                let dayCourses = coursesDays[input];
-                resultDiv.innerHTML = `📅 ${getChineseName(input)}的课程：<br>${dayCourses.join('、')}`;
-                resultDiv.style.color = '#aaffaa';
-            }
-            // 情况2：输入是课程名
-            else if (courseNames[input]) {
-                let result = courseNames[input];
-                if (result.includes(',')) {
-                    let days = result.split(',').map(d => getChineseName(parseInt(d))).join('、');
-                    resultDiv.innerHTML = `📚 ${input}课：<br>${days}`;
-                } else {
-                    resultDiv.innerHTML = `📚 ${input}课：<br>${result}`;
-                }
-                resultDiv.style.color = '#aaffaa';
-            }
-            // 情况3：输入包含数字和文字（如"数学2"）
-            else {
-                let matchedDay = null;
-                let matchedCourse = null;
-                
-                for (let day in coursesDays) {
-                    if (input.includes(day)) {
-                        matchedDay = day;
-                        break;
-                    }
-                }
-                
-                for (let courseName in courseNames) {
-                    if (input.includes(courseName)) {
-                        matchedCourse = courseName;
-                        break;
-                    }
-                }
-                
-                if (matchedDay && matchedCourse) {
-                    if (coursesDays[matchedDay].includes(matchedCourse)) {
-                        resultDiv.innerHTML = `✅ ${getChineseName(matchedDay)}有【${matchedCourse}】课`;
-                    } else {
-                        resultDiv.innerHTML = `❌ ${getChineseName(matchedDay)}没有【${matchedCourse}】课`;
-                    }
-                    resultDiv.style.color = matchedCourse ? '#aaffaa' : '#ff9999';
-                } else {
-                    resultDiv.innerHTML = '❌ 没有找到呀0v0';
-                    resultDiv.style.color = '#ff9999';
-                }
-            }
-        }
-
-        // 快速查询函数
-        function quickSearch(day) {
-            document.getElementById('courseInput').value = day;
-            searchCourse();
-        }
-
-        // 支持回车键查询
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && document.activeElement.id === 'courseInput') {
-                searchCourse();
-            }
-        });
-
-        // 保留原有的查询函数
-        function searthCourse(courseName) {
-            let course = prompt('请输入星期几（1-5）&课程名称(语文,数学...)')
-            course = course.trim();
-
-            if (course in courseNames) {
-                alert(courseNames[course])
-            } else if (course in coursesDays) {
-                alert(getChineseName(course) + "的课程有\n " + coursesDays[course].join('、') + "~")
-            } else {
-                alert('没有找到呀0v0')
-            }
-        }
-
-        alert('提示：目前还处于开发阶段，部分区域有错误是正常现象~\n手机访问双指可以进行缩放操作~')
-    </script>
-
     <!-- 导航区 -->
-    <div class="box" id="daohang" style="backdrop-filter: blur(10px)">
+    <div class="subtitle" id="daohang" style="backdrop-filter: blur(10px)">
         <span class="w">
-             <a href="#stus" class="w a">班级人员 <span class="b">|</span></a>
-             <a onclick="alert('尚未完善，敬请期待~')" href="#" class="w a">近期考试 <span class="b">|</span></a>
-             <a href="#course" class="w a">课程详情 <span class="b">|</span></a>
-             <a href="#zhengwen" class="w a">正文跳转 <span class="b">|</span></a>
-             <a href="#" onclick="alert('蟑螂微信:zza8848thjsj')" style="color: red" class="a">联系开发人员&问题反馈</a>
+            <a href="#xiqiguguai" class="w a">稀奇古怪的玩意er~ <span class="b">|</span></a>
+            <a href="#stus" class="w a">班级人员 <span class="b">|</span></a>
+            <a href="./jump.html" target="_blank" class="w a">后期计划🤔<span class="b">|</span></a>
+            <a href="#kaoshi" class="w a">近期考试 <span class="b">|</span></a>
+            <a href="#course" class="w a">课程详情 <span class="b">|</span></a>
+            <a href="#zhengwen" class="w a">正文跳转 <span class="b">|</span></a>
+            <a href="#" onclick="alert('蟑螂微信:zza8848thjsj')" style="color: red" class="a">联系开发人员&问题反馈</a>
+            <span>
+                <p>已有<span style="color: #00ff00;" id="visitCount">0</span>位同学来过~ (大部分次数是我自己调试的时候刷的~~~)</p>
+                <p id="everdaytips"></p>
+                <div class="box center" style="background: rgba(0,0,0,0.3);">
+                    <p class="w" style="font-size: 20px;">
+                        ⏳ 距离暑假还有 <span style="color: #ffd700;" id="countdown"></span> 天  (按照7月1日算的....)
+                    </p>
+                    <p id="time" style="color: gold;"></p>
+                </div>
+             </span>
         </span>
     </div>
 
@@ -468,6 +414,7 @@
             <li>*带水瓶</li>
             <li>*4:35放学</li>
             <li>*课程表不变</li>
+            <li>*2.28~3.5</li>
         </ul>
     </div>
 
@@ -475,11 +422,11 @@
 
     <!-- 正文 -->
     <div class="box center" id="zhengwen">
-        <h1 class="w">
+        <h1 class="w addFont">
             工农小学 ------ 6.9
-            <p class="smallFont b">[蟑螂 - 韩佩阳 - 进行研发]</p>
-            <p class="smallFont b">其实也没什么好说的了，无非就是班级网而已~</p>
         </h1>
+        <p class="smallFont b">[蟑螂 - 韩佩阳 - 进行研发]</p>
+        <p class="smallFont b">其实也没什么好说的了，无非就是班级网而已~</p>
     </div>
 
     <br>
@@ -487,13 +434,15 @@
     <!-- 学生/老师们 -->
     <div class="box center" id="stus">
         <p class="w addFont">学生/Students</p>
-        <div style="color: rgb(255, 162, 68); font-size: 25px; text-align: center;">
+        <div style="color: rgb(0, 255, 26); font-size: 25px; text-align: center;">
             <ul style="display: inline-block; text-align: left; margin: 0 auto; columns: 3; column-gap: 30px;">
-                <li>张梓昂</li>
-                <li>韩佩阳</li>
+                <span style="color:rgb(107, 107, 255)">
+                    <li>张梓昂</li>
+                    <li>韩珮阳</li>
+                </span>
                 <li>冯俊皓</li>
                 <li>冯恩临</li>
-                <li>张子承</li>
+                <li>张子丞</li>
                 <li>孙昊元</li>
                 <li>李欣蕊</li>
                 <li>李俊泽</li>
@@ -506,14 +455,14 @@
                 <li>孙晟博</li>
                 <li>张锦熙</li>
                 <li>刘紫熙</li>
-                <li>赵玉鑫</li>
+                <li>赵玉欣</li>
                 <li>夏姝婷</li>
                 <li>刘恩轩</li>
                 <li>赵宇涵</li>
                 <li>孙唯铭</li>
                 <li>赵子墨</li>
-                <li>张铭涵</li>
-                <li>张傲鹏</li>
+                <li>张茗涵</li>
+                <li>张傲蓬</li>
                 <li>宣泓孛</li>
                 <li>陈源泽</li>
                 <li>李佳彤</li>
@@ -530,17 +479,22 @@
                 <li>刘禹锡</li>
                 <li>刘奕彤</li>
                 <li>杨宇昊</li>
+                <li>潘雨彤</li>
+                <li>蔚文昊</li>
+                <li>宋金玥</li>
             </ul>
             <p style="color: red">*统计待完善</p>
         </div>
 
-        <hr style="width: 80%; margin: 20px auto;">
+         <hr style="width: 80%; margin: 20px auto;">
 
         <p class="w addFont">老师们/Teachers</p>
+        <!-- 修复老师区域 -->
         <div style="color: rgb(0, 255, 166); font-size: 25px; text-align: center;">
-            <ul>
-                <li>李老师 -- 语文</li><br>
-                <li>梁老师 -- 数学</li>
+            <ul class="teacher-tribute" style="display: inline-block; text-align: left; margin: 0 auto;">
+                <li>李老师</li>
+                <li style="color: aquamarine;">梁老师</li>
+                <li style="color: #008bad;">马老师</li>
             </ul>
         </div>
 
@@ -578,7 +532,7 @@
         <button class="button" onclick="searthCourse('course')">传统查询(弹窗)🔍</button>
 
         <span class="w">
-            <p style="font-size: 20px; color:rgb(0, 89, 255)">
+            <p style="font-size: 20px; color:rgb(255, 238, 0)">
                 1:语文,数学,音乐,英语,美术,体育<br>
                 2:数学,语文,道法,体育,综合,科学<br>
                 3:英语,数学,语文,美术,道法,体活<br>
@@ -586,9 +540,320 @@
                 5:语文,数学,校本,信息,科学,家乡
             </p>
         </span>
-    </div>
 
-    
+        <br>
+    </div>
+    <br>
+    <div class="box center" id="xiqiguguai">
+        <h1 class="w">一些稀奇古怪的小玩意....</h1>
+        
+        <div>
+            <button class="button" onclick="drawFortune()">🎋 今日运势</button>
+        <div id="fortuneResult" style="margin-top: 10px; min-height: 60px;"></div>
+        </div>
+
+        <br>
+
+        <div>
+            <button class="button" onclick="randomPick()">🎲 随机点名</button>
+            <div id="pickResult" style="margin-top: 10px; font-size: 24px; color: gold;"></div>
+        </div>
+
+
+    </div>
+    <br>
+    <div class="box center">
+        <h1>
+           到底啦~~
+        </h1>
+        <p>2026CheungTszon LLC. Copyright</p>
+    </div>
 </body>
 
+
+
+
+
+<!-- 脚本 -->
+<script>
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min
+        }
+
+        function getTipsType() {
+            const days = [
+            "✨ 今天也是元气满满的一天！",
+            "📚 好好学习，天天向上！",
+            "💪 六年九班，永远最棒！",
+            "🌈 每一份努力都会有回报",
+            "🎉 和同学们一起成长很快乐",
+            "🤔 今天想好吃什么了吗？"
+            ]
+            let number = getRandomInt(0, 5)
+
+            document.getElementById('everdaytips').textContent = days[number]
+        }
+
+        getTipsType()
+
+        function getChineseName(days) {
+            let chineseNames = [
+                '星期一',
+                '星期二',
+                '星期三',
+                '星期四',
+                '星期五'
+            ]
+            return chineseNames[days - 1]
+        }
+
+        let coursesDays = {
+            1:['语文','数学','音乐','英语','美术','体育'],
+            2:['数学','语文','道法','体育','综合','科学'],
+            3:['英语','数学','语文','美术','道法','体活'],
+            4:['数学','语文','语文','音乐','劳动','体育(大操)'],
+            5:['语文','数学','校本','信息','科学','家乡']
+        }
+
+        let courseNames = {
+            '数学':'一二三四五都有~',
+            '语文':'一二三四五都有~',
+            '美术':'1,3',
+            '体育':'一二三四五都有~(并非...)',
+            '科学':'2,5',
+            '信息':'Only 5'
+        }
+
+            // 新的查询函数
+        function searchCourse() {
+            let input = document.getElementById('courseInput').value.trim();
+            
+            if (input === '') {
+                Swal.fire({
+                    title: '提示',
+                    text: '请输入要查询的内容',
+                    icon: 'warning',
+                    confirmButtonColor: '#007bff',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                return;
+            }
+
+            if (!isNaN(input) && input >= 1 && input <= 5) {
+                let dayCourses = coursesDays[input];
+                Swal.fire({
+                    title: getChineseName(input),
+                    html: dayCourses.map(c => `📚 ${c}`).join('<br>'),
+                    icon: 'success',
+                    confirmButtonColor: '#007bff',
+                    background: 'rgba(255, 255, 255, 0.95)',
+                    backdrop: 'rgba(0, 123, 255, 0.2)'
+                });
+            }
+            else if (courseNames[input]) {
+                let result = courseNames[input];
+                Swal.fire({
+                    title: `📖 ${input}课`,
+                    text: result,
+                    icon: 'info',
+                    confirmButtonColor: '#007bff'
+                });
+            }
+            else {
+                Swal.fire({
+                    title: '❌ 未找到',
+                    text: '没有找到呀0v0',
+                    icon: 'error',
+                    confirmButtonColor: '#007bff'
+                });
+            }
+        }
+
+
+        // 快速查询函数
+        function quickSearch(day) {
+            document.getElementById('courseInput').value = day;
+            searchCourse();
+        }
+
+        // 支持回车键查询
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.activeElement.id === 'courseInput') {
+                searchCourse();
+            }
+        });
+
+        // 保留原有的查询函数
+        function searthCourse(courseName) {
+            let course = prompt('请输入星期几（1-5）&课程名称(语文,数学...)')
+            course = course.trim();
+
+            if (course in courseNames) {
+                alert(courseNames[course])
+            } else if (course in coursesDays) {
+                alert(getChineseName(course) + "的课程有\n " + coursesDays[course].join('、') + "~")
+            } else {
+                alert('没有找到呀0v0')
+            }
+        }
+
+        s = 'success'
+        info = 'info'
+        e = 'error'
+        w = 'warning'
+        dk = 'question'
+
+        // alert('提示：目前还处于开发阶段，部分区域有错误是正常现象~ | 手机可以双指缩放~')
+        Swal.fire({
+            title: '欢迎光临🎉',
+            text: '开发者：蟑螂 and 韩佩阳',
+            icon: info,
+        })
+
+        // 访问计数（使用 localStorage）
+        let visits = localStorage.getItem('classVisits') || 0;
+        visits++;
+        localStorage.setItem('classVisits', visits);
+        document.getElementById('visitCount').textContent = visits;
+
+        function drawFortune() {
+            const fortunes = [
+                { text: '大吉 🌟', desc: '今天会有好事发生！' },
+                { text: '中吉 ✨', desc: '平平淡淡才是真~' },
+                { text: '小吉 🌈', desc: '保持好心情很重要' },
+                { text: '末吉 🌱', desc: '努力就会有回报' }
+            ];
+            let random = Math.floor(Math.random() * fortunes.length);
+            document.getElementById('fortuneResult').innerHTML = 
+        `   <span style="font-size: 24px; color: gold;">${fortunes[random].text}</span><br>
+            <span style="color: white;">${fortunes[random].desc}</span>`;
+        }
+
+        let clickCount = 0;
+        document.getElementById('zhengwen').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 5) {
+                Swal.fire({
+                    title: '🎮 隐藏模式',
+                    html: '开发者：韩佩阳 & 蟑螂<br>版本号：v2.0',
+                    icon: 'info',
+                    confirmButtonText: '厉害！'
+                });
+                clickCount = 0;
+            }
+            setTimeout(() => clickCount = 0, 3000);
+        });
+
+        function updateCountdown() {
+            let now = new Date();
+            let summer = new Date(now.getFullYear(), 6, 1); // 7月1日
+            if (now > summer) summer.setFullYear(summer.getFullYear() + 1);
+    
+            let diff = Math.ceil((summer - now) / (1000 * 60 * 60 * 24));
+            document.getElementById('countdown').textContent = diff;
+        }
+        updateCountdown();
+
+        function randomPick() {
+            let students = [
+                '冯俊皓', '冯恩临', '', '孙昊元',
+                '李欣蕊', '李俊泽', '郝俊宇', '李铭轩', '高依然', '刘子琪',
+                '宋浩', '刘鑫', '孙晟博', '张锦熙', '刘紫熙', '赵玉欣',
+                '夏姝婷', '刘恩轩', '赵宇涵', '孙唯铭', '赵子墨', '张茗涵',
+                '张傲蓬', '宣泓孛', '陈源泽', '李佳彤', '刘瑞可', '张琬畦',
+                '张艺宣', '关越琪', '刘书诗涵', '姚明硕', '王婧怡', '闫弘男',
+                '周肖瀚', '仲一凡', '刘禹锡', '刘奕彤', '杨宇昊', '潘雨彤',
+                '蔚文昊', '宋金玥'
+            ];
+            
+            let lucky = students[Math.floor(Math.random() * students.length)];
+            
+            document.getElementById('pickResult').innerHTML = `✨ ${lucky} ✨`;
+
+            Swal.fire({
+                title: lucky,
+                text: '今天这么幸运？买张彩票吧！',
+                icon: info,
+                confirmButtonText: '接受审判！'
+            })
+            
+            // 加点动画效果
+            let result = document.getElementById('pickResult');
+            result.style.transform = 'scale(1.5)';
+            setTimeout(() => result.style.transform = 'scale(1)', 300);
+        }
+
+        let typed = '';
+        document.addEventListener('keydown', e => {
+            typed += e.key;
+            if (typed.toLowerCase().includes('class9')) {
+                Swal.fire({
+                    title: '🎉 密语触发！',
+                    html: `
+                        <div style="font-size: 50px;">🌈</div>
+                        <p>恭喜你发现隐藏密语！</p>
+                        <p>六年九班永远最棒！</p>
+                    `,
+                    confirmButtonText: '耶！'
+                });
+                typed = '';
+            }
+            if (typed.length > 10) typed = typed.slice(-10);
+        });        
+
+        function playTone(freq) {
+            let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let oscillator = audioCtx.createOscillator();
+            let gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.frequency.value = freq;
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+            
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.5);
+        }
+
+        // 创建钢琴键
+        let notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88]; // do re mi fa so la si
+        let keys = ['do', 're', 'mi', 'fa', 'so', 'la', 'si'];
+
+        let pianoHTML = '<div style="display: flex; gap: 5px; justify-content: center;">';
+        keys.forEach((note, index) => {
+            pianoHTML += `<button class="button" onclick="playTone(${notes[index]})" style="width: 50px;">${note}</button>`;
+        });
+        pianoHTML += '</div>';
+
+        document.addEventListener('DOMContentLoaded', function() {
+        let pianoContainer = document.createElement('div');
+        pianoContainer.innerHTML = pianoHTML;
+        document.querySelector('.box.center:last-of-type').appendChild(pianoContainer);
+        });
+
+        function getTime() {
+            let date = new Date()
+
+            let year = date.getFullYear()
+            let month = date.getMonth() + 1
+            let day = date.getDate()
+            let hour = date.getHours().toString().padStart(2, '0')     // 补零
+            let minute = date.getMinutes().toString().padStart(2, '0') // 补零
+            let sec = date.getSeconds().toString().padStart(2, '0')    // 补零
+            
+            let weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+            let weekday = weekdays[date.getDay()]
+
+            let now = `${year}年${month}月${day}日 ${hour}:${minute}:${sec} ${weekday}`
+            document.getElementById('time').textContent = now
+        }
+
+        // 立即执行并每秒更新
+        getTime()
+        setInterval(getTime, 1000)
+    </script>
 </html>
