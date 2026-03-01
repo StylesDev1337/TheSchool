@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🥇工农小学 - 六年九班🎪</title>
+    <!-- 1. 引入 SweetAlert2 CSS (可选，但建议引入以获得更好样式) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <!-- 2. 引入 SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <audio src="./music.mp3" controls></audio>
 </head>
 <body>
@@ -139,7 +141,7 @@
             position: absolute;
             font-size: 40px;
             color: rgba(255, 215, 0, 0.3);
-            font-family: serif;
+            font-family: MyFont;
         }
 
         .poetry-container::before {
@@ -162,15 +164,27 @@
             z-index: 1;
         }
 
+        .boy {
+            color: #3232ff;
+        }
+
+        .gril {
+            color: pink;
+        }
+
+        .dev {
+            color: rgb(255, 208, 0);
+        }
+
         .poem-author {
             text-align: center;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgb(255, 124, 248);
             font-size: 16px;
             margin-top: 10px;
         }
 
         .box {
-            background-color: rgba(120, 120, 120, 0.607);
+            background-color: rgba(109, 107, 107, 0.432);
             text-align: center;
             border-left: 4px solid rgb(107, 107, 255);
             backdrop-filter: blur(10px);
@@ -200,9 +214,14 @@
             border-radius: 15px;
             font-family: MyFont, sans-serif;
             transform: translateY(0);
-            transition: transform 0.9s ease;
+            transition: transform 0.3s ease;
             position: relative;
             overflow: hidden;
+        }
+
+        .subtitle:hover {
+            transform: translateY(-4px);
+            box-shadow: #0000ff;
         }
 
         .box:hover {
@@ -293,7 +312,7 @@
 
         .button {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #ff4800;
             color: white;
             border: none;
             border-radius: 8px;
@@ -370,6 +389,82 @@
         .quick-buttons .button:hover {
             background-color: #007bff;
         }
+
+        /* 在 <style> 中添加信息卡片样式 */
+        .stats-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            border-color: #1eff00;
+            box-shadow: 0 4px 20px rgba(30, 255, 0, 0.2);
+        }
+
+        .stats-icon {
+            font-size: 28px;
+            background: rgba(255, 255, 255, 0.15);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .stats-content {
+            text-align: left;
+            color: white;
+        }
+
+        .visitor-stats {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .stats-label {
+            opacity: 0.8;
+        }
+
+        .stats-number {
+            color: #1eff00;
+            font-size: 22px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(30, 255, 0, 0.5);
+            margin: 0 5px;
+        }
+
+        .stats-unit {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .daily-motto {
+            color: #ffd700;
+            margin: 3px 0;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .time-display {
+            color: #87ceeb;
+            margin: 3px 0;
+            font-size: 14px;
+        }
+
+        .countdown-number {
+            color: #ffd700;
+            font-weight: bold;
+        }
     </style>
 
     <!-- 正文 -->
@@ -377,8 +472,8 @@
         <h1 class="w addFont">
             工农小学 ------ 6.9
         </h1>
-        <p class="smallFont b">[蟑螂 - 韩佩阳 - 进行研发]</p>
-        <p class="smallFont b">其实也没什么好说的了，无非就是班级网而已~</p>
+        <p class="smallFont w">[蟑螂 - 韩佩阳 - 进行研发]</p>
+        <p class="smallFont w">其实也没什么好说的了，无非就是班级网而已~</p>
     </div>
 
     <!-- 导航区 -->
@@ -391,17 +486,19 @@
             <a href="#course" class="w a">课程详情 <span class="b">|</span></a><br>
             <span class="b">|</span></a><a href="#zhengwen" class="w a">正文跳转 <span class="b">|</span></a>
             <a href="#" onclick="alert('蟑螂微信:zza8848thjsj')" style="color: red" class="a">联系开发人员&问题反馈</a>
-            <span>
-                <p>已有<span style="color: #00ff00;" id="visitCount">0</span>位同学来过~ (大部分次数是我自己调试的时候刷的~~~)</p>
-                <p id="everdaytips"></p>
-                <div class="box center" style="background: rgba(0,0,0,0.3);">
-                    <p class="w" style="font-size: 20px;">
-                        ⏳ 距离暑假还有 <span style="color: #ffd700;" id="countdown"></span> 天  (按照7月1日算的....)
-                    </p>
-                    <p id="time" style="color: gold;"></p>
-                    <p>提示：手机无法获得全部体验，最好使用电脑访问~</p>
-                </div>
-             </span>
+                    <div class="stats-card">
+            <div class="stats-icon">📊</div>
+            <div class="stats-content">
+                <p class="visitor-stats">
+                    <span class="stats-label">已有</span>
+                    <span id="visitCount" class="stats-number">0</span>
+                    <span class="stats-unit">位同学来过</span>
+                </p>
+                <p id="everdaytips" class="daily-motto"></p>
+                <p id="time" class="time-display" style="color: #ffd700;"></p>
+                <p>距离暑假还有 <span id="countdown" class="countdown-number" style="color: #1eff00;">0</span> 天</p>
+            </div>
+        </div>
         </span>
     </div>
 
@@ -433,56 +530,61 @@
     <!-- 学生/老师们 -->
     <div class="box center" id="stus">
         <p class="w addFont">学生/Students</p>
+        <p class="smallFont w"><span class="boy">蓝色=男生 </span> <span class="gril"> 粉色=女生 </span> <span class="dev"> 黄色=开发人员~</span></p>
         <div style="color: rgb(0, 255, 26); font-size: 25px; text-align: center;">
             <ul style="display: inline-block; text-align: left; margin: 0 auto; columns: 3; column-gap: 30px;">
                 <span style="color:rgb(107, 107, 255)">
-                    <li>张梓昂</li>
-                    <li>韩珮阳</li>
+                    <li class="dev">张梓昂</li>
+                    <li class="dev">韩珮阳</li>
                 </span>
-                <li>冯俊皓</li>
-                <li>冯恩临</li>
-                <li>张子丞</li>
-                <li>孙昊元</li>
-                <li>李欣蕊</li>
-                <li>李俊泽</li>
-                <li>郝俊宇</li>
-                <li>李铭轩</li>
-                <li>高依然</li>
-                <li>刘子琪</li>
-                <li>宋浩</li>
-                <li>刘鑫</li>
-                <li>孙晟博</li>
-                <li>张锦熙</li>
-                <li>刘紫熙</li>
-                <li>赵玉欣</li>
-                <li>夏姝婷</li>
-                <li>刘恩轩</li>
-                <li>赵宇涵</li>
-                <li>孙唯铭</li>
-                <li>赵子墨</li>
-                <li>张茗涵</li>
-                <li>张傲蓬</li>
-                <li>宣泓孛</li>
-                <li>陈源泽</li>
-                <li>李佳彤</li>
-                <li>刘瑞可</li>
-                <li>张琬畦</li>
-                <li>张艺宣</li>
-                <li>关越琪</li>
-                <li>刘书诗涵</li>
-                <li>姚明硕</li>
-                <li>王婧怡</li>
-                <li>闫弘男</li>
-                <li>周肖瀚</li>
-                <li>仲一凡</li>
-                <li>刘禹锡</li>
-                <li>刘奕彤</li>
-                <li>杨宇昊</li>
-                <li>潘雨彤</li>
-                <li>蔚文昊</li>
-                <li>宋金玥</li>
+                <li class="boy">冯俊皓</li>
+                <li class="boy">冯恩临</li>
+                <li class="boy">张子丞</li>
+                <li class="boy">孙昊元</li>
+                <li class="gril">李欣芮</li>
+                <li class="boy">李俊泽</li>
+                <li class="boy">郝俊宇</li>
+                <li class="boy">李铭轩</li>
+                <li class="gril">高依然</li>
+                <li class="gril">刘子琪</li>
+                <li class="boy">宋浩</li>
+                <li class="gril">刘鑫</li>
+                <li class="boy">孙晟博</li>
+                <li class="gril">张锦熙</li>
+                <li class="gril">刘紫熙</li>
+                <li class="gril">赵玉欣</li>
+                <li class="gril">夏姝婷</li>
+                <li class="boy">刘恩轩</li>
+                <li class="gril">赵宇涵</li>
+                <li class="boy">孙唯铭</li>
+                <li class="gril">赵子墨</li>
+                <li class="gril">张茗涵</li>
+                <li class="boy">张傲蓬</li>
+                <li class="boy">宣泓孛</li>
+                <li class="boy">陈源泽</li>
+                <li class="gril">李佳彤</li>
+                <li class="gril">刘瑞可</li>
+                <li class="gril">张琬畦</li>
+                <li class="gril">张艺宣</li>
+                <li class="gril">关越琪</li>
+                <li class="gril">刘书诗涵</li>
+                <li class="boy">姚明硕</li>
+                <li class="gril">王婧怡</li>
+                <li class="boy">闫泓男</li>
+                <li class="boy">周肖瀚</li>
+                <li class="boy">仲一凡</li>
+                <li class="gril">刘禹锡</li>
+                <li class="gril">刘奕彤</li>
+                <li class="boy">杨宇昊</li>
+                <li class="gril">潘禹彤</li>
+                <li class="boy">蔚文昊</li>
+                <li class="gril">宋金玥</li>
+                <li class="boy">李海平</li>
+                <li class="gril">李歆瑶</li>
+                <li class="boy">马贺元</li>
+                <li class="boy">华一喆</li>
             </ul>
-            <p style="color: red">*统计待完善</p>
+            <p style="color: rgb(0, 255, 98)">*统计待确认(已完善)</p>
         </div>
 
          <hr style="width: 80%; margin: 20px auto;">
@@ -493,7 +595,7 @@
             <ul class="teacher-tribute" style="display: inline-block; text-align: left; margin: 0 auto;">
                 <li>李老师</li>
                 <li style="color: aquamarine;">梁老师</li>
-                <li style="color: #008bad;">马老师</li>
+                <li style="color: #1eff00;">马老师</li>
             </ul>
         </div>
 
@@ -544,18 +646,30 @@
     </div>
     <br>
     <div class="box center" id="xiqiguguai">
-        <h1 class="w">一些稀奇古怪的小玩意....</h1>
-        
-        <div>
-            <button class="button" onclick="drawFortune()">🎋 今日运势</button>
-        <div id="fortuneResult" style="margin-top: 10px; min-height: 60px;"></div>
-        </div>
+        <h1 class="w">🎁趣味小功能🎉</h1>
+
+        <!-- <button class="button" onclick="drawFortune()">🎋 今日运势</button>
+        <div id="fortuneResult" style="margin-top: 10px; min-height: 60px;"></div> -->
 
         <br>
 
         <div>
             <button class="button" onclick="randomPick()">🎲 随机点名</button>
             <div id="pickResult" style="margin-top: 10px; font-size: 24px; color: gold;"></div>
+        </div>
+
+        <br>
+
+        <div>
+            <button class="button" onclick="funCourse()">
+                这节上体活还是语文？🤔
+            </button>
+        </div>
+
+        <br>
+
+        <div>
+            <button class="button" onclick="timeCapsule()">时间胶囊💊</button>
         </div>
 
 
@@ -645,7 +759,7 @@
                 Swal.fire({
                     title: getChineseName(input),
                     html: dayCourses.map(c => `📚 ${c}`).join('<br>'),
-                    icon: 'success',
+                    icon: 'info',
                     confirmButtonColor: '#007bff',
                     background: 'rgba(255, 255, 255, 0.95)',
                     backdrop: 'rgba(0, 123, 255, 0.2)'
@@ -705,11 +819,6 @@
         dk = 'question'
 
         // alert('提示：目前还处于开发阶段，部分区域有错误是正常现象~ | 手机可以双指缩放~')
-        Swal.fire({
-            title: '欢迎光临🎉',
-            text: '开发者：蟑螂 and 韩佩阳',
-            icon: info,
-        })
 
         // 访问计数（使用 localStorage）
         let visits = localStorage.getItem('classVisits') || 0;
@@ -757,13 +866,13 @@
 
         function randomPick() {
             let students = [
-                '冯俊皓', '冯恩临', '', '孙昊元',
+                '冯俊皓', '冯恩临', '孙昊元',
                 '李欣蕊', '李俊泽', '郝俊宇', '李铭轩', '高依然', '刘子琪',
                 '宋浩', '刘鑫', '孙晟博', '张锦熙', '刘紫熙', '赵玉欣',
                 '夏姝婷', '刘恩轩', '赵宇涵', '孙唯铭', '赵子墨', '张茗涵',
                 '张傲蓬', '宣泓孛', '陈源泽', '李佳彤', '刘瑞可', '张琬畦',
-                '张艺宣', '关越琪', '刘书诗涵', '姚明硕', '王婧怡', '闫弘男',
-                '周肖瀚', '仲一凡', '刘禹锡', '刘奕彤', '杨宇昊', '潘雨彤',
+                '张艺宣', '关越琪', '刘书诗涵', '姚明硕', '王婧怡', '闫泓男',
+                '周肖瀚', '仲一凡', '刘禹锡', '刘奕彤', '杨宇昊', '潘禹彤',
                 '蔚文昊', '宋金玥'
             ];
             
@@ -775,8 +884,11 @@
                 title: lucky,
                 text: '今天这么幸运？买张彩票吧！',
                 icon: info,
-                confirmButtonText: '接受审判！'
+                confirmButtonText: '接受审判！',
+                html: '<button class="button" onclick="replay()">我不服😡</button>'
             })
+
+            
             
             // 加点动画效果
             let result = document.getElementById('pickResult');
@@ -802,37 +914,11 @@
             if (typed.length > 10) typed = typed.slice(-10);
         });        
 
-        function playTone(freq) {
-            let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            let oscillator = audioCtx.createOscillator();
-            let gainNode = audioCtx.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            
-            oscillator.frequency.value = freq;
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-            
-            oscillator.start();
-            oscillator.stop(audioCtx.currentTime + 0.5);
-        }
-
-        // 创建钢琴键
-        let notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88]; // do re mi fa so la si
-        let keys = ['do', 're', 'mi', 'fa', 'so', 'la', 'si'];
-
-        let pianoHTML = '<div style="display: flex; gap: 5px; justify-content: center;">';
-        keys.forEach((note, index) => {
-            pianoHTML += `<button class="button" onclick="playTone(${notes[index]})" style="width: 50px;">${note}</button>`;
-        });
-        pianoHTML += '</div>';
-
-        document.addEventListener('DOMContentLoaded', function() {
-        let pianoContainer = document.createElement('div');
-        pianoContainer.innerHTML = pianoHTML;
-        document.querySelector('.box.center:last-of-type').appendChild(pianoContainer);
-        });
+        // document.addEventListener('DOMContentLoaded', function() {
+        // let pianoContainer = document.createElement('div');
+        // pianoContainer.innerHTML = pianoHTML;
+        // document.querySelector('.box.center:last-of-type').appendChild(pianoContainer);
+        // });
 
         function getTime() {
             let date = new Date()
@@ -856,7 +942,69 @@
         setInterval(getTime, 1000)
 
         alert('电脑访问更佳~手机访问会有一些不可言喻的问题')
+
+        Swal.fire({
+            title: '欢迎光临🎉',
+            text: '开发者：蟑螂 and 韩佩阳',
+            icon: info,
+        })
+
+        function funCourse() {
+            Swal.fire({
+                title: "上体活！🎉",
+                text: '决策完毕！',
+                icon: s
+            })
+        }
+
+        window.replay = function() {
+            Swal.fire({
+                title: '不服受着👿',
+                text: '不会直说。。',
+                icon: w,
+                confirmButtonText: '好吧'
+            });
+        }
+
+        function timeCapsule() {
+            Swal.fire({
+                title: '⏳ 时间胶囊',
+                html: `
+                    <input id="capsuleName" class="swal2-input" placeholder="你的名字">
+                    <textarea id="capsuleMessage" class="swal2-textarea" placeholder="想对未来的自己说什么？"></textarea>
+                    <select id="capsuleTime" class="swal2-input">
+                        <option value="7">一周后</option>
+                        <option value="30">一个月后</option>
+                        <option value="365">一年后</option>
+                    </select>
+                `,
+                confirmButtonText: '💊 封存',
+                showCancelButton: true,
+                preConfirm: () => {
+                    let name = document.getElementById('capsuleName').value;
+                    let msg = document.getElementById('capsuleMessage').value;
+                    let days = document.getElementById('capsuleTime').value;
+                    
+                    if (!name || !msg) return '请填写完整哦~';
+                    
+                    let capsules = JSON.parse(localStorage.getItem('timeCapsules')) || [];
+                    let openDate = new Date();
+                    openDate.setDate(openDate.getDate() + parseInt(days));
+                    
+                    capsules.push({
+                        name: name,
+                        message: msg,
+                        openDate: openDate.toISOString()
+                    });
+                    
+                    localStorage.setItem('timeCapsules', JSON.stringify(capsules));
+                }
+            }).then(result => {
+                if (result.isConfirmed) {
+                    Swal.fire('✨ 封存成功', '时间胶囊已保存，记得回来看看~', 'success');
+                }
+            });
+        }
     </script>
 
 </html>
-
