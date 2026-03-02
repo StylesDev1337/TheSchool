@@ -3,62 +3,1000 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📌身份验证</title>
-    <script src="./privateScript.js"></script>
+    <title>🥇工农小学 - 六年九班🎪</title>
+    <!-- 1. 引入 SweetAlert2 CSS (可选，但建议引入以获得更好样式) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <!-- 2. 引入 SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <audio src="./music.mp3" controls></audio>
 </head>
 <body>
     <style>
+        /* 为每天的课程添加卡片效果 */
+        #course p {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            backdrop-filter: blur(5px);
+            border-left: 4px solid #007bff;
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        #tongzhi ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        #daohang a {
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        #daohang a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        /* 将长名单分成多列 */
+        #stus ul {
+            columns: 3;
+            column-gap: 30px;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        /* 增加内容之间的间距 */
+        .box {
+            margin-bottom: 25px;
+        }
+
+        /* 手机端适配 */
+        @media (max-width: 650px) {
+            .box, .warnMessage {
+                width: 90%;
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+            
+            #stus ul {
+                columns: 2;
+            }
+            
+            .addFont {
+                font-size: 30px;
+            }
+
+            #courseInput {
+                width: 60% !important;
+            }
+        }
+
+        /* 页面加载时的淡入效果 */
+        body {
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 让列表更紧凑 */
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        #stus li {
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        #stus li:hover {
+            transform: translateX(5px);
+            color: #ffd700 !important;  /* 悬停变金色 */
+            text-shadow: 0 0 10px gold;
+        }
+
+        /* 添加小图标装饰 */
+        #stus li::before {
+            content: "👤-";
+            position: absolute;
+            left: -5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #stus li:hover::before {
+            opacity: 1;
+        }
+
+        .w {
+            color: white;
+        }
+
+        .b {
+            color: black;
+        }
+
+                /* 诗句容器 */
+        .poetry-container {
+            position: relative;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        /* 添加中式装饰元素 */
+        .poetry-container::before,
+        .poetry-container::after {
+            content: "「";
+            position: absolute;
+            font-size: 40px;
+            color: rgba(255, 215, 0, 0.3);
+            font-family: MyFont;
+        }
+
+        .poetry-container::before {
+            top: -5px;
+            left: 5px;
+        }
+
+        .poetry-container::after {
+            content: "」";
+            bottom: -15px;
+            right: 5px;
+        }
+
+        .poem {
+            font-size: 22px;
+            text-align: center;
+            color: #ffd700;
+            margin: 10px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .boy {
+            color: #3232ff;
+        }
+
+        .gril {
+            color: pink;
+        }
+
+        .dev {
+            color: rgb(255, 208, 0);
+        }
+
+        .poem-author {
+            text-align: center;
+            color: rgb(255, 124, 248);
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .box {
+            background-color: rgba(109, 107, 107, 0.432);
+            text-align: center;
+            border-left: 4px solid rgb(107, 107, 255);
+            backdrop-filter: blur(10px);
+            margin-left: auto;
+            margin-right: auto;
+            width: 600px;
+            height: auto;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-family: MyFont, sans-serif;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subtitle {
+            background-color: rgba(120, 120, 120, 0.607);
+            text-align: center;
+            border-left: 4px solid rgb(107, 107, 255);
+            backdrop-filter: blur(10px);
+            margin-left: auto;
+            margin-right: auto;
+            width: 600px;
+            height: auto;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-family: MyFont, sans-serif;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subtitle:hover {
+            transform: translateY(-4px);
+            box-shadow: #0000ff;
+        }
+
+        .box:hover {
+            transform: translateY(-4px);
+            box-shadow: #0000ff;
+        }
+
+        .box:active {
+            transform: translateY(-1px);
+            box-shadow: 0 0 30px #007bff,
+            0 5px 15px rgba(0, 123, 255, 0.6);
+            background-color: #004999;
+            transition: all 0.1s ease-out;  /* 快速出现 */
+        }
+
+        .warnMessage:hover {
+            transform: translateY(-4px);
+            box-shadow: #0000ff;
+        }
+
+        .warnMessage {
+            transform: translateY(0);
+            transition: transform 0.9s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 141, 141, 0.3);
+            animation: pulse 2s infinite;
+            background-color: rgba(255, 22, 22, 0.607);
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 600px;
+            height: auto;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-family: MyFont, sans-serif;
+        }
+
+        :root {
+            --swal2-border-radius: 25px;  /* 更柔和的圆角 */
+            --swal2-background: rgba(255, 255, 255, 0.699); 
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 10px 30px rgba(255,22,22,0.3); }
+            50% { box-shadow: 0 10px 40px rgba(255,22,22,0.5); }
+            100% { box-shadow: 0 10px 30px rgba(255,22,22,0.3); }
+        }
+
         .center {
             text-align: center;
         }
 
+        .rainbow{
+            color: transparent;
+            background: linear-gradient(to right, #ff0000, #00ff00, #0000ff, #ffff00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        .smallFont {
+            font-size: 15px;
+        }
+
+        .addFont {
+            font-size: 50px;
+        }
+
+        .a {
+            text-decoration: none;
+        }
+
+        @font-face {
+            font-family: 'MyFont';
+            src: url('./apple.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            background-image: url(./background.png);
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: top center;
+            background-repeat: no-repeat;
+            font-family: MyFont, sans-serif;
+        }
+
         .button {
-            background-color: aqua;
-            border-radius: 15px;
             padding: 10px 20px;
-            transition: all 0.3ms ease;
+            background-color: #ff4800;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .teacher-tribute {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 20px;
+            padding: 15px;
+            margin: 20px 0 10px 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(5px);
         }
 
         .button:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        /* 新增：输入框样式 */
+        #courseInput {
+            padding: 10px;
+            width: 70%;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        #courseInput:focus {
+            background: white;
+            box-shadow: 0 0 10px rgba(0,123,255,0.5);
+            transform: scale(1.02);
+        }
+
+        /* 新增：查询结果区域样式 */
+        #searchResult {
+            transition: all 0.3s ease;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            min-height: 30px;
+            margin: 15px 0;
+            color: white;
+            font-size: 18px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* 新增：快速查询按钮组 */
+        .quick-buttons {
+            margin: 10px 0;
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .quick-buttons .button {
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .quick-buttons .button:hover {
+            background-color: #007bff;
+        }
+
+        /* 在 <style> 中添加信息卡片样式 */
+        .stats-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            border-color: #1eff00;
+            box-shadow: 0 4px 20px rgba(30, 255, 0, 0.2);
+        }
+
+        .stats-icon {
+            font-size: 28px;
+            background: rgba(255, 255, 255, 0.15);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .stats-content {
+            text-align: left;
+            color: white;
+        }
+
+        .visitor-stats {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .stats-label {
+            opacity: 0.8;
+        }
+
+        .stats-number {
+            color: #1eff00;
+            font-size: 22px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(30, 255, 0, 0.5);
+            margin: 0 5px;
+        }
+
+        .stats-unit {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .daily-motto {
+            color: #ffd700;
+            margin: 3px 0;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .time-display {
+            color: #87ceeb;
+            margin: 3px 0;
+            font-size: 14px;
+        }
+
+        .countdown-number {
+            color: #ffd700;
+            font-weight: bold;
         }
     </style>
 
-    <div class="center">
-        <button class="center button" onclick="isPrivate()">开始验证</button>
+    <!-- 正文 -->
+    <div class="box center" id="zhengwen">
+        <h1 class="w addFont">
+            工农小学 ------ 6.9
+        </h1>
+        <p class="smallFont w">[蟑螂 - 韩佩阳 - 进行研发]</p>
+        <p class="smallFont w">其实也没什么好说的了，无非就是班级网而已~</p>
     </div>
 
-        <script>
-        async function isPrivate() {
-            const verified = await verifyIdentity();
-            if (verified) {
-                // 验证通过，跳转到主界面
-                window.location.href = "./index.html"; // 改成你的主界面文件名
-            }
-            // 验证失败不跳转，Swal已经提示过了
+    <!-- 导航区 -->
+    <div class="subtitle" id="daohang" style="backdrop-filter: blur(10px)">
+        <span class="w">
+            <a href="#xiqiguguai" class="w a">稀奇古怪的玩意er~ <span class="b">|</span></a>
+            <a href="#stus" class="w a">班级人员 <span class="b">|</span></a>
+            <a href="./jump.html" target="_blank" class="w a">后期计划🤔<span class="b">|</span></a>
+            <a href="#kaoshi" class="w a">近期考试 <span class="b">|</span></a>
+            <a href="#course" class="w a">课程详情 <span class="b">|</span></a><br>
+            <span class="b">|</span></a><a href="#zhengwen" class="w a">正文跳转 <span class="b">|</span></a>
+            <a href="#" onclick="alert('蟑螂微信:zza8848thjsj')" style="color: red" class="a">联系开发人员&问题反馈</a>
+                    <div class="stats-card">
+            <div class="stats-icon">📊</div>
+            <div class="stats-content">
+                <p class="visitor-stats">
+                    <span class="stats-label">已有</span>
+                    <span id="visitCount" class="stats-number">0</span>
+                    <span class="stats-unit">位同学来过</span>
+                </p>
+                <p id="everdaytips" class="daily-motto"></p>
+                <p id="time" class="time-display" style="color: #ffd700;"></p>
+                <p>距离暑假还有 <span id="countdown" class="countdown-number" style="color: #1eff00;">0</span> 天</p>
+            </div>
+        </div>
+        </span>
+    </div>
+
+    <br>
+
+    <!-- 紧急插播消息 -->
+    <div class="warnMessage center" id="tongzhi">
+        <h1>通知</h1>
+        <ul class="w" style="font-size: 25px;">
+            <li>*三月二日开学</li>
+            <li>*7:35-7:40到校 不要提前</li>
+            <li>*穿校服戴红领巾</li>
+            <li>*带所有作业(写好姓名)</li>
+            <li>*带本子</li>
+            <span class="smallFont">
+                <li>*240格稿纸</li>
+                <li>*英文本</li>
+                <li>*美术课用品</li>
+            </span>
+            <li>*带水瓶</li>
+            <li>*4:35放学</li>
+            <li>*课程表不变</li>
+            <li>*2.28~3.5</li>
+        </ul>
+    </div>
+
+    <br>
+
+    <!-- 学生/老师们 -->
+    <div class="box center" id="stus">
+        <p class="w addFont">学生/Students</p>
+        <p class="smallFont w"><span class="boy">蓝色=男生 </span> <span class="gril"> 粉色=女生 </span> <span class="dev"> 黄色=开发人员~</span></p>
+        <div style="color: rgb(0, 255, 26); font-size: 25px; text-align: center;">
+            <ul style="display: inline-block; text-align: left; margin: 0 auto; columns: 3; column-gap: 30px;">
+            <span style="color:rgb(107, 107, 255)">
+                <li class="dev">张xx</li>
+                <li class="dev">韩xx</li>
+            </span>
+            <li class="boy">冯xx</li>
+            <li class="boy">冯xx</li>
+            <li class="boy">张xx</li>
+            <li class="boy">孙xx</li>
+            <li class="gril">李xx</li>
+            <li class="boy">李xx</li>
+            <li class="boy">郝xx</li>
+            <li class="boy">李xx</li>
+            <li class="gril">高xx</li>
+            <li class="gril">刘xx</li>
+            <li class="boy">宋xx</li>
+            <li class="gril">刘xx</li>
+            <li class="boy">孙xx</li>
+            <li class="gril">张xx</li>
+            <li class="gril">刘xx</li>
+            <li class="gril">赵xx</li>
+            <li class="gril">夏xx</li>
+            <li class="boy">刘xx</li>
+            <li class="gril">赵xx</li>
+            <li class="boy">孙xx</li>
+            <li class="gril">赵xx</li>
+            <li class="gril">张xx</li>
+            <li class="boy">张xx</li>
+            <li class="boy">宣xx</li>
+            <li class="boy">陈xx</li>
+            <li class="gril">李xx</li>
+            <li class="gril">刘xx</li>
+            <li class="gril">张xx</li>
+            <li class="gril">张xx</li>
+            <li class="gril">关xx</li>
+            <li class="gril">刘xx</li>
+            <li class="boy">姚xx</li>
+            <li class="gril">王xx</li>
+            <li class="boy">闫xx</li>
+            <li class="boy">周xx</li>
+            <li class="boy">仲xx</li>
+            <li class="gril">刘xx</li>
+            <li class="gril">刘xx</li>
+            <li class="boy">杨xx</li>
+            <li class="gril">潘xx</li>
+            <li class="boy">蔚xx</li>
+            <li class="gril">宋xx</li>
+            <li class="boy">李xx</li>
+            <li class="gril">李xx</li>
+            <li class="boy">马xx</li>
+            <li class="boy">华xx</li>
+            </ul>
+            <p style="color: rgb(255, 0, 0)">*为了确保隐私，暂不透露姓名</p>
+        </div>
+
+         <hr style="width: 80%; margin: 20px auto;">
+
+        <p class="w addFont">老师们/Teachers</p>
+        <!-- 修复老师区域 -->
+        <div style="color: rgb(0, 255, 166); font-size: 25px; text-align: center;">
+            <ul class="teacher-tribute" style="display: inline-block; text-align: left; margin: 0 auto;">
+                <li>李老师</li>
+                <li style="color: aquamarine;">梁老师</li>
+                <li style="color: #1eff00;">马老师</li>
+            </ul>
+        </div>
+
+        <p class="poem">🌸 春蚕到死丝方尽，蜡炬成灰泪始干</p>
+        <p class="poem-author">—— 李商隐《无题》</p>
+    </div>
+
+    <br>
+
+    <!-- 课程表/查询/开发者修改 -->
+    <div class="box center" id="course">  
+        <h1 class="w addFont">----课程表----</h1>
+        
+        <!-- 新增：输入框查询区域 -->
+        <div style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+            <input type="text" id="courseInput" placeholder="输入日期(1-5)或课程名(语文/数学等)" style="padding: 10px; width: 70%; border: none; border-radius: 5px; font-size: 16px;">
+            <button class="button" onclick="searchCourse()" style="margin-left: 10px;">查询</button>
+            
+            <!-- 新增：快速查询按钮 -->
+            <div class="quick-buttons">
+                <button class="button" onclick="quickSearch('1')">周一</button>
+                <button class="button" onclick="quickSearch('2')">周二</button>
+                <button class="button" onclick="quickSearch('3')">周三</button>
+                <button class="button" onclick="quickSearch('4')">周四</button>
+                <button class="button" onclick="quickSearch('5')">周五</button>
+            </div>
+        </div>
+
+        <!-- 新增：查询结果显示区域 -->
+        <div id="searchResult">
+            👆 在上面输入内容查询
+        </div>
+
+        <!-- 保留原有的按钮和课程表 -->
+        <button class="button" onclick="searthCourse('course')">传统查询(弹窗)🔍</button>
+
+        <span class="w">
+            <p style="font-size: 20px; color:rgb(255, 238, 0)">
+                1:语文,数学,音乐,英语,美术,体育<br>
+                2:数学,语文,道法,体育,综合,科学<br>
+                3:英语,数学,语文,美术,道法,体活<br>
+                4:数学,语文,语文,音乐,劳动,体育(大操)<br>
+                5:语文,数学,校本,信息,科学,家乡
+            </p>
+        </span>
+
+        <br>
+    </div>
+    <br>
+    <div class="box center" id="xiqiguguai">
+        <h1 class="w">🎁趣味小功能🎉</h1>
+
+        <!-- <button class="button" onclick="drawFortune()">🎋 今日运势</button>
+        <div id="fortuneResult" style="margin-top: 10px; min-height: 60px;"></div> -->
+
+        <br>
+
+        <div>
+            <button class="button" onclick="randomPick()">🎲 随机点名</button>
+            <div id="pickResult" style="margin-top: 10px; font-size: 24px; color: gold;"></div>
+        </div>
+
+        <br>
+
+        <div>
+            <button class="button" onclick="funCourse()">
+                这节上体活还是语文？🤔
+            </button>
+        </div>
+
+        <br>
+
+        <div>
+            <button class="button" onclick="timeCapsule()">时间胶囊💊</button>
+        </div>
+
+
+    </div>
+    <br>
+    <div class="box center">
+        <h1>
+           到底啦~~
+        </h1>
+        <p>2026CheungTszon LLC. Copyright</p>
+    </div>
+</body>
+
+
+
+
+
+<!-- 脚本 -->
+<script>
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min
         }
 
-        // 检查是否已经验证过（可选）
-        window.onload = function() {
-            if (sessionStorage.getItem('verified') === 'true') {
+        function getTipsType() {
+            const days = [
+            "✨ 今天也是元气满满的一天！",
+            "📚 好好学习，天天向上！",
+            "💪 六年九班，永远最棒！",
+            "🌈 每一份努力都会有回报",
+            "🎉 和同学们一起成长很快乐",
+            "🤔 今天想好吃什么了吗？"
+            ]
+            let number = getRandomInt(0, 5)
+
+            document.getElementById('everdaytips').textContent = days[number]
+        }
+
+        getTipsType()
+
+        function getChineseName(days) {
+            let chineseNames = [
+                '星期一',
+                '星期二',
+                '星期三',
+                '星期四',
+                '星期五'
+            ]
+            return chineseNames[days - 1]
+        }
+
+        let coursesDays = {
+            1:['语文','数学','音乐','英语','美术','体育'],
+            2:['数学','语文','道法','体育','综合','科学'],
+            3:['英语','数学','语文','美术','道法','体活'],
+            4:['数学','语文','语文','音乐','劳动','体育(大操)'],
+            5:['语文','数学','校本','信息','科学','家乡']
+        }
+
+        let courseNames = {
+            '数学':'一二三四五都有~',
+            '语文':'一二三四五都有~',
+            '美术':'1,3',
+            '体育':'一二三四五都有~(并非...)',
+            '科学':'2,5',
+            '信息':'Only 5'
+        }
+
+            // 新的查询函数
+        function searchCourse() {
+            let input = document.getElementById('courseInput').value.trim();
+            
+            if (input === '') {
                 Swal.fire({
-                    title: '👋 欢迎回来',
-                    text: `你已经验证过了，是否直接进入？`,
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonText: '进入',
-                    cancelButtonText: '重新验证'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "./main.html";
-                    } else {
-                        sessionStorage.removeItem('verified');
-                    }
+                    title: '提示',
+                    text: '请输入要查询的内容',
+                    icon: 'warning',
+                    confirmButtonColor: '#007bff',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                return;
+            }
+
+            if (!isNaN(input) && input >= 1 && input <= 5) {
+                let dayCourses = coursesDays[input];
+                Swal.fire({
+                    title: getChineseName(input),
+                    html: dayCourses.map(c => `📚 ${c}`).join('<br>'),
+                    icon: 'info',
+                    confirmButtonColor: '#007bff',
+                    background: 'rgba(255, 255, 255, 0.95)',
+                    backdrop: 'rgba(0, 123, 255, 0.2)'
                 });
             }
-        };
+            else if (courseNames[input]) {
+                let result = courseNames[input];
+                Swal.fire({
+                    title: `📖 ${input}课`,
+                    text: result,
+                    icon: 'info',
+                    confirmButtonColor: '#007bff'
+                });
+            }
+            else {
+                Swal.fire({
+                    title: '❌ 未找到',
+                    text: '没有找到呀0v0',
+                    icon: 'error',
+                    confirmButtonColor: '#007bff'
+                });
+            }
+        }
+
+
+        // 快速查询函数
+        function quickSearch(day) {
+            document.getElementById('courseInput').value = day;
+            searchCourse();
+        }
+
+        // 支持回车键查询
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.activeElement.id === 'courseInput') {
+                searchCourse();
+            }
+        });
+
+        // 保留原有的查询函数
+        function searthCourse(courseName) {
+            let course = prompt('请输入星期几（1-5）&课程名称(语文,数学...)')
+            course = course.trim();
+
+            if (course in courseNames) {
+                alert(courseNames[course])
+            } else if (course in coursesDays) {
+                alert(getChineseName(course) + "的课程有\n " + coursesDays[course].join('、') + "~")
+            } else {
+                alert('没有找到呀0v0')
+            }
+        }
+
+        s = 'success'
+        info = 'info'
+        e = 'error'
+        w = 'warning'
+        dk = 'question'
+
+        // alert('提示：目前还处于开发阶段，部分区域有错误是正常现象~ | 手机可以双指缩放~')
+
+        // 访问计数（使用 localStorage）
+        let visits = localStorage.getItem('classVisits') || 0;
+        visits++;
+        localStorage.setItem('classVisits', visits);
+        document.getElementById('visitCount').textContent = visits;
+
+        function drawFortune() {
+            const fortunes = [
+                { text: '大吉 🌟', desc: '今天会有好事发生！' },
+                { text: '中吉 ✨', desc: '平平淡淡才是真~' },
+                { text: '小吉 🌈', desc: '保持好心情很重要' },
+                { text: '末吉 🌱', desc: '努力就会有回报' }
+            ];
+            let random = Math.floor(Math.random() * fortunes.length);
+            document.getElementById('fortuneResult').innerHTML = 
+        `   <span style="font-size: 24px; color: gold;">${fortunes[random].text}</span><br>
+            <span style="color: white;">${fortunes[random].desc}</span>`;
+        }
+
+        let clickCount = 0;
+        document.getElementById('zhengwen').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 5) {
+                Swal.fire({
+                    title: '🎮 隐藏模式',
+                    html: '开发者：韩xx & 蟑x<br>版本号：v2.0',
+                    icon: 'info',
+                    confirmButtonText: '厉害！'
+                });
+                clickCount = 0;
+            }
+            setTimeout(() => clickCount = 0, 3000);
+        });
+
+        function updateCountdown() {
+            let now = new Date();
+            let summer = new Date(now.getFullYear(), 6, 1); // 7月1日
+            if (now > summer) summer.setFullYear(summer.getFullYear() + 1);
+    
+            let diff = Math.ceil((summer - now) / (1000 * 60 * 60 * 24));
+            document.getElementById('countdown').textContent = diff;
+        }
+        updateCountdown();
+
+        function decryptName(encoded) {
+            try {
+                // 先转回百分比编码
+                let uriEncoded = atob(encoded);
+                // 再解码成中文
+                return decodeURIComponent(uriEncoded);
+            } catch (e) {
+                console.error("解密失败:", e);
+                return "???";
+            }
+        }
+
+        function randomPick() {
+            let height = getRandomInt(1,7)
+            let width = getRandomInt(1,8)
+
+            Swal.fire({
+                title: '抽奖完毕！' + height + " 行 " + width + " 列的小盆友！",
+                text: '这么幸运？买张彩票吧！',
+                icon: info,
+                html: '<button class="button" onclick="replay()">我不服😡</button>'
+            })
+        }
+
+        let typed = '';
+        document.addEventListener('keydown', e => {
+            typed += e.key;
+            if (typed.toLowerCase().includes('class9')) {
+                Swal.fire({
+                    title: '🎉 密语触发！',
+                    html: `
+                        <div style="font-size: 50px;">🌈</div>
+                        <p>恭喜你发现隐藏密语！</p>
+                        <p>六年九班永远最棒！</p>
+                    `,
+                    confirmButtonText: '耶！'
+                });
+                typed = '';
+            }
+            if (typed.length > 10) typed = typed.slice(-10);
+        });        
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        // let pianoContainer = document.createElement('div');
+        // pianoContainer.innerHTML = pianoHTML;
+        // document.querySelector('.box.center:last-of-type').appendChild(pianoContainer);
+        // });
+
+        function getTime() {
+            let date = new Date()
+
+            let year = date.getFullYear()
+            let month = date.getMonth() + 1
+            let day = date.getDate()
+            let hour = date.getHours().toString().padStart(2, '0')     // 补零
+            let minute = date.getMinutes().toString().padStart(2, '0') // 补零
+            let sec = date.getSeconds().toString().padStart(2, '0')    // 补零
+            
+            let weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+            let weekday = weekdays[date.getDay()]
+
+            let now = `${year}年${month}月${day}日 ${hour}:${minute}:${sec} ${weekday}`
+            document.getElementById('time').textContent = now
+        }
+
+        // 立即执行并每秒更新
+        getTime()
+        setInterval(getTime, 1000)
+
+        alert('电脑访问更佳~手机访问会有一些不可言喻的问题')
+
+        Swal.fire({
+            title: '欢迎光临🎉',
+            text: '开发者：蟑螂 and 韩佩阳',
+            icon: info,
+        })
+
+        function funCourse() {
+            Swal.fire({
+                title: "上体活！🎉",
+                text: '决策完毕！',
+                icon: s
+            })
+        }
+
+        window.replay = function() {
+            Swal.fire({
+                title: '不服受着👿',
+                text: '不会直说。。',
+                icon: w,
+                confirmButtonText: '好吧'
+            });
+        }
+
+        function timeCapsule() {
+            Swal.fire({
+                title: '⏳ 时间胶囊',
+                html: `
+                    <input id="capsuleName" class="swal2-input" placeholder="你的名字">
+                    <textarea id="capsuleMessage" class="swal2-textarea" placeholder="想对未来的自己说什么？"></textarea>
+                    <select id="capsuleTime" class="swal2-input">
+                        <option value="7">一周后</option>
+                        <option value="30">一个月后</option>
+                        <option value="365">一年后</option>
+                    </select>
+                `,
+                confirmButtonText: '💊 封存',
+                showCancelButton: true,
+                preConfirm: () => {
+                    let name = document.getElementById('capsuleName').value;
+                    let msg = document.getElementById('capsuleMessage').value;
+                    let days = document.getElementById('capsuleTime').value;
+                    
+                    if (!name || !msg) return '请填写完整哦~';
+                    
+                    let capsules = JSON.parse(localStorage.getItem('timeCapsules')) || [];
+                    let openDate = new Date();
+                    openDate.setDate(openDate.getDate() + parseInt(days));
+                    
+                    capsules.push({
+                        name: name,
+                        message: msg,
+                        openDate: openDate.toISOString()
+                    });
+                    
+                    localStorage.setItem('timeCapsules', JSON.stringify(capsules));
+                }
+            }).then(result => {
+                if (result.isConfirmed) {
+                    Swal.fire('✨ 封存成功', '时间胶囊已保存，记得回来看看~', 'success');
+                }
+            });
+        }
     </script>
-</body>
+
 </html>
