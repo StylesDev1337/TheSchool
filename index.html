@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <audio src="./music.mp3" controls></audio>
 </head>
+
 <body>
     <style>
         /* 为每天的课程添加卡片效果 */
@@ -56,16 +58,18 @@
 
         /* 手机端适配 */
         @media (max-width: 650px) {
-            .box, .warnMessage {
+
+            .box,
+            .warnMessage {
                 width: 90%;
                 margin-left: 5%;
                 margin-right: 5%;
             }
-            
+
             #stus ul {
                 columns: 2;
             }
-            
+
             .addFont {
                 font-size: 30px;
             }
@@ -81,8 +85,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* 让列表更紧凑 */
@@ -100,13 +111,14 @@
 
         #stus li:hover {
             transform: translateX(5px);
-            color: #ffd700 !important;  /* 悬停变金色 */
+            color: #ffd700 !important;
+            /* 悬停变金色 */
             text-shadow: 0 0 10px gold;
         }
 
         /* 添加小图标装饰 */
         #stus li::before {
-            content: "👤-";
+            content: "👤";
             position: absolute;
             left: -5px;
             opacity: 0;
@@ -125,7 +137,7 @@
             color: black;
         }
 
-                /* 诗句容器 */
+        /* 诗句容器 */
         .poetry-container {
             position: relative;
             padding: 20px;
@@ -184,9 +196,9 @@
         }
 
         .box {
-            background-color: rgba(109, 107, 107, 0.432);
+            background-color: rgba(97, 97, 97, 0.123);
             text-align: center;
-            border-left: 4px solid rgb(107, 107, 255);
+            border-left: 4px solid rgb(68, 68, 68);
             backdrop-filter: blur(10px);
             margin-left: auto;
             margin-right: auto;
@@ -202,9 +214,9 @@
         }
 
         .subtitle {
-            background-color: rgba(120, 120, 120, 0.607);
+            background-color: rgba(120, 120, 120, 0.11);
             text-align: center;
-            border-left: 4px solid rgb(107, 107, 255);
+            border-left: 4px solid rgb(75, 75, 78);
             backdrop-filter: blur(10px);
             margin-left: auto;
             margin-right: auto;
@@ -232,9 +244,10 @@
         .box:active {
             transform: translateY(-1px);
             box-shadow: 0 0 30px #007bff,
-            0 5px 15px rgba(0, 123, 255, 0.6);
+                0 5px 15px rgba(0, 123, 255, 0.6);
             background-color: #004999;
-            transition: all 0.1s ease-out;  /* 快速出现 */
+            transition: all 0.1s ease-out;
+            /* 快速出现 */
         }
 
         .warnMessage:hover {
@@ -260,21 +273,30 @@
         }
 
         :root {
-            --swal2-border-radius: 25px;  /* 更柔和的圆角 */
-            --swal2-background: rgba(255, 255, 255, 0.699); 
+            --swal2-border-radius: 25px;
+            /* 更柔和的圆角 */
+            --swal2-background: rgb(255, 255, 255);
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 10px 30px rgba(255,22,22,0.3); }
-            50% { box-shadow: 0 10px 40px rgba(255,22,22,0.5); }
-            100% { box-shadow: 0 10px 30px rgba(255,22,22,0.3); }
+            0% {
+                box-shadow: 0 10px 30px rgba(255, 22, 22, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 10px 40px rgba(255, 22, 22, 0.5);
+            }
+
+            100% {
+                box-shadow: 0 10px 30px rgba(255, 22, 22, 0.3);
+            }
         }
 
         .center {
             text-align: center;
         }
 
-        .rainbow{
+        .rainbow {
             color: transparent;
             background: linear-gradient(to right, #ff0000, #00ff00, #0000ff, #ffff00);
             -webkit-background-clip: text;
@@ -296,7 +318,7 @@
 
         @font-face {
             font-family: 'MyFont';
-            src: url('./apple.ttf') format('truetype');
+            src: url('./blod.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
@@ -312,7 +334,7 @@
 
         .button {
             padding: 10px 20px;
-            background-color: #ff4800;
+            background-color: #8400ff;
             color: white;
             border: none;
             border-radius: 8px;
@@ -332,7 +354,7 @@
 
         .button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+            box-shadow: 0 5px 15px rgba(190, 78, 255, 0.4);
         }
 
         .button:active {
@@ -354,7 +376,7 @@
 
         #courseInput:focus {
             background: white;
-            box-shadow: 0 0 10px rgba(0,123,255,0.5);
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
             transform: scale(1.02);
         }
 
@@ -465,15 +487,41 @@
             color: #ffd700;
             font-weight: bold;
         }
+
+        .aniFont {
+            animation: colorChange 3s infinite
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #b25bff;
+            }
+
+            25% {
+                color: rgb(255, 175, 81);
+            }
+
+            50% {
+                color: #ff2525;
+            }
+
+            75% {
+                color: #236aff;
+            }
+
+            100% {
+                color: #b25bff;
+            }
+        }
     </style>
 
     <!-- 正文 -->
-    <div class="box center" id="zhengwen">
-        <h1 class="w addFont">
+    <div class="box center aniFont" id="zhengwen">
+        <h1 class="w addFont aniFont">
             工农小学 ------ 6.9
         </h1>
-        <p class="smallFont w">[蟑螂 - 韩佩阳 - 进行研发]</p>
-        <p class="smallFont w">其实也没什么好说的了，无非就是班级网而已~</p>
+        <p class="smallFont w aniFont">[蟑螂 - 韩佩阳 - 进行研发]</p>
+        <p class="smallFont w aniFont">其实也没什么好说的了，无非就是班级网而已~</p>
     </div>
 
     <!-- 导航区 -->
@@ -485,86 +533,87 @@
             <a href="#kaoshi" class="w a">近期考试 <span class="b">|</span></a>
             <a href="#course" class="w a">课程详情 <span class="b">|</span></a><br>
             <span class="b">|</span></a><a href="#zhengwen" class="w a">正文跳转 <span class="b">|</span></a>
-            <a href="#" onclick="alert('蟑螂微信:zza8848thjsj')" style="color: red" class="a">联系开发人员&问题反馈</a>
-                    <div class="stats-card">
-            <div class="stats-icon">📊</div>
-            <div class="stats-content">
-                <p class="visitor-stats">
-                    <span class="stats-label">已有</span>
-                    <span id="visitCount" class="stats-number">0</span>
-                    <span class="stats-unit">位同学来过</span>
-                </p>
-                <p id="everdaytips" class="daily-motto"></p>
-                <p id="time" class="time-display" style="color: #ffd700;"></p>
-                <p>距离暑假还有 <span id="countdown" class="countdown-number" style="color: #1eff00;">0</span> 天</p>
+            <a href="#" onclick="callDeveloper()" style="color: red" class="a">联系开发人员&问题反馈</a>
+            <div class="stats-card">
+                <div class="stats-icon">📊</div>
+                <div class="stats-content">
+                    <p class="visitor-stats">
+                        <span class="stats-label">已有</span>
+                        <span id="visitCount" class="stats-number">0</span>
+                        <span class="stats-unit">位同学来过</span>
+                    </p>
+                    <p id="everdaytips" class="daily-motto"></p>
+                    <p id="time" class="time-display" style="color: #ff0000;"></p>
+                    <p>距离暑假还有 <span id="countdown" class="countdown-number" style="color: #1eff00;">0</span> 天</p>
+                </div>
             </div>
-        </div>
         </span>
     </div>
-    
+
     <br>
 
     <!-- 学生/老师们 -->
     <div class="box center" id="stus">
         <p class="w addFont">学生/Students</p>
-        <p class="smallFont w"><span class="boy">蓝色=男生 </span> <span class="gril"> 粉色=女生 </span> <span class="dev"> 黄色=开发人员~</span></p>
+        <p class="smallFont w"><span class="boy">蓝色=男生 </span> <span class="gril"> 粉色=女生 </span> <span class="dev">
+                黄色=开发人员~</span></p>
         <div style="color: rgb(0, 255, 26); font-size: 25px; text-align: center;">
             <ul style="display: inline-block; text-align: left; margin: 0 auto; columns: 3; column-gap: 30px;">
-            <span style="color:rgb(107, 107, 255)">
-                <li class="dev">张xx</li>
-                <li class="dev">韩xx</li>
-            </span>
-            <li class="boy">冯xx</li>
-            <li class="boy">冯xx</li>
-            <li class="boy">张xx</li>
-            <li class="boy">孙xx</li>
-            <li class="gril">李xx</li>
-            <li class="boy">李xx</li>
-            <li class="boy">郝xx</li>
-            <li class="boy">李xx</li>
-            <li class="gril">高xx</li>
-            <li class="gril">刘xx</li>
-            <li class="boy">宋xx</li>
-            <li class="gril">刘xx</li>
-            <li class="boy">孙xx</li>
-            <li class="gril">张xx</li>
-            <li class="gril">刘xx</li>
-            <li class="gril">赵xx</li>
-            <li class="gril">夏xx</li>
-            <li class="boy">刘xx</li>
-            <li class="gril">赵xx</li>
-            <li class="boy">孙xx</li>
-            <li class="gril">赵xx</li>
-            <li class="gril">张xx</li>
-            <li class="boy">张xx</li>
-            <li class="boy">宣xx</li>
-            <li class="boy">陈xx</li>
-            <li class="gril">李xx</li>
-            <li class="gril">刘xx</li>
-            <li class="gril">张xx</li>
-            <li class="gril">张xx</li>
-            <li class="gril">关xx</li>
-            <li class="gril">刘xx</li>
-            <li class="boy">姚xx</li>
-            <li class="gril">王xx</li>
-            <li class="boy">闫xx</li>
-            <li class="boy">周xx</li>
-            <li class="boy">仲xx</li>
-            <li class="gril">刘xx</li>
-            <li class="gril">刘xx</li>
-            <li class="boy">杨xx</li>
-            <li class="gril">潘xx</li>
-            <li class="boy">蔚xx</li>
-            <li class="gril">宋xx</li>
-            <li class="boy">李xx</li>
-            <li class="gril">李xx</li>
-            <li class="boy">马xx</li>
-            <li class="boy">华xx</li>
+                <span style="color:rgb(107, 107, 255)">
+                    <li class="dev">张xx</li>
+                    <li class="dev">韩xx</li>
+                </span>
+                <li class="boy">冯xx</li>
+                <li class="boy">冯xx</li>
+                <li class="boy">张xx</li>
+                <li class="boy">孙xx</li>
+                <li class="gril">李xx</li>
+                <li class="boy">李xx</li>
+                <li class="boy">郝xx</li>
+                <li class="boy">李xx</li>
+                <li class="gril">高xx</li>
+                <li class="gril">刘xx</li>
+                <li class="boy">宋xx</li>
+                <li class="gril">刘xx</li>
+                <li class="boy">孙xx</li>
+                <li class="gril">张xx</li>
+                <li class="gril">刘xx</li>
+                <li class="gril">赵xx</li>
+                <li class="gril">夏xx</li>
+                <li class="boy">刘xx</li>
+                <li class="gril">赵xx</li>
+                <li class="boy">孙xx</li>
+                <li class="gril">赵xx</li>
+                <li class="gril">张xx</li>
+                <li class="boy">张xx</li>
+                <li class="boy">宣xx</li>
+                <li class="boy">陈xx</li>
+                <li class="gril">李xx</li>
+                <li class="gril">刘xx</li>
+                <li class="gril">张xx</li>
+                <li class="gril">张xx</li>
+                <li class="gril">关xx</li>
+                <li class="gril">刘xx</li>
+                <li class="boy">姚xx</li>
+                <li class="gril">王xx</li>
+                <li class="boy">闫xx</li>
+                <li class="boy">周xx</li>
+                <li class="boy">仲xx</li>
+                <li class="gril">刘xx</li>
+                <li class="gril">刘xx</li>
+                <li class="boy">杨xx</li>
+                <li class="gril">潘xx</li>
+                <li class="boy">蔚xx</li>
+                <li class="gril">宋xx</li>
+                <li class="boy">李xx</li>
+                <li class="gril">李xx</li>
+                <li class="boy">马xx</li>
+                <li class="boy">华xx</li>
             </ul>
             <p style="color: rgb(255, 0, 0)">*为了确保隐私，暂不透露姓名</p>
         </div>
 
-         <hr style="width: 80%; margin: 20px auto;">
+        <hr style="width: 80%; margin: 20px auto;">
 
         <p class="w addFont">老师们/Teachers</p>
         <!-- 修复老师区域 -->
@@ -583,14 +632,15 @@
     <br>
 
     <!-- 课程表/查询/开发者修改 -->
-    <div class="box center" id="course">  
+    <div class="box center" id="course">
         <h1 class="w addFont">----课程表----</h1>
-        
+
         <!-- 新增：输入框查询区域 -->
         <div style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
-            <input type="text" id="courseInput" placeholder="输入日期(1-5)或课程名(语文/数学等)" style="padding: 10px; width: 70%; border: none; border-radius: 5px; font-size: 16px;">
+            <input type="text" id="courseInput" placeholder="输入日期(1-5)或课程名(语文/数学等)"
+                style="padding: 10px; width: 70%; border: none; border-radius: 5px; font-size: 16px;">
             <button class="button" onclick="searchCourse()" style="margin-left: 10px;">查询</button>
-            
+
             <!-- 新增：快速查询按钮 -->
             <div class="quick-buttons">
                 <button class="button" onclick="quickSearch('1')">周一</button>
@@ -625,8 +675,9 @@
     <div class="box center" id="xiqiguguai">
         <h1 class="w">🎁趣味小功能🎉</h1>
 
-        <!-- <button class="button" onclick="drawFortune()">🎋 今日运势</button>
-        <div id="fortuneResult" style="margin-top: 10px; min-height: 60px;"></div> -->
+        <button class="button" onclick="drawFortune()">🎋 今日运势</button>
+
+        <br>
 
         <br>
 
@@ -649,12 +700,23 @@
             <button class="button" onclick="timeCapsule()">时间胶囊💊</button>
         </div>
 
+        <br>
+
+        <div>
+            <button class="button" onclick="todayClears()">今日值日生🤔</button>
+        </div>
+
+        <br>
+
+        <div>
+            <button class="button" onclick="viewCapsules()">胶囊查看💊</button>
+        </div>
 
     </div>
     <br>
     <div class="box center">
         <h1>
-           到底啦~~
+            到底啦~~
         </h1>
         <p>2026CheungTszon LLC. Copyright</p>
     </div>
@@ -667,278 +729,320 @@
 <!-- 脚本 -->
 <script>
 
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min
-        }
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min
+    }
 
-        function getTipsType() {
-            const days = [
+    function getTipsType() {
+        const days = [
             "✨ 今天也是元气满满的一天！",
             "📚 好好学习，天天向上！",
             "💪 六年九班，永远最棒！",
             "🌈 每一份努力都会有回报",
             "🎉 和同学们一起成长很快乐",
             "🤔 今天想好吃什么了吗？"
-            ]
-            let number = getRandomInt(0, 5)
+        ]
+        let number = getRandomInt(0, 5)
 
-            document.getElementById('everdaytips').textContent = days[number]
+        document.getElementById('everdaytips').textContent = days[number]
+    }
+
+    getTipsType()
+
+    function getChineseName(days) {
+        let chineseNames = [
+            '星期一',
+            '星期二',
+            '星期三',
+            '星期四',
+            '星期五'
+        ]
+        return chineseNames[days - 1]
+    }
+
+    let coursesDays = {
+        1: ['语文', '数学', '音乐', '英语', '美术', '体育'],
+        2: ['数学', '语文', '道法', '体育', '综合', '科学'],
+        3: ['英语', '数学', '语文', '美术', '道法', '体活'],
+        4: ['数学', '语文', '语文', '音乐', '劳动', '体育(大操)'],
+        5: ['语文', '数学', '校本', '信息', '科学', '体育']
+    }
+
+    let courseNames = {
+        '数学': '一二三四五都有~',
+        '语文': '一二三四五都有~',
+        '美术': '1,3',
+        '体育': '一二三四五都有~(并非...)',
+        '科学': '2,5',
+        '信息': 'Only 5'
+    }
+
+    // 计算当前是第几周
+    function getClears() {
+        let startDay = new Date('2026-03-01');  // 注意日期格式：YYYY-MM-DD
+        let today = new Date();
+
+        let diffTime = Math.abs(today - startDay);  // ✅ 修正为 startDay
+        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        // 计算周数（每周7天）
+        let weekNumber = Math.floor(diffDays / 7) + 1;
+        return weekNumber;
+    }
+
+    // 获取当前是哪一组值日（1-4循环）
+    function getCurrentClears() {
+        let week = getClears();  // ✅ 调用 getClears()，不是 getCurrentWeek()
+        // 4组循环：(week-1) % 4 + 1
+        return ((week - 1) % 4) + 1;
+    }
+
+    // 显示值日生弹窗
+    function todayClears() {
+        let groupNumber = getCurrentClears();
+
+        Swal.fire({
+            title: '🧹 今日值日生',
+            text: `今天是第${groupNumber}组同学值日`,
+            icon: 'info',
+            confirmButtonColor: '#007bff'
+        });
+    }
+    // 新的查询函数
+    function searchCourse() {
+        let input = document.getElementById('courseInput').value.trim();
+
+        if (input === '') {
+            Swal.fire({
+                title: '提示',
+                text: '请输入要查询的内容',
+                icon: 'warning',
+                confirmButtonColor: '#007bff',
+                timer: 1500,
+                showConfirmButton: false
+            });
+            return;
         }
 
-        getTipsType()
-
-        function getChineseName(days) {
-            let chineseNames = [
-                '星期一',
-                '星期二',
-                '星期三',
-                '星期四',
-                '星期五'
-            ]
-            return chineseNames[days - 1]
+        if (!isNaN(input) && input >= 1 && input <= 5) {
+            let dayCourses = coursesDays[input];
+            Swal.fire({
+                title: getChineseName(input),
+                html: dayCourses.map(c => `📚 ${c}`).join('<br>'),
+                icon: 'info',
+                confirmButtonColor: '#007bff',
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdrop: 'rgba(0, 123, 255, 0.2)'
+            });
         }
-
-        let coursesDays = {
-            1:['语文','数学','音乐','英语','美术','体育'],
-            2:['数学','语文','道法','体育','综合','科学'],
-            3:['英语','数学','语文','美术','道法','体活'],
-            4:['数学','语文','语文','音乐','劳动','体育(大操)'],
-            5:['语文','数学','校本','信息','科学','家乡']
+        else if (courseNames[input]) {
+            let result = courseNames[input];
+            Swal.fire({
+                title: `📖 ${input}课`,
+                text: result,
+                icon: 'info',
+                confirmButtonColor: '#007bff'
+            });
         }
-
-        let courseNames = {
-            '数学':'一二三四五都有~',
-            '语文':'一二三四五都有~',
-            '美术':'1,3',
-            '体育':'一二三四五都有~(并非...)',
-            '科学':'2,5',
-            '信息':'Only 5'
+        else {
+            Swal.fire({
+                title: '❌ 未找到',
+                text: '没有找到呀0v0',
+                icon: 'error',
+                confirmButtonColor: '#007bff'
+            });
         }
-
-            // 新的查询函数
-        function searchCourse() {
-            let input = document.getElementById('courseInput').value.trim();
-            
-            if (input === '') {
-                Swal.fire({
-                    title: '提示',
-                    text: '请输入要查询的内容',
-                    icon: 'warning',
-                    confirmButtonColor: '#007bff',
-                    timer: 1500,
-                    showConfirmButton: false
-                });
-                return;
-            }
-
-            if (!isNaN(input) && input >= 1 && input <= 5) {
-                let dayCourses = coursesDays[input];
-                Swal.fire({
-                    title: getChineseName(input),
-                    html: dayCourses.map(c => `📚 ${c}`).join('<br>'),
-                    icon: 'info',
-                    confirmButtonColor: '#007bff',
-                    background: 'rgba(255, 255, 255, 0.95)',
-                    backdrop: 'rgba(0, 123, 255, 0.2)'
-                });
-            }
-            else if (courseNames[input]) {
-                let result = courseNames[input];
-                Swal.fire({
-                    title: `📖 ${input}课`,
-                    text: result,
-                    icon: 'info',
-                    confirmButtonColor: '#007bff'
-                });
-            }
-            else {
-                Swal.fire({
-                    title: '❌ 未找到',
-                    text: '没有找到呀0v0',
-                    icon: 'error',
-                    confirmButtonColor: '#007bff'
-                });
-            }
-        }
+    }
 
 
-        // 快速查询函数
-        function quickSearch(day) {
-            document.getElementById('courseInput').value = day;
+    // 快速查询函数
+    function quickSearch(day) {
+        document.getElementById('courseInput').value = day;
+        searchCourse();
+    }
+
+    // 支持回车键查询
+    document.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter' && document.activeElement.id === 'courseInput') {
             searchCourse();
         }
+    });
 
-        // 支持回车键查询
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && document.activeElement.id === 'courseInput') {
-                searchCourse();
-            }
-        });
+    // 保留原有的查询函数
+    function searthCourse(courseName) {
+        let course = prompt('请输入星期几（1-5）&课程名称(语文,数学...)')
+        course = course.trim();
 
-        // 保留原有的查询函数
-        function searthCourse(courseName) {
-            let course = prompt('请输入星期几（1-5）&课程名称(语文,数学...)')
-            course = course.trim();
+        if (course in courseNames) {
+            alert(courseNames[course])
+        } else if (course in coursesDays) {
+            alert(getChineseName(course) + "的课程有\n " + coursesDays[course].join('、') + "~")
+        } else {
+            alert('没有找到呀0v0')
+        }
+    }
 
-            if (course in courseNames) {
-                alert(courseNames[course])
-            } else if (course in coursesDays) {
-                alert(getChineseName(course) + "的课程有\n " + coursesDays[course].join('、') + "~")
-            } else {
-                alert('没有找到呀0v0')
-            }
+    s = 'success'
+    info = 'info'
+    e = 'error'
+    w = 'warning'
+    dk = 'question'
+
+    alert('提示：目前还处于开发阶段，部分区域有错误是正常现象~ | 手机可以双指缩放~')
+
+    // 访问计数（使用 localStorage）
+    let visits = localStorage.getItem('classVisits') || 0;
+    visits++;
+    localStorage.setItem('classVisits', visits);
+    document.getElementById('visitCount').textContent = visits;
+
+    function drawFortune() {
+        const fortunes = [
+            { text: '大吉 🌟', desc: '今天会有好事发生！' },
+            { text: '中吉 ✨', desc: '平平淡淡才是真~' },
+            { text: '小吉 🌈', desc: '保持好心情很重要' },
+            { text: '末吉 🌱', desc: '努力就会有回报' }
+        ];
+        let random = Math.floor(Math.random() * fortunes.length);
+
+        let todayLucky = fortunes[random].text
+        let icons = info
+
+        if (todayLucky == '大吉 🌟' || todayLucky == '中吉 ✨') {
+            icons = s
+        } else if (todayLucky == '小吉 🌈' || todayLucky == '末吉 🌱') {
+            icons = dk
         }
 
-        s = 'success'
-        info = 'info'
-        e = 'error'
-        w = 'warning'
-        dk = 'question'
+        Swal.fire({
+            title: `${fortunes[random].text}`,
+            text: `${fortunes[random].desc}`,
+            icon: icons
+        })
+    }
 
-        // alert('提示：目前还处于开发阶段，部分区域有错误是正常现象~ | 手机可以双指缩放~')
-
-        // 访问计数（使用 localStorage）
-        let visits = localStorage.getItem('classVisits') || 0;
-        visits++;
-        localStorage.setItem('classVisits', visits);
-        document.getElementById('visitCount').textContent = visits;
-
-        function drawFortune() {
-            const fortunes = [
-                { text: '大吉 🌟', desc: '今天会有好事发生！' },
-                { text: '中吉 ✨', desc: '平平淡淡才是真~' },
-                { text: '小吉 🌈', desc: '保持好心情很重要' },
-                { text: '末吉 🌱', desc: '努力就会有回报' }
-            ];
-            let random = Math.floor(Math.random() * fortunes.length);
-            document.getElementById('fortuneResult').innerHTML = 
-        `   <span style="font-size: 24px; color: gold;">${fortunes[random].text}</span><br>
-            <span style="color: white;">${fortunes[random].desc}</span>`;
-        }
-
-        let clickCount = 0;
-        document.getElementById('zhengwen').addEventListener('click', function() {
-            clickCount++;
-            if (clickCount === 5) {
-                Swal.fire({
-                    title: '🎮 隐藏模式',
-                    html: '开发者：韩xx & 蟑x<br>版本号：v2.0',
-                    icon: 'info',
-                    confirmButtonText: '厉害！'
-                });
-                clickCount = 0;
-            }
-            setTimeout(() => clickCount = 0, 3000);
-        });
-
-        function updateCountdown() {
-            let now = new Date();
-            let summer = new Date(now.getFullYear(), 6, 1); // 7月1日
-            if (now > summer) summer.setFullYear(summer.getFullYear() + 1);
-    
-            let diff = Math.ceil((summer - now) / (1000 * 60 * 60 * 24));
-            document.getElementById('countdown').textContent = diff;
-        }
-        updateCountdown();
-
-        function decryptName(encoded) {
-            try {
-                // 先转回百分比编码
-                let uriEncoded = atob(encoded);
-                // 再解码成中文
-                return decodeURIComponent(uriEncoded);
-            } catch (e) {
-                console.error("解密失败:", e);
-                return "???";
-            }
-        }
-
-        function randomPick() {
-            let height = getRandomInt(1,7)
-            let width = getRandomInt(1,8)
-
+    let clickCount = 0;
+    document.getElementById('zhengwen').addEventListener('click', function () {
+        clickCount++;
+        if (clickCount === 5) {
             Swal.fire({
-                title: '抽奖完毕！' + height + " 行 " + width + " 列的小盆友！",
-                text: '这么幸运？买张彩票吧！',
-                icon: info,
-                html: '<button class="button" onclick="replay()">我不服😡</button>'
-            })
+                title: '🎮 隐藏模式',
+                html: '开发者：韩xx & 蟑x<br>版本号：v2.0',
+                icon: 'info',
+                confirmButtonText: '厉害！'
+            });
+            clickCount = 0;
         }
+        setTimeout(() => clickCount = 0, 3000);
+    });
 
-        let typed = '';
-        document.addEventListener('keydown', e => {
-            typed += e.key;
-            if (typed.toLowerCase().includes('class9')) {
-                Swal.fire({
-                    title: '🎉 密语触发！',
-                    html: `
+    function updateCountdown() {
+        let now = new Date();
+        let summer = new Date(now.getFullYear(), 6, 1); // 7月1日
+        if (now > summer) summer.setFullYear(summer.getFullYear() + 1);
+
+        let diff = Math.ceil((summer - now) / (1000 * 60 * 60 * 24));
+        document.getElementById('countdown').textContent = diff;
+    }
+    updateCountdown();
+
+    function decryptName(encoded) {
+        try {
+            // 先转回百分比编码
+            let uriEncoded = atob(encoded);
+            // 再解码成中文
+            return decodeURIComponent(uriEncoded);
+        } catch (e) {
+            console.error("解密失败:", e);
+            return "???";
+        }
+    }
+
+    function randomPick() {
+        let height = getRandomInt(1, 7)
+        let width = getRandomInt(1, 8)
+
+        Swal.fire({
+            title: '抽奖完毕！' + height + " 行 " + width + " 列的小盆友！",
+            text: '这么幸运？买张彩票吧！',
+            icon: info,
+            html: '<button class="button" onclick="replay()">我不服😡</button>',
+            confirmButtonText: '接受审判！'
+        })
+    }
+
+    let typed = '';
+    document.addEventListener('keydown', e => {
+        typed += e.key;
+        if (typed.toLowerCase().includes('class9')) {
+            Swal.fire({
+                title: '🎉 密语触发！',
+                html: `
                         <div style="font-size: 50px;">🌈</div>
                         <p>恭喜你发现隐藏密语！</p>
                         <p>六年九班永远最棒！</p>
                     `,
-                    confirmButtonText: '耶！'
-                });
-                typed = '';
-            }
-            if (typed.length > 10) typed = typed.slice(-10);
-        });        
-
-        // document.addEventListener('DOMContentLoaded', function() {
-        // let pianoContainer = document.createElement('div');
-        // pianoContainer.innerHTML = pianoHTML;
-        // document.querySelector('.box.center:last-of-type').appendChild(pianoContainer);
-        // });
-
-        function getTime() {
-            let date = new Date()
-
-            let year = date.getFullYear()
-            let month = date.getMonth() + 1
-            let day = date.getDate()
-            let hour = date.getHours().toString().padStart(2, '0')     // 补零
-            let minute = date.getMinutes().toString().padStart(2, '0') // 补零
-            let sec = date.getSeconds().toString().padStart(2, '0')    // 补零
-            
-            let weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
-            let weekday = weekdays[date.getDay()]
-
-            let now = `${year}年${month}月${day}日 ${hour}:${minute}:${sec} ${weekday}`
-            document.getElementById('time').textContent = now
-        }
-
-        // 立即执行并每秒更新
-        getTime()
-        setInterval(getTime, 1000)
-
-        alert('电脑访问更佳~手机访问会有一些不可言喻的问题')
-
-        Swal.fire({
-            title: '欢迎光临🎉',
-            text: '开发者：蟑螂 and 韩佩阳',
-            icon: info,
-        })
-
-        function funCourse() {
-            Swal.fire({
-                title: "上体活！🎉",
-                text: '决策完毕！',
-                icon: s
-            })
-        }
-
-        window.replay = function() {
-            Swal.fire({
-                title: '不服受着👿',
-                text: '不会直说。。',
-                icon: w,
-                confirmButtonText: '好吧'
+                confirmButtonText: '耶！'
             });
+            typed = '';
         }
+        if (typed.length > 10) typed = typed.slice(-10);
+    });
 
-        function timeCapsule() {
-            Swal.fire({
-                title: '⏳ 时间胶囊',
-                html: `
+    // document.addEventListener('DOMContentLoaded', function() {
+    // let pianoContainer = document.createElement('div');
+    // pianoContainer.innerHTML = pianoHTML;
+    // document.querySelector('.box.center:last-of-type').appendChild(pianoContainer);
+    // });
+
+    function getTime() {
+        let date = new Date()
+
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        let hour = date.getHours().toString().padStart(2, '0')     // 补零
+        let minute = date.getMinutes().toString().padStart(2, '0') // 补零
+        let sec = date.getSeconds().toString().padStart(2, '0')    // 补零
+
+        let weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+        let weekday = weekdays[date.getDay()]
+
+        let now = `${year}年${month}月${day}日 ${hour}:${minute}:${sec} ${weekday}`
+        document.getElementById('time').textContent = now
+    }
+
+    // 立即执行并每秒更新
+    getTime()
+    setInterval(getTime, 1000)
+
+    Swal.fire({
+        title: '欢迎光临🎉',
+        text: '开发者：蟑螂 and 韩佩阳',
+        icon: info,
+    })
+
+    function funCourse() {
+        Swal.fire({
+            title: "上体活！🎉",
+            text: '决策完毕！',
+            icon: s
+        })
+    }
+
+    window.replay = function () {
+        Swal.fire({
+            title: '不服受着👿',
+            text: '不会直说。。',
+            icon: w,
+            confirmButtonText: '好吧'
+        });
+    }
+
+    function timeCapsule() {
+        Swal.fire({
+            title: '⏳ 时间胶囊',
+            html: `
                     <input id="capsuleName" class="swal2-input" placeholder="你的名字">
                     <textarea id="capsuleMessage" class="swal2-textarea" placeholder="想对未来的自己说什么？"></textarea>
                     <select id="capsuleTime" class="swal2-input">
@@ -947,33 +1051,146 @@
                         <option value="365">一年后</option>
                     </select>
                 `,
-                confirmButtonText: '💊 封存',
-                showCancelButton: true,
-                preConfirm: () => {
-                    let name = document.getElementById('capsuleName').value;
-                    let msg = document.getElementById('capsuleMessage').value;
-                    let days = document.getElementById('capsuleTime').value;
-                    
-                    if (!name || !msg) return '请填写完整哦~';
-                    
-                    let capsules = JSON.parse(localStorage.getItem('timeCapsules')) || [];
-                    let openDate = new Date();
-                    openDate.setDate(openDate.getDate() + parseInt(days));
-                    
-                    capsules.push({
-                        name: name,
-                        message: msg,
-                        openDate: openDate.toISOString()
-                    });
-                    
-                    localStorage.setItem('timeCapsules', JSON.stringify(capsules));
+            confirmButtonText: '💊 封存',
+            showCancelButton: true,
+            preConfirm: () => {
+                let name = document.getElementById('capsuleName').value;
+                let msg = document.getElementById('capsuleMessage').value;
+                let days = document.getElementById('capsuleTime').value;
+
+                if (!name || !msg) {
+                    Swal.showValidationMessage('请填写完整哦~');
+                    return false;
                 }
-            }).then(result => {
-                if (result.isConfirmed) {
-                    Swal.fire('✨ 封存成功', '时间胶囊已保存，记得回来看看~', 'success');
+
+                let capsules = JSON.parse(localStorage.getItem('timeCapsules')) || [];
+                let now = new Date();
+                let openDate = new Date();
+                openDate.setDate(openDate.getDate() + parseInt(days));
+
+                capsules.push({
+                    name: name,
+                    message: msg,
+                    createDate: now.toISOString(),  // ✅ 添加创建时间
+                    openDate: openDate.toISOString()
+                });
+
+                localStorage.setItem('timeCapsules', JSON.stringify(capsules));
+
+                // 调试信息
+                console.log('胶囊已保存:', capsules);
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: '✨ 封存成功',
+                    text: '时间胶囊已保存，记得回来看看~',
+                    icon: 'success',
+                    confirmButtonColor: '#007bff'
+                });
+            }
+        });
+    }
+
+    function callDeveloper() {
+        let zlWechat = 'zza8848thjsj'
+        let zlQQGroup = '2827695239'
+        let infos = `蟑螂微信:${zlWechat} | QQ:${zlQQGroup}`
+
+        Swal.fire({
+            title: '联系开发人员',
+            html: '<p style="color: green;">' + infos + '</p>',
+            icon: info
+        })
+    }
+
+    function viewCapsules() {
+        // 先验证身份
+        Swal.fire({
+            title: '🔐 管理员验证',
+            input: 'password',
+            inputPlaceholder: '输入管理员密码',
+            showCancelButton: true,
+            confirmButtonText: '查看',
+            cancelButtonText: '取消',
+            preConfirm: (password) => {
+                // 验证密码（这里用你的开发者密码）
+                if (btoa(password) !== 'emhhbmdsYW5nbmI2NjY=') {
+                    Swal.showValidationMessage('密码错误');
+                    return false;
                 }
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 验证成功，显示胶囊
+                showCapsuleList();
+            }
+        });
+    }
+
+    function showCapsuleList() {
+        let capsules = JSON.parse(localStorage.getItem('timeCapsules')) || [];
+
+        console.log('读取到的胶囊:', capsules); // 调试用
+
+        if (capsules.length === 0) {
+            Swal.fire({
+                title: '💊 暂无胶囊',
+                text: '还没有人封存时间胶囊',
+                icon: 'info',
+                confirmButtonColor: '#007bff'
             });
+            return;
         }
-    </script>
+
+        // 按开启时间排序
+        capsules.sort((a, b) => new Date(a.openDate) - new Date(b.openDate));
+
+        let html = '<div style="max-height: 400px; overflow-y: auto;">';
+
+        capsules.forEach((cap, index) => {
+            let openDate = new Date(cap.openDate);
+            let createDate = cap.createDate ? new Date(cap.createDate) : '未知';
+            let now = new Date();
+
+            // ✅ 管理员验证通过后，永远可以查看（这里假设已经验证通过）
+            let canView = true;  // 因为已经通过了管理员验证，所以永远为 true
+
+            // 时间状态显示（给普通用户看的提示）
+            let timeStatus = canView ? '📖 可查看' : '🔒 未到时间';
+            let timeDiff = Math.ceil((openDate - now) / (1000 * 60 * 60 * 24));
+            let timeText = timeDiff > 0 ? `（还有 ${timeDiff} 天）` : '（已到开启时间）';
+
+            html += `
+                    <div style="background: rgba(255,255,255,0.1); margin: 15px; padding: 15px; border-radius: 10px; border-left: 4px solid #1eff00;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: #ffd700; font-weight: bold; font-size: 18px;">${cap.name || '匿名'}</span>
+                            <span style="color: #1eff00; font-size: 14px;">${timeStatus}</span>
+                        </div>
+                        <div style="color: #888; font-size: 12px; margin-bottom: 10px;">
+                            📅 封存: ${createDate.toLocaleString?.() || createDate}
+                        </div>
+                        <div style="color: white; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; font-size: 16px; word-break: break-word;">
+                            ${cap.message}
+                        </div>
+                        <div style="color: #888; font-size: 12px; margin-top: 8px; text-align: right;">
+                            ⏰ 开启时间: ${openDate.toLocaleString()} ${timeDiff > 0 ? `(剩余 ${timeDiff} 天)` : '(已可查看)'}
+                        </div>
+                    </div>
+                `;
+        });
+
+        html += '</div>';
+
+        Swal.fire({
+            title: '💊 时间胶囊列表',
+            html: html,
+            width: '700px',
+            confirmButtonText: '关闭',
+            confirmButtonColor: '#007bff',
+            background: 'rgba(20, 20, 20, 0.95)'
+        });
+    }
+</script>
 
 </html>
