@@ -1,31 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Updates</title>
 </head>
+
 <body>
     <style>
         .center {
             text-align: center;
         }
+
+        .beta {
+            background-color: rgba(255, 0, 0, 0.151);
+            text-align: center;
+            border-left: 4px solid rgb(255, 82, 82);
+            backdrop-filter: blur(10px);
+            margin-left: auto;
+            margin-right: auto;
+            width: 600px;
+            height: auto;
+            padding: 10px 15px;
+            border-radius: 15px;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .release {
+            background-color: rgba(0, 0, 0, 0.151);
+            text-align: center;
+            border-left: 4px solid rgb(102, 102, 102);
+            backdrop-filter: blur(10px);
+            margin-left: auto;
+            margin-right: auto;
+            width: 600px;
+            height: auto;
+            padding: 10px 15px;
+            border-radius: 15px;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .beta:hover {
+            transform: translateY(-4px);
+        }
+
+        .release:hover {
+            transform: translateY(-4px);
+        }
+
+        .aniFont {
+            animation: colorChange 10s infinite
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #b25bff;
+            }
+
+            25% {
+                color: rgb(255, 175, 81);
+            }
+
+            50% {
+                color: #ff2525;
+            }
+
+            75% {
+                color: #236aff;
+            }
+
+            100% {
+                color: #b25bff;
+            }
+        }
     </style>
 
     <div class="center">
-        <div>
-            <h1>近期更新 Red = Beta Versions\ Black = 正式版</h1>
+        <div class="">
+            <h1>
+                Beta更新: 红色 | 正式版更新: 黑色
+            </h1>
         </div>
+    </div>
 
-        <hr><br>
+    <hr><br>
 
-        <div>
+    <div class="center aniFont">
+        <div class="release">
             <h1>正式版更新 - 26.3.3 完善基本功能，部署到CloudFlare,让国内访问更佳迅速。</h1>
             <p>(Netfily + DNShe联合)</p>
             <p>*对名字进行隐私化处理 删除公告栏</p>
         </div>
 
         <hr><br>
+
+        <div class="beta">
+            <h1>测试版更新 - 26.3.6 详细请见下</h1>
+            <p>[+] 值日生轮换显示</p>
+            <p>[-] 通知</p>
+            <p>[/] 对UI进行了更舒服的优化</p>
+            <p>[+] 时间胶囊查看功能</p>
+        </div>
     </div>
 </body>
+
 </html>
