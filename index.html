@@ -728,13 +728,6 @@
     </div>
 
     <script>
-        const JSONBIN_CONFIG = {
-            BIN_ID: '69aba8c943b1c97be9bc7afe',
-            MASTER_KEY: '$2a$10$BSVF7UfA10zcRIVTExmbNuwFiFnqjGlXwq2RlX8OSWN4zDol/bIfG'
-        };
-
-        const API_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.BIN_ID}`;
-
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min
         }
@@ -1188,8 +1181,6 @@
             })
         }
 
-        // 查看所有胶囊（所有人都能看）
-        // 查看所有胶囊（需要密码验证）
         async function viewCapsules() {
             const result = await Swal.fire({
                 title: '请输入密码',
@@ -1217,7 +1208,32 @@
             // 用户取消或验证失败，直接返回
             if (!result.isConfirmed) return;
 
-            // 密码正确，显示加载中
+            // 密码正确，继续询问 BIN_ID 和 MASTER_KEY
+            let binid = prompt('请输入 BIN_ID:');
+            let masterkey = prompt('请输入 Master Key:');
+
+            if (!binid || !masterkey) {
+                Swal.fire({
+                    title: '❌ 操作取消',
+                    text: '必须提供 BIN_ID 和 Master Key 才能查看胶囊',
+                    icon: 'error',
+                    confirmButtonColor: '#007bff',
+                    customClass: {
+                        popup: 'swal2-popup'
+                    }
+                });
+                return;
+            }
+
+            // 创建临时配置
+            const tempConfig = {
+                BIN_ID: binid.trim(),
+                MASTER_KEY: masterkey.trim()
+            };
+
+            const API_URL = `https://api.jsonbin.io/v3/b/${tempConfig.BIN_ID}`;
+
+            // 显示加载中
             Swal.fire({
                 title: '加载中...',
                 html: '正在从云端读取胶囊',
@@ -1230,71 +1246,93 @@
                 }
             });
 
-            // 加载胶囊
-            let capsules = await loadCapsulesFromJSONBin();
+            // 加载胶囊（使用临时配置）
+            try {
+                const response = await fetch(API_URL, {
+                    headers: {
+                        'X-Master-Key': tempConfig.MASTER_KEY
+                    }
+                });
 
-            Swal.close();
+                if (!response.ok) {
+                    throw new Error('读取失败，请检查 BIN_ID 和 Master Key 是否正确');
+                }
 
-            if (capsules.length === 0) {
+                const data = await response.json();
+                let capsules = data.record.capsules || [];
+
+                Swal.close();
+
+                if (capsules.length === 0) {
+                    Swal.fire({
+                        title: '💊 暂无胶囊',
+                        text: '还没有人封存时间胶囊',
+                        icon: 'info',
+                        confirmButtonColor: '#007bff',
+                        customClass: {
+                            popup: 'swal2-popup'
+                        }
+                    });
+                    return;
+                }
+
+                // 按开启时间排序
+                capsules.sort((a, b) => new Date(a.openDate) - new Date(b.openDate));
+
+                let html = '<div style="max-height: 400px; overflow-y: auto;">';
+
+                capsules.forEach((cap, index) => {
+                    let openDate = new Date(cap.openDate);
+                    let createDate = cap.createDate ? new Date(cap.createDate) : '未知';
+                    let now = new Date();
+
+                    let timeDiff = Math.ceil((openDate - now) / (1000 * 60 * 60 * 24));
+                    let timeText = timeDiff > 0 ? `（还有 ${timeDiff} 天）` : '（已到开启时间）';
+
+                    html += `
+                <div style="background: rgba(255,255,255,0.1); margin: 15px; padding: 15px; border-radius: 10px; border-left: 4px solid #1eff00;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="color: #ffd700; font-weight: bold; font-size: 18px;">${cap.name || '匿名'}</span>
+                        <span style="color: #1eff00; font-size: 14px;">📖 可查看</span>
+                    </div>
+                    <div style="color: #888; font-size: 12px; margin-bottom: 10px;">
+                        📅 封存: ${createDate.toLocaleString?.() || createDate}
+                    </div>
+                    <div style="color: white; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; font-size: 16px; word-break: break-word;">
+                        ${cap.message}
+                    </div>
+                    <div style="color: #888; font-size: 12px; margin-top: 8px; text-align: right;">
+                        ⏰ 开启时间: ${openDate.toLocaleString()} ${timeText}
+                    </div>
+                </div>`;
+                });
+
+                html += '</div>';
+
                 Swal.fire({
-                    title: '💊 暂无胶囊',
-                    text: '还没有人封存时间胶囊，快来第一个留言吧~',
-                    icon: 'info',
+                    title: '💊 时间胶囊列表',
+                    html: html,
+                    width: '700px',
+                    confirmButtonText: '关闭',
+                    confirmButtonColor: '#007bff',
+                    background: 'rgba(20, 20, 20, 0.95)',
+                    customClass: {
+                        popup: 'swal2-popup'
+                    }
+                });
+
+            } catch (error) {
+                Swal.close();
+                Swal.fire({
+                    title: '❌ 读取失败',
+                    text: error.message || '请检查 BIN_ID 和 Master Key 是否正确',
+                    icon: 'error',
                     confirmButtonColor: '#007bff',
                     customClass: {
                         popup: 'swal2-popup'
                     }
                 });
-                return;
             }
-
-            // 按开启时间排序
-            capsules.sort((a, b) => new Date(a.openDate) - new Date(b.openDate));
-
-            let html = '<div style="max-height: 400px; overflow-y: auto;">';
-
-            capsules.forEach((cap, index) => {
-                let openDate = new Date(cap.openDate);
-                let createDate = cap.createDate ? new Date(cap.createDate) : '未知';
-                let now = new Date();
-
-                // 所有人都能看，没有时间限制
-                let canView = true;
-                let timeStatus = '📖 可查看';
-                let timeDiff = Math.ceil((openDate - now) / (1000 * 60 * 60 * 24));
-                let timeText = timeDiff > 0 ? `（还有 ${timeDiff} 天）` : '（已到开启时间）';
-
-                html += `
-                    <div style="background: rgba(255,255,255,0.1); margin: 15px; padding: 15px; border-radius: 10px; border-left: 4px solid #1eff00;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="color: #ffd700; font-weight: bold; font-size: 18px;">${cap.name || '匿名'}</span>
-                            <span style="color: #1eff00; font-size: 14px;">${timeStatus}</span>
-                        </div>
-                        <div style="color: #888; font-size: 12px; margin-bottom: 10px;">
-                            📅 封存: ${createDate.toLocaleString?.() || createDate}
-                        </div>
-                        <div style="color: white; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; font-size: 16px; word-break: break-word;">
-                            ${cap.message}
-                        </div>
-                        <div style="color: #888; font-size: 12px; margin-top: 8px; text-align: right;">
-                            ⏰ 开启时间: ${openDate.toLocaleString()} ${timeText}
-                        </div>
-                    </div>`;
-            });
-
-            html += '</div>';
-
-            Swal.fire({
-                title: '💊 时间胶囊列表',
-                html: html,
-                width: '700px',
-                confirmButtonText: '关闭',
-                confirmButtonColor: '#007bff',
-                background: 'rgba(20, 20, 20, 0.95)',
-                customClass: {
-                    popup: 'swal2-popup'
-                }
-            });
         }
     </script>
 </body>
