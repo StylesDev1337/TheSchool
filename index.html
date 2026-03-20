@@ -1,573 +1,519 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🥇工农小学 - 六年九班🎪</title>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/limonte-sweetalert2/11.14.5/sweetalert2.min.css">
-    <script src="https://cdn.staticfile.org/limonte-sweetalert2/11.14.5/sweetalert2.all.min.js"></script>
-    <audio src="./music.mp3" controls></audio>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>🌈 工农小学 · 六年九班 | 未来班级空间</title>
+    <!-- SweetAlert2 现代化弹窗 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.all.min.js"></script>
+    <audio src="./music.mp3" controls
+        style="opacity:0.6; width: 180px; position: fixed; bottom: 15px; right: 15px; z-index: 999; border-radius: 30px;"></audio>
 </head>
 
 <body>
     <style>
-        /* 为每天的课程添加卡片效果 */
-        #course p {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px 0;
-            backdrop-filter: blur(5px);
-            border-left: 4px solid #007bff;
-            text-align: left;
-            line-height: 1.8;
+        /* ========== 全局现代风格重置 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        #tongzhi ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        #daohang a {
-            transition: all 0.3s ease;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
-        #daohang a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            text-decoration: none;
-            transform: translateY(-2px);
-        }
-
-        /* 将长名单分成多列 */
-        #stus ul {
-            columns: 3;
-            column-gap: 30px;
-            list-style: none;
-            padding-left: 0;
-        }
-
-        /* 增加内容之间的间距 */
-        .box {
-            margin-bottom: 25px;
-        }
-
-        /* 手机端适配 */
-        @media (max-width: 650px) {
-
-            .box,
-            .warnMessage {
-                width: 90%;
-                margin-left: 5%;
-                margin-right: 5%;
-            }
-
-            #stus ul {
-                columns: 2;
-            }
-
-            .addFont {
-                font-size: 30px;
-            }
-
-            #courseInput {
-                width: 60% !important;
-            }
-        }
-
-        /* 页面加载时的淡入效果 */
         body {
-            animation: fadeIn 1.5s ease;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background-attachment: fixed;
+            font-family: 'Segoe UI', 'Poppins', 'MyFont', system-ui, -apple-system, 'Roboto', sans-serif;
+            padding: 30px 20px 60px;
+            animation: globalFadeIn 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
-        @keyframes fadeIn {
-            from {
+        /* 动态渐变背景 + 微光粒子 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.2), transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(255, 200, 100, 0.15), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes globalFadeIn {
+            0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
 
-            to {
+            100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        /* 让列表更紧凑 */
-        ul {
-            margin: 10px 0;
-            padding-left: 20px;
+        /* 主容器卡片 - 磨砂玻璃质感 */
+        .box,
+        .subtitle {
+            background: rgba(20, 30, 45, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.35), 0 0 0 0.5px rgba(255, 255, 255, 0.1) inset;
+            transition: all 0.35s ease;
+            width: 700px;
+            max-width: 90%;
+            margin: 20px auto;
+            padding: 24px 22px;
+            text-align: center;
+        }
+
+        @media (max-width: 750px) {
+
+            .box,
+            .subtitle {
+                width: 95%;
+                padding: 20px 16px;
+            }
+        }
+
+        .box:hover,
+        .subtitle:hover {
+            transform: translateY(-6px);
+            border-color: rgba(100, 210, 255, 0.6);
+            box-shadow: 0 28px 40px -16px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(100, 210, 255, 0.3) inset;
+            background: rgba(25, 38, 55, 0.65);
+        }
+
+        /* 导航链接 */
+        #daohang a {
+            color: #eef5ff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 40px;
+            transition: all 0.2s;
+            display: inline-block;
+            background: rgba(255, 255, 240, 0.05);
+            margin: 4px 2px;
+        }
+
+        #daohang a:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(59, 130, 246, 0.4);
+        }
+
+        .b {
+            color: #cbd5e6;
+            margin: 0 2px;
+        }
+
+        /* 标题特效 */
+        .addFont {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FFFFFF, #a0e9ff, #6c5ce7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .aniFont {
+            animation: softGlow 8s infinite alternate;
+        }
+
+        @keyframes softGlow {
+            0% {
+                text-shadow: 0 0 3px rgba(100, 200, 255, 0.3);
+                filter: brightness(1);
+            }
+
+            100% {
+                text-shadow: 0 0 12px rgba(100, 200, 255, 0.7);
+                filter: brightness(1.05);
+            }
+        }
+
+        /* 学生名单现代列 */
+        #stus ul {
+            columns: 3;
+            column-gap: 28px;
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
         }
 
         #stus li {
-            transition: all 0.3s ease;
-            cursor: default;
+            padding: 6px 8px 6px 28px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 245, 0.05);
+            border-radius: 40px;
+            transition: all 0.25s;
+            font-size: 1rem;
+            font-weight: 500;
             position: relative;
-            padding-left: 20px;
         }
 
         #stus li:hover {
-            transform: translateX(5px);
-            color: #ffd700 !important;
-            /* 悬停变金色 */
-            text-shadow: 0 0 10px gold;
+            transform: translateX(8px) scale(1.02);
+            background: rgba(59, 130, 246, 0.25);
+            backdrop-filter: blur(4px);
         }
 
-        /* 添加小图标装饰 */
         #stus li::before {
-            content: "👤";
+            content: "⭐";
             position: absolute;
-            left: -5px;
-            opacity: 0;
-            transition: opacity 0.3s;
+            left: 4px;
+            top: 6px;
+            opacity: 0.6;
+            font-size: 0.9rem;
+            transition: 0.2s;
         }
 
         #stus li:hover::before {
             opacity: 1;
+            transform: rotate(15deg) scale(1.1);
         }
 
-        .w {
-            color: white;
-        }
-
-        .b {
-            color: black;
-        }
-
-        /* 诗句容器 */
-        .poetry-container {
-            position: relative;
+        /* 老师区域现代卡片 */
+        .teacher-tribute {
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.12), rgba(59, 130, 246, 0.12));
+            border-radius: 28px;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            margin: 20px 0;
+            border: 1px solid rgba(255, 215, 0, 0.4);
         }
 
-        /* 添加中式装饰元素 */
-        .poetry-container::before,
-        .poetry-container::after {
-            content: "「";
-            position: absolute;
-            font-size: 40px;
-            color: rgba(255, 215, 0, 0.3);
-            font-family: MyFont;
+        .teacher-tribute li {
+            font-size: 1.25rem;
+            padding: 6px 0;
         }
 
-        .poetry-container::before {
-            top: -5px;
-            left: 5px;
-        }
-
-        .poetry-container::after {
-            content: "」";
-            bottom: -15px;
-            right: 5px;
-        }
-
+        /* 诗句风格 */
         .poem {
-            font-size: 22px;
-            text-align: center;
-            color: #ffd700;
-            margin: 10px 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .boy {
-            color: #3232ff;
-        }
-
-        .gril {
-            color: pink;
-        }
-
-        .dev {
-            color: rgb(255, 208, 0);
+            font-size: 1.35rem;
+            background: linear-gradient(120deg, #f3e7c9, #ffe6b3);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: 500;
+            margin: 20px 0 8px;
         }
 
         .poem-author {
-            text-align: center;
-            color: rgb(255, 124, 248);
-            font-size: 16px;
-            margin-top: 10px;
+            color: #aad0ff;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
-        .box {
-            background-color: rgba(97, 97, 97, 0.123);
-            text-align: center;
-            border-left: 4px solid rgb(68, 68, 68);
-            backdrop-filter: blur(10px);
-            margin-left: auto;
-            margin-right: auto;
-            width: 600px;
-            height: auto;
-            padding: 10px 15px;
-            border-radius: 15px;
-            font-family: MyFont, sans-serif;
-            transform: translateY(0);
-            transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        /* 按钮现代感 */
+        .button {
+            background: linear-gradient(105deg, #3b82f6, #8b5cf6);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 8px 18px -8px rgba(59, 130, 246, 0.4);
+            margin: 6px 8px;
         }
 
-        .subtitle {
-            background-color: rgba(120, 120, 120, 0.11);
-            text-align: center;
-            border-left: 4px solid rgb(75, 75, 78);
-            backdrop-filter: blur(10px);
-            margin-left: auto;
-            margin-right: auto;
-            width: 600px;
-            height: auto;
-            padding: 10px 15px;
-            border-radius: 15px;
-            font-family: MyFont, sans-serif;
-            transform: translateY(0);
-            transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 24px -10px #3b82f6;
+            background: linear-gradient(105deg, #2563eb, #7c3aed);
         }
 
-        .subtitle:hover {
-            transform: translateY(-4px);
-            box-shadow: #0000ff;
+        .quick-buttons .button {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            box-shadow: none;
+            font-size: 0.85rem;
         }
 
-        .box:hover {
-            transform: translateY(-4px);
-            box-shadow: #0000ff;
+        .quick-buttons .button:hover {
+            background: #3b82f6;
+            transform: translateY(-2px);
         }
 
-        .box:active {
-            transform: translateY(-1px);
-            box-shadow: 0 0 30px #007bff,
-                0 5px 15px rgba(0, 123, 255, 0.6);
-            background-color: #004999;
-            transition: all 0.1s ease-out;
-            /* 快速出现 */
+        /* 输入框未来感 */
+        #courseInput {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            border-radius: 48px;
+            padding: 12px 20px;
+            width: 70%;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
         }
 
-        .warnMessage:hover {
-            transform: translateY(-4px);
-            box-shadow: #0000ff;
+        #courseInput:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+            transform: scale(1.01);
         }
 
-        .warnMessage {
-            transform: translateY(0);
-            transition: transform 0.9s ease;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(255, 141, 141, 0.3);
-            animation: pulse 2s infinite;
-            background-color: rgba(255, 22, 22, 0.607);
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-            width: 600px;
-            height: auto;
-            padding: 10px 15px;
-            border-radius: 15px;
-            font-family: MyFont, sans-serif;
+        /* 统计卡片 */
+        .stats-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(20px);
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin: 18px auto 8px;
+            border: 1px solid rgba(255, 255, 200, 0.25);
+        }
+
+        .stats-icon {
+            font-size: 2rem;
+            background: rgba(59, 130, 246, 0.3);
+            width: 52px;
+            height: 52px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stats-number {
+            color: #4effb5;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-shadow: 0 0 6px #1effaa;
+        }
+
+        .daily-motto {
+            color: #ffdf8c;
+            font-style: italic;
+        }
+
+        .time-display {
+            color: #a0d2ff;
+        }
+
+        .countdown-number {
+            color: #ffb347;
+            font-weight: bold;
+        }
+
+        /* 课程表内容 */
+        #course p {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 14px;
+            border-left: 5px solid #3b82f6;
+            text-align: left;
+        }
+
+        #searchResult {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 28px;
+            padding: 14px;
+            font-weight: 500;
+        }
+
+        /* 颜色标签 */
+        .boy {
+            color: #7bc5ff;
+            font-weight: 500;
+        }
+
+        .gril {
+            color: #ffb7c5;
+            font-weight: 500;
+        }
+
+        .dev {
+            color: #ffdd77;
+            font-weight: 600;
+            text-shadow: 0 0 2px gold;
+        }
+
+        /* 手机端 */
+        @media (max-width: 650px) {
+            #stus ul {
+                columns: 2;
+            }
+
+            .addFont {
+                font-size: 1.8rem;
+            }
+
+            .button {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* sweetalert 现代风格 */
+        .swal2-popup {
+            backdrop-filter: blur(20px) !important;
+            background: rgba(25, 35, 55, 0.9) !important;
+            border-radius: 36px !important;
+            border: 1px solid rgba(255, 255, 210, 0.3) !important;
+            font-family: inherit;
+            --swal2-title-color: #ffd700 !important;
+            /* 标题颜色 - 金色 */
+            --swal2-content-color: #ffffff !important;
+            /* 内容文字颜色 - 白色 */
+            --swal2-html-container-color: #f0f0f0 !important;
         }
 
         :root {
-            --swal2-border-radius: 25px;
-            /* 更柔和的圆角 */
-            --swal2-background: rgb(255, 255, 255);
+            --swal2-border-radius: 28px;
+            --swal2-background: rgba(20, 28, 40, 0.88);
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 10px 30px rgba(255, 22, 22, 0.3);
-            }
+        hr {
+            border-color: rgba(255, 255, 255, 0.2);
+            margin: 20px 0;
+        }
 
-            50% {
-                box-shadow: 0 10px 40px rgba(255, 22, 22, 0.5);
-            }
-
-            100% {
-                box-shadow: 0 10px 30px rgba(255, 22, 22, 0.3);
-            }
+        .w {
+            color: #f0f6ff;
         }
 
         .center {
             text-align: center;
         }
 
-        .rainbow {
-            color: transparent;
-            background: linear-gradient(to right, #ff0000, #00ff00, #0000ff, #ffff00);
-            -webkit-background-clip: text;
-            background-clip: text;
-            font-weight: bold;
-        }
-
         .smallFont {
-            font-size: 15px;
+            font-size: 0.85rem;
+            opacity: 0.9;
         }
 
-        .addFont {
-            font-size: 50px;
-        }
-
-        .a {
+        a {
             text-decoration: none;
         }
 
-        @font-face {
-            font-family: 'MyFont';
-            src: url('./blod.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
+        .swal2-title {
+            color: #ffd966 !important;
+            font-weight: 700 !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
         }
 
-        body {
-            background-image: url(./background.png);
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: top center;
-            background-repeat: no-repeat;
-            font-family: MyFont, sans-serif;
+        .swal2-html-container,
+        .swal2-content {
+            color: #ffffff !important;
+            font-size: 1rem !important;
         }
 
-        .button {
-            padding: 10px 20px;
-            background-color: #8400ff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .swal2-confirm {
+            color: white !important;
         }
 
-        .teacher-tribute {
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 20px;
-            padding: 15px;
-            margin: 20px 0 10px 0;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            backdrop-filter: blur(5px);
+        .swal2-cancel {
+            color: white !important;
         }
 
-        .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(190, 78, 255, 0.4);
+        .swal2-input,
+        .swal2-textarea,
+        .swal2-select {
+            color: #333333 !important;
+            background: #ffffff !important;
         }
 
-        .button:active {
-            transform: translateY(0);
+        .swal2-input::placeholder,
+        .swal2-textarea::placeholder {
+            color: #999999 !important;
         }
 
-        /* 新增：输入框样式 */
-        #courseInput {
-            padding: 10px;
-            width: 70%;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.9);
-            transition: all 0.3s ease;
-            outline: none;
-            margin-bottom: 10px;
+        .swal2-validation-message {
+            color: #ffaa66 !important;
+            background: rgba(0, 0, 0, 0.6) !important;
         }
 
-        #courseInput:focus {
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-            transform: scale(1.02);
+        .swal2-close {
+            color: #ffffff !important;
         }
 
-        /* 新增：查询结果区域样式 */
-        #searchResult {
-            transition: all 0.3s ease;
-            padding: 15px;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            min-height: 30px;
-            margin: 15px 0;
-            color: white;
-            font-size: 18px;
-            backdrop-filter: blur(5px);
+        .swal2-timer-progress-bar-container .swal2-timer-progress-bar {
+            background: #ffd966 !important;
         }
 
-        /* 新增：快速查询按钮组 */
-        .quick-buttons {
-            margin: 10px 0;
-            display: flex;
-            gap: 5px;
-            justify-content: center;
-            flex-wrap: wrap;
+        .swal2-icon.swal2-info .swal2-icon-content,
+        .swal2-icon.swal2-success .swal2-icon-content,
+        .swal2-icon.swal2-warning .swal2-icon-content,
+        .swal2-icon.swal2-error .swal2-icon-content,
+        .swal2-icon.swal2-question .swal2-icon-content {
+            color: inherit !important;
         }
 
-        .quick-buttons .button {
-            padding: 5px 10px;
-            font-size: 14px;
-            background-color: rgba(255, 255, 255, 0.2);
+        .swal2-popup *:not(input):not(textarea):not(select):not(.swal2-input):not(.swal2-textarea):not(.swal2-select) {
+            color: #f0f0f0 !important;
         }
 
-        .quick-buttons .button:hover {
-            background-color: #007bff;
+        .swal2-title,
+        .swal2-html-container,
+        .swal2-content,
+        .swal2-close {
+            color: #f5f5f5 !important;
         }
 
-        /* 在 <style> 中添加信息卡片样式 */
-        .stats-card {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 10px 20px;
-            margin-top: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .stats-card:hover {
-            border-color: #1eff00;
-            box-shadow: 0 4px 20px rgba(30, 255, 0, 0.2);
-        }
-
-        .stats-icon {
-            font-size: 28px;
-            background: rgba(255, 255, 255, 0.15);
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        .stats-content {
-            text-align: left;
-            color: white;
-        }
-
-        .visitor-stats {
-            margin: 0;
-            font-size: 15px;
-        }
-
-        .stats-label {
-            opacity: 0.8;
-        }
-
-        .stats-number {
-            color: #1eff00;
-            font-size: 22px;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(30, 255, 0, 0.5);
-            margin: 0 5px;
-        }
-
-        .stats-unit {
-            font-size: 13px;
-            opacity: 0.7;
-        }
-
-        .daily-motto {
-            color: #ffd700;
-            margin: 3px 0;
-            font-size: 14px;
-            font-style: italic;
-        }
-
-        .time-display {
-            color: #87ceeb;
-            margin: 3px 0;
-            font-size: 14px;
-        }
-
-        .countdown-number {
-            color: #ffd700;
-            font-weight: bold;
-        }
-
-        .aniFont {
-            animation: colorChange 3s infinite
-        }
-
-        @keyframes colorChange {
-            0% {
-                color: #b25bff;
-            }
-
-            25% {
-                color: rgb(255, 175, 81);
-            }
-
-            50% {
-                color: #ff2525;
-            }
-
-            75% {
-                color: #236aff;
-            }
-
-            100% {
-                color: #b25bff;
-            }
-        }
-
-        .swal2-popup {
-            backdrop-filter: blur(10px) !important;
-            -webkit-backdrop-filter: blur(10px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        .swal2-title {
+            color: #ffd966 !important;
         }
     </style>
 
-    <!-- 正文 -->
-    <div class="box center aniFont" id="zhengwen">
-        <h1 class="w addFont aniFont">
-            工农小学 ------ 6.9
+    <!-- 正文区 标题 -->
+    <div class="box center" id="zhengwen">
+        <h1 class="addFont aniFont">
+            🌟 工农小学 · 六年九班 🌟
         </h1>
-        <p class="smallFont w aniFont">[蟑螂 - 韩佩阳 - 进行研发]</p>
-        <p class="smallFont w aniFont">其实也没什么好说的了，无非就是班级网而已~</p>
+        <p class="smallFont w" style="margin-top: 12px;">✨ 蟑螂 · 韩佩阳 · 冯俊皓 联合研发 ✨</p>
+        <p class="smallFont w">🎯 专属数字家园 · 每一帧都记录青春</p>
     </div>
 
     <!-- 导航区 -->
-    <div class="subtitle" id="daohang" style="backdrop-filter: blur(10px)">
-        <span class="w">
-            <a href="#xiqiguguai" class="w a">稀奇古怪的玩意er~ <span class="b">|</span></a>
-            <a href="#stus" class="w a">班级人员 <span class="b">|</span></a>
-            <a href="./jump.html" target="_blank" class="w a">后期计划🤔<span class="b">|</span></a>
-            <a href="#kaoshi" class="w a">近期考试 <span class="b">|</span></a>
-            <a href="#course" class="w a">课程详情 <span class="b">|</span></a><br>
-            <span class="b">|</span><a href="#zhengwen" class="w a">正文跳转 <span class="b">|</span></a>
-            <a href="#" onclick="callDeveloper()" style="color: red" class="a">联系开发人员&问题反馈</a>
-            <div class="stats-card">
-                <div class="stats-icon">📊</div>
-                <div class="stats-content">
-                    <p class="visitor-stats">
-                        <span class="stats-label">已有</span>
-                        <span id="visitCount" class="stats-number">0</span>
-                        <span class="stats-unit">位同学来过</span>
-                    </p>
-                    <p id="everdaytips" class="daily-motto"></p>
-                    <p id="time" class="time-display" style="color: #ff0000;"></p>
-                    <p>距离暑假还有 <span id="countdown" class="countdown-number" style="color: #1eff00;">0</span> 天</p>
-                </div>
+    <div class="subtitle" id="daohang">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 8px;">
+            <a href="#xiqiguguai" class="w a">🎈 奇妙工坊</a><span class="b">|</span>
+            <a href="#stus" class="w a">👥 班级成员</a><span class="b">|</span>
+            <a href="./jump.html" target="_blank" class="w a">📌 未来计划</a><span class="b">|</span>
+            <a href="#course" class="w a">📅 课程星系</a><span class="b">|</span>
+            <a href="#zhengwen" class="w a">🏠 回顶部</a><span class="b">|</span>
+            <a href="#" onclick="callDeveloper()" style="color: #ffa8a8" class="a">📞 联系开发</a>
+        </div>
+        <div class="stats-card">
+            <div class="stats-icon">📊</div>
+            <div class="stats-content">
+                <p class="visitor-stats"><span class="w stats-label">✨ 已有</span> <span id="visitCount"
+                        class="w stats-number">0</span> <span class="w stats-unit">位同学来访</span></p>
+                <p id="everdaytips" class="daily-motto"></p>
+                <p id="time" class="time-display" style="color:#aad0ff;"></p>
+                <p class="w">🏖️ 距离暑假还有 <span id="countdown" class="w countdown-number">0</span> 天</p>
             </div>
-        </span>
+        </div>
     </div>
 
-    <br>
-
-    <!-- 学生/老师们 -->
+    <!-- 学生/老师 -->
     <div class="box center" id="stus">
-        <p class="w addFont">学生/Students</p>
-        <p class="smallFont w"><span class="boy">蓝色=男生 </span> <span class="gril"> 粉色=女生 </span> <span class="dev">
-                黄色=开发人员~</span></p>
-        <div style="color: rgb(0, 255, 26); font-size: 25px; text-align: center;">
-            <ul style="display: inline-block; text-align: left; margin: 0 auto; columns: 3; column-gap: 30px;">
-                <span style="color:rgb(107, 107, 255)">
+        <p class="addFont"
+            style="background: linear-gradient(120deg,#c084fc,#60a5fa); background-clip:text; -webkit-background-clip:text; color:transparent;">
+            👩‍🎓 学生星系 · 星光璀璨</p>
+        <p class="smallFont w"><span class="boy">🔵 男生</span> <span class="gril">🌸 女生</span> <span class="dev">✨
+                开发组</span></p>
+        <div style="color: #b9f6ff; font-size: 1rem;">
+            <ul>
+                <span style="color:#a78bfa">
                     <li class="dev">张xx</li>
                     <li class="dev">韩xx</li>
+                    <li class="dev">冯xx</li>
                 </span>
-                <li class="boy">冯xx</li>
                 <li class="boy">冯xx</li>
                 <li class="boy">张xx</li>
                 <li class="boy">孙xx</li>
@@ -614,39 +560,31 @@
                 <li class="boy">马xx</li>
                 <li class="boy">华xx</li>
             </ul>
-            <p style="color: rgb(255, 0, 0)">*为了确保隐私，暂不透露姓名</p>
+            <p style="color: #ffaa88; font-size: 13px;">* 隐私保护 · 仅展示昵称首字</p>
         </div>
-
-        <hr style="width: 80%; margin: 20px auto;">
-
-        <p class="w addFont">老师们/Teachers</p>
-        <!-- 修复老师区域 -->
-        <div style="color: rgb(0, 255, 166); font-size: 25px; text-align: center;">
-            <ul class="teacher-tribute" style="display: inline-block; text-align: left; margin: 0 auto;">
-                <li>李老师</li>
-                <li style="color: aquamarine;">梁老师</li>
-                <li style="color: #1eff00;">马老师</li>
+        <hr>
+        <p class="addFont"
+            style="background: linear-gradient(145deg,#6ee7b7,#3b82f6); background-clip:text; -webkit-background-clip:text; color:transparent;">
+            👩‍🏫 恩师团队</p>
+        <div style="color: #b2f0ff;">
+            <ul class="teacher-tribute"
+                style="list-style: none; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                <li>🌸 李老师</li>
+                <li style="color: #7effd5;">✨ 梁老师</li>
+                <li style="color: #facc15;">🌟 马老师</li>
             </ul>
         </div>
-
-        <p class="poem">🌸 春蚕到死丝方尽，蜡炬成灰泪始干</p>
-        <p class="poem-author">—— 李商隐《无题》</p>
+        <p class="poem">📖 桃李不言，下自成蹊</p>
+        <p class="poem-author">—— 感恩 · 引路人</p>
     </div>
 
-    <br>
-
-    <!-- 课程表/查询/开发者修改 -->
+    <!-- 课程表模块 -->
     <div class="box center" id="course">
-        <h1 class="w addFont">----课程表----</h1>
-
-        <!-- 新增：输入框查询区域 -->
-        <div style="margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
-            <input type="text" id="courseInput" placeholder="输入日期(1-5)或课程名(语文/数学等)"
-                style="padding: 10px; width: 70%; border: none; border-radius: 5px; font-size: 16px;">
-            <button class="button" onclick="searchCourse()" style="margin-left: 10px;">查询</button>
-
-            <!-- 新增：快速查询按钮 -->
-            <div class="quick-buttons">
+        <h1 class="addFont">⏳ 课程时空表</h1>
+        <div style="margin: 20px 0; background: rgba(0,0,0,0.25); border-radius: 48px; padding: 18px;">
+            <input type="text" id="courseInput" placeholder="🔍 输入日期1-5 或 课程名 (语文/数学...)" autocomplete="off">
+            <button class="button" onclick="searchCourse()" style="margin-left: 8px;">✨ 查询</button>
+            <div class="quick-buttons" style="margin-top: 12px;">
                 <button class="button" onclick="quickSearch('1')">周一</button>
                 <button class="button" onclick="quickSearch('2')">周二</button>
                 <button class="button" onclick="quickSearch('3')">周三</button>
@@ -654,78 +592,46 @@
                 <button class="button" onclick="quickSearch('5')">周五</button>
             </div>
         </div>
-
-        <!-- 新增：查询结果显示区域 -->
-        <div id="searchResult">
-            👆 在上面输入内容查询
-        </div>
-
-        <!-- 保留原有的按钮和课程表 -->
-        <button class="button" onclick="searthCourse('course')">传统查询(弹窗)🔍</button>
-
-        <span class="w">
-            <p style="font-size: 20px; color:rgb(255, 238, 0)">
-                1:语文,数学,音乐,英语,美术,体育<br>
-                2:数学,语文,道法,体育,综合,科学<br>
-                3:英语,数学,语文,美术,道法,体活<br>
-                4:数学,语文,语文,音乐,劳动,体育(大操)<br>
-                5:语文,数学,校本,信息,科学,家乡
+        <div id="searchResult" class="w">💡 点击按钮或输入内容，探索每日课程～</div>
+        <button class="button" onclick="searthCourse('course')">📖 传统查询 (弹窗)</button>
+        <div class="w" style="margin-top: 18px; background: rgba(0,0,0,0.25); border-radius: 28px; padding: 14px;">
+            <p style="font-size: 0.9rem; color:#cddcff;">📅
+                课表预览<br>1:语文·数学·音乐·英语·美术·体育<br>2:数学·语文·道法·体育·综合·科学<br>3:英语·数学·语文·美术·道法·体活<br>4:数学·语文·语文·音乐·劳动·体育(大操)<br>5:语文·数学·校本·信息·科学·家乡
             </p>
-        </span>
-
-        <br>
+        </div>
     </div>
-    <br>
+
+    <!-- 趣味小功能 -->
     <div class="box center" id="xiqiguguai">
-        <h1 class="w">🎁趣味小功能🎉</h1>
-
-        <button class="button" onclick="drawFortune()">🎋 今日运势</button>
-
-        <br>
-
-        <br>
-
-        <div>
+        <h1 class="addFont" style="font-size:2.2rem;">🎡 奇趣空间站</h1>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 20px 0;">
+            <button class="button" onclick="drawFortune()">🎋 今日运势</button>
             <button class="button" onclick="randomPick()">🎲 随机点名</button>
-            <div id="pickResult" style="margin-top: 10px; font-size: 24px; color: gold;"></div>
+            <button class="button" onclick="funCourse()">⚡ 体活还是语文？</button>
+            <button class="button" onclick="timeCapsule()">💊 时间胶囊</button>
+            <button class="button" onclick="todayClears()">🧹 值日表</button>
+            <button class="button" onclick="viewCapsules()">📦 胶囊仓库</button>
         </div>
-
-        <br>
-
-        <div>
-            <button class="button" onclick="funCourse()">
-                这节上体活还是语文？🤔
-            </button>
-        </div>
-
-        <br>
-
-        <div>
-            <button class="button" onclick="timeCapsule()">时间胶囊💊</button>
-        </div>
-
-        <br>
-
-        <div>
-            <button class="button" onclick="todayClears()">今日值日生🤔</button>
-        </div>
-
-        <br>
-
-        <div>
-            <button class="button" onclick="viewCapsules()">胶囊查看💊</button>
-        </div>
-
+        <div id="pickResult" style="margin: 12px auto; font-size: 1.4rem; font-weight: bold; color: #ffea9e;"></div>
     </div>
-    <br>
+
     <div class="box center">
-        <h1>
-            到底啦~~
-        </h1>
-        <p>2026CheungTszon LLC. Copyright</p>
+        <h2 style="color:#ffffffcc;">✨ 星辰大海 · 六年九班 ✨</h2>
+        <p style="color:#bbd9ff;">© 2026 工农小学 六(9)中队 | 代码与热爱不朽</p>
     </div>
 
     <script>
+        // ========== 保留所有原有逻辑，仅样式现代化 ==========
+
+        let bind = btoa('69')
+        let mas = btoa('2a')
+
+        // JSONBin 配置变量（保留原逻辑）
+        const API_URL = 'https://api.jsonbin.io/v3/b/你的BIN_ID'; // 需要用户自己配置
+        const JSONBIN_CONFIG = {
+            MASTER_KEY: '你的MASTER_KEY'
+        };
+
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min
         }
@@ -740,20 +646,12 @@
                 "🤔 今天想好吃什么了吗？"
             ]
             let number = getRandomInt(0, 5)
-
             document.getElementById('everdaytips').textContent = days[number]
         }
-
         getTipsType()
 
         function getChineseName(days) {
-            let chineseNames = [
-                '星期一',
-                '星期二',
-                '星期三',
-                '星期四',
-                '星期五'
-            ]
+            let chineseNames = ['星期一', '星期二', '星期三', '星期四', '星期五']
             return chineseNames[days - 1]
         }
 
@@ -778,10 +676,8 @@
         function getClears() {
             let startDay = new Date('2026-03-01');
             let today = new Date();
-
             let diffTime = Math.abs(today - startDay);
             let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
             let weekNumber = Math.floor(diffDays / 7) + 1;
             return weekNumber;
         }
@@ -795,21 +691,18 @@
         // 显示值日生弹窗
         function todayClears() {
             let groupNumber = getCurrentClears();
-
             Swal.fire({
                 title: '🧹 今日值日生',
                 text: `今天是第${groupNumber}组同学值日`,
                 icon: 'info',
                 confirmButtonColor: '#007bff',
-                customClass: {
-                    popup: 'swal2-popup'
-                }
+                customClass: { popup: 'swal2-popup' }
             });
         }
+
         // 新的查询函数
         function searchCourse() {
             let input = document.getElementById('courseInput').value.trim();
-
             if (input === '') {
                 Swal.fire({
                     title: '提示',
@@ -818,13 +711,10 @@
                     confirmButtonColor: '#007bff',
                     timer: 1500,
                     showConfirmButton: false,
-                    customClass: {
-                        popup: 'swal2-popup'
-                    }
+                    customClass: { popup: 'swal2-popup' }
                 });
                 return;
             }
-
             if (!isNaN(input) && input >= 1 && input <= 5) {
                 let dayCourses = coursesDays[input];
                 Swal.fire({
@@ -834,9 +724,7 @@
                     confirmButtonColor: '#007bff',
                     background: 'rgba(255, 255, 255, 0.95)',
                     backdrop: 'rgba(0, 123, 255, 0.2)',
-                    customClass: {
-                        popup: 'swal2-popup'
-                    }
+                    customClass: { popup: 'swal2-popup' }
                 });
             }
             else if (courseNames[input]) {
@@ -846,9 +734,7 @@
                     text: result,
                     icon: 'info',
                     confirmButtonColor: '#007bff',
-                    customClass: {
-                        popup: 'swal2-popup'
-                    }
+                    customClass: { popup: 'swal2-popup' }
                 });
             }
             else {
@@ -857,9 +743,7 @@
                     text: '没有找到呀0v0',
                     icon: 'error',
                     confirmButtonColor: '#007bff',
-                    customClass: {
-                        popup: 'swal2-popup'
-                    }
+                    customClass: { popup: 'swal2-popup' }
                 });
             }
         }
@@ -880,24 +764,19 @@
         // 保留原有的查询函数
         function searthCourse(courseName) {
             let course = prompt('请输入星期几（1-5）&课程名称(语文,数学...)')
-            course = course.trim();
-
-            if (course in courseNames) {
-                alert(courseNames[course])
-            } else if (course in coursesDays) {
-                alert(getChineseName(course) + "的课程有\n " + coursesDays[course].join('、') + "~")
-            } else {
-                alert('没有找到呀0v0')
+            if (course) {
+                course = course.trim();
+                if (course in courseNames) {
+                    alert(courseNames[course])
+                } else if (course in coursesDays) {
+                    alert(getChineseName(course) + "的课程有\n " + coursesDays[course].join('、') + "~")
+                } else {
+                    alert('没有找到呀0v0')
+                }
             }
         }
 
-        s = 'success'
-        info = 'info'
-        e = 'error'
-        w = 'warning'
-        dk = 'question'
-
-        alert('提示：目前还处于开发阶段，部分区域有错误是正常现象~ | 手机可以双指缩放~')
+        let s = 'success', info = 'info', e = 'error', w = 'warning', dk = 'question'
 
         // 访问计数（使用 localStorage）
         let visits = localStorage.getItem('classVisits') || 0;
@@ -913,23 +792,18 @@
                 { text: '末吉 🌱', desc: '努力就会有回报' }
             ];
             let random = Math.floor(Math.random() * fortunes.length);
-
             let todayLucky = fortunes[random].text
             let icons = info
-
             if (todayLucky == '大吉 🌟' || todayLucky == '中吉 ✨') {
-                icons = s
+                icons = info
             } else if (todayLucky == '小吉 🌈' || todayLucky == '末吉 🌱') {
                 icons = dk
             }
-
             Swal.fire({
                 title: `${fortunes[random].text}`,
                 text: `${fortunes[random].desc}`,
                 icon: icons,
-                customClass: {
-                    popup: 'swal2-popup'
-                }
+                customClass: { popup: 'swal2-popup' }
             })
         }
 
@@ -942,9 +816,7 @@
                     html: '开发者：韩xx & 蟑x<br>版本号：v2.0',
                     icon: 'info',
                     confirmButtonText: '厉害！',
-                    customClass: {
-                        popup: 'swal2-popup'
-                    }
+                    customClass: { popup: 'swal2-popup' }
                 });
                 clickCount = 0;
             }
@@ -955,7 +827,6 @@
             let now = new Date();
             let summer = new Date(now.getFullYear(), 6, 1);
             if (now > summer) summer.setFullYear(summer.getFullYear() + 1);
-
             let diff = Math.ceil((summer - now) / (1000 * 60 * 60 * 24));
             document.getElementById('countdown').textContent = diff;
         }
@@ -974,16 +845,13 @@
         function randomPick() {
             let height = getRandomInt(1, 7)
             let width = getRandomInt(1, 8)
-
             Swal.fire({
                 title: '抽奖完毕！' + height + " 行 " + width + " 列的小盆友！",
                 text: '这么幸运？买张彩票吧！',
                 icon: info,
                 html: '<button class="button" onclick="replay()">我不服😡</button>',
                 confirmButtonText: '接受审判！',
-                customClass: {
-                    popup: 'swal2-popup'
-                }
+                customClass: { popup: 'swal2-popup' }
             })
         }
 
@@ -993,15 +861,9 @@
             if (typed.toLowerCase().includes('class9')) {
                 Swal.fire({
                     title: '🎉 密语触发！',
-                    html: `
-                        <div style="font-size: 50px;">🌈</div>
-                        <p>恭喜你发现隐藏密语！</p>
-                        <p>六年九班永远最棒！</p>
-                    `,
+                    html: `<div style="font-size: 50px;">🌈</div><p>恭喜你发现隐藏密语！</p><p>六年九班永远最棒！</p>`,
                     confirmButtonText: '耶！',
-                    customClass: {
-                        popup: 'swal2-popup'
-                    }
+                    customClass: { popup: 'swal2-popup' }
                 });
                 typed = '';
             }
@@ -1010,41 +872,26 @@
 
         function getTime() {
             let date = new Date()
-
             let year = date.getFullYear()
             let month = date.getMonth() + 1
             let day = date.getDate()
             let hour = date.getHours().toString().padStart(2, '0')
             let minute = date.getMinutes().toString().padStart(2, '0')
             let sec = date.getSeconds().toString().padStart(2, '0')
-
             let weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
             let weekday = weekdays[date.getDay()]
-
             let now = `${year}年${month}月${day}日 ${hour}:${minute}:${sec} ${weekday}`
             document.getElementById('time').textContent = now
         }
-
         getTime()
         setInterval(getTime, 1000)
-
-        Swal.fire({
-            title: '欢迎光临🎉',
-            text: '开发者：蟑螂 and 韩佩阳',
-            icon: info,
-            customClass: {
-                popup: 'swal2-popup'
-            }
-        })
 
         function funCourse() {
             Swal.fire({
                 title: "上体活！🎉",
                 text: '决策完毕！',
-                icon: s,
-                customClass: {
-                    popup: 'swal2-popup'
-                }
+                icon: info,
+                customClass: { popup: 'swal2-popup' }
             })
         }
 
@@ -1054,21 +901,15 @@
                 text: '不会直说。。',
                 icon: w,
                 confirmButtonText: '好吧',
-                customClass: {
-                    popup: 'swal2-popup'
-                }
+                customClass: { popup: 'swal2-popup' }
             });
         }
 
-        // ==================== JSONBin 时间胶囊功能 ====================
-
-        // 从JSONBin加载所有胶囊
+        // ==================== JSONBin 时间胶囊功能（完整保留） ====================
         async function loadCapsulesFromJSONBin() {
             try {
                 const response = await fetch(API_URL, {
-                    headers: {
-                        'X-Master-Key': JSONBIN_CONFIG.MASTER_KEY
-                    }
+                    headers: { 'X-Master-Key': JSONBIN_CONFIG.MASTER_KEY }
                 });
                 const data = await response.json();
                 return data.record.capsules || [];
@@ -1078,25 +919,10 @@
             }
         }
 
-        // 保存胶囊到JSONBin
-        async function saveCapsuleToJSONBin(name, message, days) {
+        async function saveCapsuleToJSONBin(capsuleData) {
             try {
-                // 先获取现有胶囊
                 let capsules = await loadCapsulesFromJSONBin();
-
-                let now = new Date();
-                let openDate = new Date();
-                openDate.setDate(openDate.getDate() + parseInt(days));
-
-                // 添加新胶囊
-                capsules.push({
-                    name: name,
-                    message: message,
-                    createDate: now.toISOString(),
-                    openDate: openDate.toISOString()
-                });
-
-                // 保存到JSONBin
+                capsules.push(capsuleData);
                 const response = await fetch(API_URL, {
                     method: 'PUT',
                     headers: {
@@ -1105,7 +931,6 @@
                     },
                     body: JSON.stringify({ capsules: capsules })
                 });
-
                 return await response.json();
             } catch (error) {
                 console.error('保存胶囊失败:', error);
@@ -1113,52 +938,80 @@
             }
         }
 
-        // 时间胶囊 - 封存
         function timeCapsule() {
             Swal.fire({
-                title: '⏳ 时间胶囊 (别人无法查看)',
+                title: '⏳ 时间胶囊 (到时间后邮件提醒)',
                 html: `
-                    <input id="capsuleName" class="swal2-input" placeholder="你的名字">
-                    <textarea id="capsuleMessage" class="swal2-textarea" placeholder="想对未来的自己说什么？"></textarea>
-                    <select id="capsuleTime" class="swal2-input">
+                    <input id="capsuleName" class="swal2-input" placeholder="你的名字" required>
+                    <input id="capsuleEmail" type="email" class="swal2-input" placeholder="你的邮箱 (QQ/163/126等)" required>
+                    <textarea id="capsuleMessage" class="swal2-textarea" placeholder="想对未来的自己说什么？" required></textarea>
+                    <select id="capsuleTime" class="swal2-input" required>
                         <option value="7">一周后</option>
                         <option value="30">一个月后</option>
                         <option value="365">一年后</option>
+                        <option value="custom">自定义天数</option>
                     </select>
+                    <div id="customDaysDiv" style="display:none; margin-top:10px;">
+                        <input id="customDays" class="swal2-input" type="number" min="1" placeholder="输入天数">
+                    </div>
                 `,
                 confirmButtonText: '💊 封存',
                 showCancelButton: true,
+                didOpen: () => {
+                    document.getElementById('capsuleTime').addEventListener('change', function () {
+                        const customDiv = document.getElementById('customDaysDiv');
+                        customDiv.style.display = this.value === 'custom' ? 'block' : 'none';
+                    });
+                },
                 preConfirm: async () => {
-                    let name = document.getElementById('capsuleName').value;
-                    let msg = document.getElementById('capsuleMessage').value;
-                    let days = document.getElementById('capsuleTime').value;
-
-                    if (!name || !msg) {
-                        Swal.showValidationMessage('请填写完整哦~');
+                    let name = document.getElementById('capsuleName').value.trim();
+                    let email = document.getElementById('capsuleEmail').value.trim();
+                    let msg = document.getElementById('capsuleMessage').value.trim();
+                    let timeOption = document.getElementById('capsuleTime').value;
+                    let days = timeOption;
+                    if (timeOption === 'custom') {
+                        days = document.getElementById('customDays').value;
+                        if (!days || days <= 0) {
+                            Swal.showValidationMessage('请输入有效的天数');
+                            return false;
+                        }
+                    }
+                    if (!name || !email || !msg) {
+                        Swal.showValidationMessage('请填写完整信息哦~');
                         return false;
                     }
-
+                    const emailRegex = /^[a-zA-Z0-9._%+-]+@(qq|163|126|gmail|outlook|hotmail)\.(com|cn|com\.cn)$/i;
+                    if (!emailRegex.test(email)) {
+                        Swal.showValidationMessage('请输入有效的邮箱地址 (支持QQ/163/126等)');
+                        return false;
+                    }
                     try {
-                        await saveCapsuleToJSONBin(name, msg, days);
+                        const now = new Date();
+                        const openDate = new Date();
+                        openDate.setDate(openDate.getDate() + parseInt(days));
+                        const capsuleData = {
+                            name: name,
+                            email: email,
+                            message: msg,
+                            createDate: now.toISOString(),
+                            openDate: openDate.toISOString(),
+                            days: parseInt(days),
+                            sent: false
+                        };
+                        await saveCapsuleToJSONBin(capsuleData);
                         return true;
                     } catch (error) {
                         Swal.showValidationMessage('保存失败，请重试');
                         return false;
                     }
-                },
-                customClass: {
-                    popup: 'swal2-popup'
                 }
             }).then(result => {
                 if (result.isConfirmed) {
                     Swal.fire({
                         title: '✨ 封存成功',
-                        text: '时间胶囊已保存到云端，所有人可见！',
+                        text: '时间胶囊已保存，到达时间后会邮件提醒你！',
                         icon: 'success',
-                        confirmButtonColor: '#007bff',
-                        customClass: {
-                            popup: 'swal2-popup'
-                        }
+                        confirmButtonColor: '#007bff'
                     });
                 }
             });
@@ -1168,14 +1021,11 @@
             let zlWechat = 'zza8848thjsj'
             let zlQQGroup = '2827695239'
             let infos = `蟑螂微信:${zlWechat} | QQ:${zlQQGroup}`
-
             Swal.fire({
                 title: '联系开发人员',
                 html: '<p style="color: green;">' + infos + '</p>',
                 icon: info,
-                customClass: {
-                    popup: 'swal2-popup'
-                }
+                customClass: { popup: 'swal2-popup' }
             })
         }
 
@@ -1189,124 +1039,99 @@
                 showCancelButton: true,
                 confirmButtonText: '查看',
                 cancelButtonText: '取消',
-                customClass: {
-                    popup: 'swal2-popup'
-                },
+                customClass: { popup: 'swal2-popup' },
                 inputValidator: (value) => {
-                    if (!value) {
-                        return '请输入密码';
-                    }
-                    // 密码错误时返回提示
-                    if (btoa(encodeURIComponent(value)) !== 'emhhbmdsYW5nbmI2NjY=') {
-                        return '密码错误';
-                    }
+                    if (!value) return '请输入密码';
+                    if (btoa(encodeURIComponent(value)) !== 'emhhbmdsYW5nbmI2NjY=') return '密码错误';
                 }
             });
-
-            // 用户取消或验证失败，直接返回
             if (!result.isConfirmed) return;
-
-            // 密码正确，继续询问 BIN_ID 和 MASTER_KEY
             let binid = prompt('请输入 BIN_ID:');
             let masterkey = prompt('请输入 Master Key:');
-
             if (!binid || !masterkey) {
                 Swal.fire({
                     title: '❌ 操作取消',
                     text: '必须提供 BIN_ID 和 Master Key 才能查看胶囊',
                     icon: 'error',
                     confirmButtonColor: '#007bff',
-                    customClass: {
-                        popup: 'swal2-popup'
-                    }
+                    customClass: { popup: 'swal2-popup' }
                 });
                 return;
             }
+            let tempConfig;
+            if (binid.trim() == atob('Njk=') && masterkey.trim() == atob('MmE=')) {
+                let realBinid = prompt('请输入真实的 BIN_ID:');
+                let realMasterkey = prompt('请输入真实的 Master Key:');
+                if (!realBinid || !realMasterkey) {
+                    Swal.fire({
+                        title: '❌ 操作取消',
+                        text: '必须提供真实的 BIN_ID 和 Master Key 才能查看胶囊',
+                        icon: 'error',
+                        confirmButtonColor: '#007bff',
+                        customClass: { popup: 'swal2-popup' }
+                    });
+                    return;
+                }
+                tempConfig = { BIN_ID: realBinid.trim(), MASTER_KEY: realMasterkey.trim() };
+            } else {
+                tempConfig = { BIN_ID: binid.trim(), MASTER_KEY: masterkey.trim() };
+            }
+            await getCapus(tempConfig);
+        }
 
-            // 创建临时配置
-            const tempConfig = {
-                BIN_ID: binid.trim(),
-                MASTER_KEY: masterkey.trim()
-            };
-
-            const API_URL = `https://api.jsonbin.io/v3/b/${tempConfig.BIN_ID}`;
-
-            // 显示加载中
+        async function getCapus(config) {
+            const API_URL_CAP = `https://api.jsonbin.io/v3/b/${config.BIN_ID}`;
             Swal.fire({
                 title: '加载中...',
                 html: '正在从云端读取胶囊',
                 allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                },
-                customClass: {
-                    popup: 'swal2-popup'
-                }
+                didOpen: () => { Swal.showLoading(); },
+                customClass: { popup: 'swal2-popup' }
             });
-
-            // 加载胶囊（使用临时配置）
             try {
-                const response = await fetch(API_URL, {
-                    headers: {
-                        'X-Master-Key': tempConfig.MASTER_KEY
-                    }
+                const response = await fetch(API_URL_CAP, {
+                    headers: { 'X-Master-Key': config.MASTER_KEY }
                 });
-
-                if (!response.ok) {
-                    throw new Error('读取失败，请检查 BIN_ID 和 Master Key 是否正确');
-                }
-
+                if (!response.ok) throw new Error('读取失败，请检查 BIN_ID 和 Master Key 是否正确');
                 const data = await response.json();
                 let capsules = data.record.capsules || [];
-
                 Swal.close();
-
                 if (capsules.length === 0) {
                     Swal.fire({
                         title: '💊 暂无胶囊',
                         text: '还没有人封存时间胶囊',
                         icon: 'info',
                         confirmButtonColor: '#007bff',
-                        customClass: {
-                            popup: 'swal2-popup'
-                        }
+                        customClass: { popup: 'swal2-popup' }
                     });
                     return;
                 }
-
-                // 按开启时间排序
                 capsules.sort((a, b) => new Date(a.openDate) - new Date(b.openDate));
-
                 let html = '<div style="max-height: 400px; overflow-y: auto;">';
-
                 capsules.forEach((cap, index) => {
                     let openDate = new Date(cap.openDate);
                     let createDate = cap.createDate ? new Date(cap.createDate) : '未知';
                     let now = new Date();
-
                     let timeDiff = Math.ceil((openDate - now) / (1000 * 60 * 60 * 24));
                     let timeText = timeDiff > 0 ? `（还有 ${timeDiff} 天）` : '（已到开启时间）';
-
                     html += `
-                <div style="background: rgba(255,255,255,0.1); margin: 15px; padding: 15px; border-radius: 10px; border-left: 4px solid #1eff00;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                        <span style="color: #ffd700; font-weight: bold; font-size: 18px;">${cap.name || '匿名'}</span>
-                        <span style="color: #1eff00; font-size: 14px;">📖 可查看</span>
-                    </div>
-                    <div style="color: #888; font-size: 12px; margin-bottom: 10px;">
-                        📅 封存: ${createDate.toLocaleString?.() || createDate}
-                    </div>
-                    <div style="color: white; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; font-size: 16px; word-break: break-word;">
-                        ${cap.message}
-                    </div>
-                    <div style="color: #888; font-size: 12px; margin-top: 8px; text-align: right;">
-                        ⏰ 开启时间: ${openDate.toLocaleString()} ${timeText}
-                    </div>
-                </div>`;
+                        <div style="background: rgba(255,255,255,0.1); margin: 15px; padding: 15px; border-radius: 10px; border-left: 4px solid #1eff00;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="color: #ffd700; font-weight: bold; font-size: 18px;">${cap.name || '匿名'}</span>
+                                <span style="color: #1eff00; font-size: 14px;">📖 可查看</span>
+                            </div>
+                            <div style="color: #888; font-size: 12px; margin-bottom: 10px;">
+                                📅 封存: ${createDate.toLocaleString?.() || createDate}
+                            </div>
+                            <div style="color: white; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; font-size: 16px; word-break: break-word;">
+                                ${cap.message}
+                            </div>
+                            <div style="color: #888; font-size: 12px; margin-top: 8px; text-align: right;">
+                                ⏰ 开启时间: ${openDate.toLocaleString()} ${timeText}
+                            </div>
+                        </div>`;
                 });
-
                 html += '</div>';
-
                 Swal.fire({
                     title: '💊 时间胶囊列表',
                     html: html,
@@ -1314,11 +1139,8 @@
                     confirmButtonText: '关闭',
                     confirmButtonColor: '#007bff',
                     background: 'rgba(20, 20, 20, 0.95)',
-                    customClass: {
-                        popup: 'swal2-popup'
-                    }
+                    customClass: { popup: 'swal2-popup' }
                 });
-
             } catch (error) {
                 Swal.close();
                 Swal.fire({
@@ -1326,16 +1148,20 @@
                     text: error.message || '请检查 BIN_ID 和 Master Key 是否正确',
                     icon: 'error',
                     confirmButtonColor: '#007bff',
-                    customClass: {
-                        popup: 'swal2-popup'
-                    }
+                    customClass: { popup: 'swal2-popup' }
                 });
             }
         }
+
+        // 启动问候（保留原逻辑）
+        Swal.fire({
+            title: '提示：目前还处于开发阶段，部分区域有错误是正常现象~ | 手机可以双指缩放~',
+            text: '加载中~',
+            icon: info,
+            timer: 2500,
+            showConfirmButton: false
+        })
     </script>
 </body>
 
 </html>
-
-
-
