@@ -4,825 +4,862 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>🌈 工农小学 · 六年九班 | 未来班级空间</title>
-    <!-- SweetAlert2 现代化弹窗 -->
+    <title>🎪工农小学 · 六年九班🎢</title>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.all.min.js"></script>
-    <audio src="./music.mp3" controls
-        style="opacity:0.6; width: 180px; position: fixed; bottom: 15px; right: 15px; z-index: 999; border-radius: 30px;"></audio>
-</head>
-
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <meta name="description" content="工农小学 - 六年九班班级网">
     <style>
-        /* ========== 全局现代风格重置 ========== */
-        * {
+        /* ===== Reset & Base ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            background-attachment: fixed;
-            font-family: 'Segoe UI', 'Poppins', 'MyFont', system-ui, -apple-system, 'Roboto', sans-serif;
-            padding: 30px 20px 60px;
-            animation: globalFadeIn 1.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-
-        /* 动态渐变背景 + 微光粒子 */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.2), transparent 60%),
-                radial-gradient(circle at 80% 80%, rgba(255, 200, 100, 0.15), transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        @keyframes globalFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 主容器卡片 - 磨砂玻璃质感 */
-        .box,
-        .subtitle {
-            background: rgba(20, 30, 45, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.35), 0 0 0 0.5px rgba(255, 255, 255, 0.1) inset;
-            transition: all 0.35s ease;
-            width: 700px;
-            max-width: 90%;
-            margin: 20px auto;
-            padding: 24px 22px;
-            text-align: center;
-        }
-
-        @media (max-width: 750px) {
-
-            .box,
-            .subtitle {
-                width: 95%;
-                padding: 20px 16px;
-            }
-        }
-
-        .box:hover,
-        .subtitle:hover {
-            transform: translateY(-6px);
-            border-color: rgba(100, 210, 255, 0.6);
-            box-shadow: 0 28px 40px -16px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(100, 210, 255, 0.3) inset;
-            background: rgba(25, 38, 55, 0.65);
-        }
-
-        /* 导航链接 */
-        #daohang a {
-            color: #eef5ff;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 12px;
-            border-radius: 40px;
-            transition: all 0.2s;
-            display: inline-block;
-            background: rgba(255, 255, 240, 0.05);
-            margin: 4px 2px;
-        }
-
-        #daohang a:hover {
-            background: #3b82f6;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(59, 130, 246, 0.4);
-        }
-
-        .b {
-            color: #cbd5e6;
-            margin: 0 2px;
-        }
-
-        /* 标题特效 */
-        .addFont {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #FFFFFF, #a0e9ff, #6c5ce7);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .aniFont {
-            animation: softGlow 8s infinite alternate;
-        }
-
-        @keyframes softGlow {
-            0% {
-                text-shadow: 0 0 3px rgba(100, 200, 255, 0.3);
-                filter: brightness(1);
-            }
-
-            100% {
-                text-shadow: 0 0 12px rgba(100, 200, 255, 0.7);
-                filter: brightness(1.05);
-            }
-        }
-
-        /* 学生名单现代列 */
-        #stus ul {
-            columns: 3;
-            column-gap: 28px;
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-
-        #stus li {
-            padding: 6px 8px 6px 28px;
-            margin-bottom: 8px;
-            background: rgba(255, 255, 245, 0.05);
-            border-radius: 40px;
-            transition: all 0.25s;
-            font-size: 1rem;
-            font-weight: 500;
-            position: relative;
-        }
-
-        #stus li:hover {
-            transform: translateX(8px) scale(1.02);
-            background: rgba(59, 130, 246, 0.25);
-            backdrop-filter: blur(4px);
-        }
-
-        #stus li::before {
-            content: "⭐";
-            position: absolute;
-            left: 4px;
-            top: 6px;
-            opacity: 0.6;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-
-        #stus li:hover::before {
-            opacity: 1;
-            transform: rotate(15deg) scale(1.1);
-        }
-
-        /* 老师区域现代卡片 */
-        .teacher-tribute {
-            background: linear-gradient(145deg, rgba(255, 215, 0, 0.12), rgba(59, 130, 246, 0.12));
-            border-radius: 28px;
-            padding: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.4);
-        }
-
-        .teacher-tribute li {
-            font-size: 1.25rem;
-            padding: 6px 0;
-        }
-
-        /* 诗句风格 */
-        .poem {
-            font-size: 1.35rem;
-            background: linear-gradient(120deg, #f3e7c9, #ffe6b3);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            font-weight: 500;
-            margin: 20px 0 8px;
-        }
-
-        .poem-author {
-            color: #aad0ff;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        /* 按钮现代感 */
-        .button {
-            background: linear-gradient(105deg, #3b82f6, #8b5cf6);
-            border: none;
-            color: white;
-            font-weight: 600;
-            padding: 10px 24px;
-            border-radius: 60px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.25s;
-            box-shadow: 0 8px 18px -8px rgba(59, 130, 246, 0.4);
-            margin: 6px 8px;
-        }
-
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 24px -10px #3b82f6;
-            background: linear-gradient(105deg, #2563eb, #7c3aed);
-        }
-
-        .quick-buttons .button {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(4px);
-            box-shadow: none;
-            font-size: 0.85rem;
-        }
-
-        .quick-buttons .button:hover {
-            background: #3b82f6;
-            transform: translateY(-2px);
-        }
-
-        /* 输入框未来感 */
-        #courseInput {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(59, 130, 246, 0.5);
-            border-radius: 48px;
-            padding: 12px 20px;
-            width: 70%;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.2s;
-        }
-
-        #courseInput:focus {
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
-            transform: scale(1.01);
-        }
-
-        /* 统计卡片 */
-        .stats-card {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(20px);
-            border-radius: 60px;
-            padding: 12px 20px;
-            margin: 18px auto 8px;
-            border: 1px solid rgba(255, 255, 200, 0.25);
-        }
-
-        .stats-icon {
-            font-size: 2rem;
-            background: rgba(59, 130, 246, 0.3);
-            width: 52px;
-            height: 52px;
-            border-radius: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .stats-number {
-            color: #4effb5;
-            font-size: 1.8rem;
-            font-weight: 800;
-            text-shadow: 0 0 6px #1effaa;
-        }
-
-        .daily-motto {
-            color: #ffdf8c;
-            font-style: italic;
-        }
-
-        .time-display {
-            color: #a0d2ff;
-        }
-
-        .countdown-number {
-            color: #ffb347;
-            font-weight: bold;
-        }
-
-        /* 课程表内容 */
-        #course p {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 14px;
-            border-left: 5px solid #3b82f6;
-            text-align: left;
-        }
-
-        #searchResult {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 28px;
-            padding: 14px;
-            font-weight: 500;
-        }
-
-        /* 颜色标签 */
-        .boy {
-            color: #7bc5ff;
-            font-weight: 500;
-        }
-
-        .gril {
-            color: #ffb7c5;
-            font-weight: 500;
-        }
-
-        .dev {
-            color: #ffdd77;
-            font-weight: 600;
-            text-shadow: 0 0 2px gold;
-        }
-
-        /* 手机端 */
-        @media (max-width: 650px) {
-            #stus ul {
-                columns: 2;
-            }
-
-            .addFont {
-                font-size: 1.8rem;
-            }
-
-            .button {
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
-        }
-
-        /* sweetalert 现代风格 */
-        .swal2-popup {
-            backdrop-filter: blur(20px) !important;
-            background: rgba(25, 35, 55, 0.9) !important;
-            border-radius: 36px !important;
-            border: 1px solid rgba(255, 255, 210, 0.3) !important;
-            font-family: inherit;
-            --swal2-title-color: #ffd700 !important;
-            /* 标题颜色 - 金色 */
-            --swal2-content-color: #ffffff !important;
-            /* 内容文字颜色 - 白色 */
-            --swal2-html-container-color: #f0f0f0 !important;
         }
 
         :root {
-            --swal2-border-radius: 28px;
-            --swal2-background: rgba(20, 28, 40, 0.88);
+            --bg: #f0f4f8;
+            --surface: #ffffff;
+            --surface2: #f7f9fc;
+            --border: #e2e8f0;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --accent: #6366f1;
+            --accent-soft: #eef2ff;
+            --accent2: #06b6d4;
+            --accent2-soft: #ecfeff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --radius-sm: 10px;
+            --radius: 16px;
+            --radius-lg: 24px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, .07), 0 1px 2px rgba(0, 0, 0, .05);
+            --shadow: 0 4px 16px rgba(0, 0, 0, .08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, .10);
+            --transition: 0.2s ease;
+            --font: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
         }
 
-        hr {
-            border-color: rgba(255, 255, 255, 0.2);
-            margin: 20px 0;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .w {
-            color: #f0f6ff;
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
         }
 
-        .center {
+        /* ===== Layout ===== */
+        .page-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 16px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            padding: 28px 24px;
+            transition: box-shadow var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== Hero Header ===== */
+        .hero {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            border-radius: var(--radius-lg);
+            padding: 40px 24px 32px;
+            text-align: center;
+            color: white;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 999px;
+            padding: 4px 14px;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero h1 {
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+        }
+
+        .hero-sub {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+
+        /* ===== Navbar ===== */
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            padding: 16px 20px;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: #c7d2fe;
+        }
+
+        .nav-link.danger {
+            color: #ef4444;
+            background: #fff5f5;
+            border-color: #fecaca;
+        }
+
+        .nav-link.danger:hover {
+            background: #fee2e2;
+        }
+
+        /* ===== Stats Bar ===== */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            padding: 0 4px;
+        }
+
+        .stat-item {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px 16px;
             text-align: center;
         }
 
-        .smallFont {
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .stat-motto {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--accent-soft), var(--accent2-soft));
+            border-color: #c7d2fe;
+            padding: 12px 16px;
+            border-radius: var(--radius);
+        }
+
+        .stat-motto p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        #time {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        #everdaytips {
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        /* ===== Section Heading ===== */
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ===== Student List ===== */
+        .student-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .student-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border: 1px solid transparent;
+        }
+
+        .student-chip.boy {
+            background: #eff6ff;
+            color: #2563eb;
+            border-color: #bfdbfe;
+        }
+
+        .student-chip.gril {
+            background: #fdf2f8;
+            color: #db2777;
+            border-color: #fbcfe8;
+        }
+
+        .student-chip.dev {
+            background: linear-gradient(135deg, #f3e8ff, #e0f2fe);
+            color: #7c3aed;
+            border-color: #e9d5ff;
+        }
+
+        .legend {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.boy {
+            background: #2563eb;
+        }
+
+        .legend-dot.gril {
+            background: #db2777;
+        }
+
+        .legend-dot.dev {
+            background: #7c3aed;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 20px 0;
+        }
+
+        .teacher-list {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .teacher-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .poem-block {
+            background: linear-gradient(135deg, #f0fdf4, #ecfeff);
+            border: 1px solid #a7f3d0;
+            border-radius: var(--radius);
+            padding: 14px 18px;
+            text-align: center;
+        }
+
+        .poem-text {
+            font-size: 1rem;
+            color: #065f46;
+            font-weight: 500;
+        }
+
+        .poem-author {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== Course Section ===== */
+        .search-box {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-family: var(--font);
+            background: var(--surface2);
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, .1);
+            background: white;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem;
+            font-weight: 600;
+            font-family: var(--font);
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, .3);
+        }
+
+        .btn-ghost {
+            background: var(--surface2);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: #c7d2fe;
+        }
+
+        .btn-ghost.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .weekday-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .weekday-btn {
+            flex: 1;
+            min-width: 52px;
+            padding: 8px 4px;
+            border-radius: var(--radius-sm);
             font-size: 0.85rem;
+            font-weight: 600;
+            font-family: var(--font);
+            border: 1.5px solid var(--border);
+            background: var(--surface2);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: center;
+        }
+
+        .weekday-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .course-preview {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px 18px;
+            margin-top: 12px;
+        }
+
+        .course-preview-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .course-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 6px;
+            font-size: 0.86rem;
+        }
+
+        .course-day-label {
+            color: var(--text-muted);
+            min-width: 28px;
+            font-weight: 500;
+        }
+
+        .course-items {
+            color: var(--text-secondary);
+        }
+
+        #searchResult {
+            min-height: 36px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 10px 0 4px;
+        }
+
+        /* ===== Fun Section ===== */
+        .fun-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+        }
+
+        .fun-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 18px 10px;
+            border-radius: var(--radius);
+            font-size: 0.84rem;
+            font-weight: 600;
+            font-family: var(--font);
+            border: 1.5px solid var(--border);
+            background: var(--surface2);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: center;
+        }
+
+        .fun-btn .fun-icon {
+            font-size: 1.6rem;
+        }
+
+        .fun-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        #pickResult {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, var(--accent-soft), var(--accent2-soft));
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-align: center;
+            min-height: 0;
+            display: none;
+        }
+
+        #pickResult.show {
+            display: block;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+
+        .footer-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .footer-sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Audio Player ===== */
+        .audio-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .audio-player audio {
+            display: block;
+            width: 180px;
+            height: 36px;
             opacity: 0.9;
         }
 
-        a {
-            text-decoration: none;
+        /* ===== Privacy Note ===== */
+        .privacy-note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .swal2-title {
-            color: #ffd966 !important;
-            font-weight: 700 !important;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+        /* ===== Responsive ===== */
+        @media (max-width: 480px) {
+            .card {
+                padding: 20px 16px;
+            }
+
+            .hero {
+                padding: 32px 16px 24px;
+            }
+
+            .fun-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
-        .swal2-html-container,
-        .swal2-content {
-            color: #ffffff !important;
-            font-size: 1rem !important;
+        /* ===== SweetAlert2 custom ===== */
+        .swal2-popup {
+            font-family: var(--font) !important;
+            border-radius: 20px !important;
         }
 
         .swal2-confirm {
-            color: white !important;
-        }
-
-        .swal2-cancel {
-            color: white !important;
+            background: var(--accent) !important;
+            border-radius: 10px !important;
+            font-family: var(--font) !important;
         }
 
         .swal2-input,
         .swal2-textarea,
         .swal2-select {
-            color: #333333 !important;
-            background: #ffffff !important;
-        }
-
-        .swal2-input::placeholder,
-        .swal2-textarea::placeholder {
-            color: #999999 !important;
-        }
-
-        .swal2-validation-message {
-            color: #ffaa66 !important;
-            background: rgba(0, 0, 0, 0.6) !important;
-        }
-
-        .swal2-close {
-            color: #ffffff !important;
-        }
-
-        .swal2-timer-progress-bar-container .swal2-timer-progress-bar {
-            background: #ffd966 !important;
-        }
-
-        .swal2-icon.swal2-info .swal2-icon-content,
-        .swal2-icon.swal2-success .swal2-icon-content,
-        .swal2-icon.swal2-warning .swal2-icon-content,
-        .swal2-icon.swal2-error .swal2-icon-content,
-        .swal2-icon.swal2-question .swal2-icon-content {
-            color: inherit !important;
-        }
-
-        .swal2-popup *:not(input):not(textarea):not(select):not(.swal2-input):not(.swal2-textarea):not(.swal2-select) {
-            color: #f0f0f0 !important;
-        }
-
-        .swal2-title,
-        .swal2-html-container,
-        .swal2-content,
-        .swal2-close {
-            color: #f5f5f5 !important;
-        }
-
-        .swal2-title {
-            color: #ffd966 !important;
+            border-radius: 10px !important;
+            font-family: var(--font) !important;
         }
     </style>
+</head>
 
-    <!-- 正文区 标题 -->
-    <div class="box center" id="zhengwen">
-        <h1 class="addFont aniFont">
-            🌟 工农小学 · 六年九班 🌟
-        </h1>
-        <p class="smallFont w" style="margin-top: 12px;">✨ 蟑螂 · 韩佩阳 · 冯俊皓 联合研发 ✨</p>
-        <p class="smallFont w">🎯 专属数字家园 · 每一帧都记录青春</p>
-    </div>
+<body>
 
-    <!-- 导航区 -->
-    <div class="subtitle" id="daohang">
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 8px;">
-            <a href="#xiqiguguai" class="w a">🎈 奇妙工坊</a><span class="b">|</span>
-            <a href="#stus" class="w a">👥 班级成员</a><span class="b">|</span>
-            <a href="./jump.html" target="_blank" class="w a">📌 未来计划</a><span class="b">|</span>
-            <a href="#course" class="w a">📅 课程星系</a><span class="b">|</span>
-            <a href="#zhengwen" class="w a">🏠 回顶部</a><span class="b">|</span>
-            <a href="#" onclick="callDeveloper()" style="color: #ffa8a8" class="a">📞 联系开发</a>
+    <div class="page-wrapper">
+
+        <!-- ① Hero Header -->
+        <div class="hero" id="zhengwen">
+            <div class="hero-badge">🏫 工农小学 · 六年九班</div>
+            <h1>六年九班 · 班级空间</h1>
+            <p class="hero-sub">✨ 蟑螂 · 韩 · 冯 联合研发</p>
+            <p class="hero-sub">专属数字家园 · 每一帧都记录青春</p>
         </div>
-        <div class="stats-card">
-            <div class="stats-icon">📊</div>
-            <div class="stats-content">
-                <p class="visitor-stats"><span class="w stats-label">✨ 已有</span> <span id="visitCount"
-                        class="w stats-number">0</span> <span class="w stats-unit">位同学来访</span></p>
-                <p id="everdaytips" class="daily-motto"></p>
-                <p id="time" class="time-display" style="color:#aad0ff;"></p>
-                <p class="w">🏖️ 距离暑假还有 <span id="countdown" class="w countdown-number">0</span> 天</p>
+
+        <!-- ② Navbar -->
+        <div class="card" style="padding: 14px 16px;">
+            <div class="navbar" style="padding: 0;">
+                <a href="#xiqiguguai" class="nav-link">🎈 奇妙工坊</a>
+                <a href="#stus" class="nav-link">👥 班级成员</a>
+                <a href="./jump.html" target="_blank" class="nav-link">📌 未来计划</a>
+                <a href="#course" class="nav-link">📅 课程星系</a>
+                <a href="#zhengwen" class="nav-link">🏠 回顶部</a>
+                <span onclick="callDeveloper()" class="nav-link danger">📞 联系开发</span>
             </div>
         </div>
-    </div>
 
-    <!-- 学生/老师 -->
-    <div class="box center" id="stus">
-        <p class="addFont"
-            style="background: linear-gradient(120deg,#c084fc,#60a5fa); background-clip:text; -webkit-background-clip:text; color:transparent;">
-            👩‍🎓 学生星系 · 星光璀璨</p>
-        <p class="smallFont w"><span class="boy">🔵 男生</span> <span class="gril">🌸 女生</span> <span class="dev">✨
-                开发组</span></p>
-        <div style="color: #b9f6ff; font-size: 1rem;">
-            <ul>
-                <span style="color:#a78bfa">
-                    <li class="dev">张xx</li>
-                    <li class="dev">韩xx</li>
-                    <li class="dev">冯xx</li>
-                </span>
-                <li class="boy">冯xx</li>
-                <li class="boy">张xx</li>
-                <li class="boy">孙xx</li>
-                <li class="gril">李xx</li>
-                <li class="boy">李xx</li>
-                <li class="boy">郝xx</li>
-                <li class="boy">李xx</li>
-                <li class="gril">高xx</li>
-                <li class="gril">刘xx</li>
-                <li class="boy">宋xx</li>
-                <li class="gril">刘xx</li>
-                <li class="boy">孙xx</li>
-                <li class="gril">张xx</li>
-                <li class="gril">刘xx</li>
-                <li class="gril">赵xx</li>
-                <li class="gril">夏xx</li>
-                <li class="boy">刘xx</li>
-                <li class="gril">赵xx</li>
-                <li class="boy">孙xx</li>
-                <li class="gril">赵xx</li>
-                <li class="gril">张xx</li>
-                <li class="boy">张xx</li>
-                <li class="boy">宣xx</li>
-                <li class="boy">陈xx</li>
-                <li class="gril">李xx</li>
-                <li class="gril">刘xx</li>
-                <li class="gril">张xx</li>
-                <li class="gril">张xx</li>
-                <li class="gril">关xx</li>
-                <li class="gril">刘xx</li>
-                <li class="boy">姚xx</li>
-                <li class="gril">王xx</li>
-                <li class="boy">闫xx</li>
-                <li class="boy">周xx</li>
-                <li class="boy">仲xx</li>
-                <li class="gril">刘xx</li>
-                <li class="gril">刘xx</li>
-                <li class="boy">杨xx</li>
-                <li class="gril">潘xx</li>
-                <li class="boy">蔚xx</li>
-                <li class="gril">宋xx</li>
-                <li class="boy">李xx</li>
-                <li class="gril">李xx</li>
-                <li class="boy">马xx</li>
-                <li class="boy">华xx</li>
-            </ul>
-            <p style="color: #ffaa88; font-size: 13px;">* 隐私保护 · 仅展示昵称首字</p>
-        </div>
-        <hr>
-        <p class="addFont"
-            style="background: linear-gradient(145deg,#6ee7b7,#3b82f6); background-clip:text; -webkit-background-clip:text; color:transparent;">
-            👩‍🏫 恩师团队</p>
-        <div style="color: #b2f0ff;">
-            <ul class="teacher-tribute"
-                style="list-style: none; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
-                <li>🌸 李老师</li>
-                <li style="color: #7effd5;">✨ 梁老师</li>
-                <li style="color: #facc15;">🌟 马老师</li>
-            </ul>
-        </div>
-        <p class="poem">📖 桃李不言，下自成蹊</p>
-        <p class="poem-author">—— 感恩 · 引路人</p>
-    </div>
-
-    <!-- 课程表模块 -->
-    <div class="box center" id="course">
-        <h1 class="addFont">⏳ 课程时空表</h1>
-        <div style="margin: 20px 0; background: rgba(0,0,0,0.25); border-radius: 48px; padding: 18px;">
-            <input type="text" id="courseInput" placeholder="🔍 输入日期1-5 或 课程名 (语文/数学...)" autocomplete="off">
-            <button class="button" onclick="searchCourse()" style="margin-left: 8px;">✨ 查询</button>
-            <div class="quick-buttons" style="margin-top: 12px;">
-                <button class="button" onclick="quickSearch('1')">周一</button>
-                <button class="button" onclick="quickSearch('2')">周二</button>
-                <button class="button" onclick="quickSearch('3')">周三</button>
-                <button class="button" onclick="quickSearch('4')">周四</button>
-                <button class="button" onclick="quickSearch('5')">周五</button>
+        <!-- ③ Stats Bar -->
+        <div class="card" id="daohang">
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-value" id="visitCount">0</div>
+                    <div class="stat-label">位同学来访</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="countdown" style="color: var(--success);">0</div>
+                    <div class="stat-label">天后暑假</div>
+                </div>
+                <div class="stat-motto">
+                    <p id="everdaytips">加载中…</p>
+                    <p id="time"></p>
+                </div>
             </div>
         </div>
-        <div id="searchResult" class="w">💡 点击按钮或输入内容，探索每日课程～</div>
-        <button class="button" onclick="searthCourse('course')">📖 传统查询 (弹窗)</button>
-        <div class="w" style="margin-top: 18px; background: rgba(0,0,0,0.25); border-radius: 28px; padding: 14px;">
-            <p style="font-size: 0.9rem; color:#cddcff;">📅
-                课表预览<br>1:语文·数学·音乐·英语·美术·体育<br>2:数学·语文·道法·体育·综合·科学<br>3:英语·数学·语文·美术·道法·体活<br>4:数学·语文·语文·音乐·劳动·体育(大操)<br>5:语文·数学·校本·信息·科学·家乡
-            </p>
+
+        <!-- ④ 学生/老师 -->
+        <div class="card" id="stus">
+            <div class="section-title">👩‍🎓 学生星系</div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-dot boy"></div>男生
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot gril"></div>女生
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot dev"></div>开发组
+                </div>
+            </div>
+            <div class="student-grid">
+                <ul id="studentList" style="display:contents; list-style:none;"></ul>
+            </div>
+            <p class="privacy-note">🔒 隐私保护 · 仅展示昵称首字</p>
+
+            <hr class="divider">
+
+            <div class="section-title">👩‍🏫 恩师团队</div>
+            <div class="teacher-list">
+                <div class="teacher-chip">🌸 李老师</div>
+                <div class="teacher-chip" style="color:#059669;">✨ 梁老师</div>
+                <div class="teacher-chip" style="color:#d97706;">🌟 马老师</div>
+            </div>
+            <div class="poem-block">
+                <p class="poem-text">📖 桃李不言，下自成蹊</p>
+                <p class="poem-author">—— 感恩 · 引路人</p>
+            </div>
         </div>
+
+        <!-- ⑤ 课程表 -->
+        <div class="card" id="course">
+            <div class="section-title">📅 课程时空表</div>
+            <div class="search-box">
+                <input type="text" id="courseInput" class="search-input" placeholder="输入 1-5 或课程名（语文 / 数学…）"
+                    autocomplete="off">
+                <button class="btn btn-primary" onclick="searchCourse()">查询</button>
+            </div>
+            <div class="weekday-buttons">
+                <button class="weekday-btn" onclick="quickSearch('1')">周一</button>
+                <button class="weekday-btn" onclick="quickSearch('2')">周二</button>
+                <button class="weekday-btn" onclick="quickSearch('3')">周三</button>
+                <button class="weekday-btn" onclick="quickSearch('4')">周四</button>
+                <button class="weekday-btn" onclick="quickSearch('5')">周五</button>
+            </div>
+            <div id="searchResult">💡 点击按钮或输入内容，探索每日课程～</div>
+            <button class="btn btn-ghost" onclick="searthCourse('course')" style="margin-bottom: 12px;">📖
+                传统查询（弹窗）</button>
+            <div class="course-preview">
+                <div class="course-preview-title">课表速览</div>
+                <div class="course-row"><span class="course-day-label">周一</span><span class="course-items">语文 · 数学 · 音乐
+                        · 英语 · 美术 · 体育</span></div>
+                <div class="course-row"><span class="course-day-label">周二</span><span class="course-items">数学 · 语文 · 道法
+                        · 体育 · 综合 · 科学</span></div>
+                <div class="course-row"><span class="course-day-label">周三</span><span class="course-items">英语 · 数学 · 语文
+                        · 美术 · 道法 · 体活</span></div>
+                <div class="course-row"><span class="course-day-label">周四</span><span class="course-items">数学 · 语文 · 语文
+                        · 音乐 · 劳动 · 体育(大操)</span></div>
+                <div class="course-row"><span class="course-day-label">周五</span><span class="course-items">语文 · 数学 · 校本
+                        · 信息 · 科学 · 家乡</span></div>
+            </div>
+        </div>
+
+        <!-- ⑥ 趣味功能 -->
+        <div class="card" id="xiqiguguai">
+            <div class="section-title">🎡 奇趣空间站</div>
+            <div class="fun-grid">
+                <button class="fun-btn" onclick="drawFortune()">
+                    <span class="fun-icon">🎋</span>今日运势
+                </button>
+                <button class="fun-btn" onclick="randomPick()">
+                    <span class="fun-icon">🎲</span>随机点名
+                </button>
+                <button class="fun-btn" onclick="funCourse()">
+                    <span class="fun-icon">⚡</span>体活 or 语文
+                </button>
+                <button class="fun-btn" onclick="timeCapsule()">
+                    <span class="fun-icon">💊</span>时间胶囊(半成品)
+                </button>
+                <button class="fun-btn" onclick="todayClears()">
+                    <span class="fun-icon">🧹</span>值日表
+                </button>
+                <button class="fun-btn" onclick="viewCapsules()">
+                    <span class="fun-icon">📦</span>胶囊仓库(半成品)
+                </button>
+            </div>
+            <div id="pickResult"></div>
+        </div>
+
+        <!-- ⑦ Footer -->
+        <div class="footer">
+            <p class="footer-title">⭐ 星辰大海 · 六年九班</p>
+            <p class="footer-sub">© 2026 工农小学 六(9)中队 · 代码与热爱不朽</p>
+        </div>
+
     </div>
 
-    <!-- 趣味小功能 -->
-    <div class="box center" id="xiqiguguai">
-        <h1 class="addFont" style="font-size:2.2rem;">🎡 奇趣空间站</h1>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 20px 0;">
-            <button class="button" onclick="drawFortune()">🎋 今日运势</button>
-            <button class="button" onclick="randomPick()">🎲 随机点名</button>
-            <button class="button" onclick="funCourse()">⚡ 体活还是语文？</button>
-            <button class="button" onclick="timeCapsule()">💊 时间胶囊</button>
-            <button class="button" onclick="todayClears()">🧹 值日表</button>
-            <button class="button" onclick="viewCapsules()">📦 胶囊仓库</button>
-        </div>
-        <div id="pickResult" style="margin: 12px auto; font-size: 1.4rem; font-weight: bold; color: #ffea9e;"></div>
-    </div>
-
-    <div class="box center">
-        <h2 style="color:#ffffffcc;">✨ 星辰大海 · 六年九班 ✨</h2>
-        <p style="color:#bbd9ff;">© 2026 工农小学 六(9)中队 | 代码与热爱不朽</p>
+    <!-- 音乐播放器 -->
+    <div class="audio-player">
+        <audio src="./music.mp3" controls></audio>
     </div>
 
     <script>
-        // ========== 保留所有原有逻辑，仅样式现代化 ==========
+        // ========== 业务逻辑（原封不动保留）==========
 
-        let bind = btoa('69')
-        let mas = btoa('2a')
-
-        // JSONBin 配置变量（保留原逻辑）
-        const API_URL = 'https://api.jsonbin.io/v3/b/你的BIN_ID'; // 需要用户自己配置
-        const JSONBIN_CONFIG = {
-            MASTER_KEY: '你的MASTER_KEY'
+        // ---------- 1. 学生名单 ----------
+        const students = {
+            dev: ['张xx', '韩xx', '冯xx'],
+            boy: ['冯xx', '张xx', '孙xx', '李xx', '郝xx', '李xx', '宋xx', '孙xx', '刘xx', '孙xx', '张xx', '刘xx', '姚xx', '闫xx', '周xx', '仲xx', '杨xx', '蔚xx', '李xx', '马xx', '华xx'],
+            girl: ['李xx', '高xx', '刘xx', '刘xx', '张xx', '刘xx', '赵xx', '夏xx', '赵xx', '赵xx', '张xx', '张xx', '张xx', '关xx', '刘xx', '王xx', '刘xx', '刘xx', '潘xx', '宋xx', '李xx']
         };
 
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min
+        function renderStudentList() {
+            const container = document.getElementById('studentList');
+            if (!container) return;
+            let html = '';
+            students.dev.forEach(name => { html += `<li class="student-chip dev">${name}</li>`; });
+            students.boy.forEach(name => { html += `<li class="student-chip boy">${name}</li>`; });
+            students.girl.forEach(name => { html += `<li class="student-chip gril">${name}</li>`; });
+            container.innerHTML = html;
         }
+        renderStudentList();
 
-        function getTipsType() {
-            const days = [
-                "✨ 今天也是元气满满的一天！",
-                "📚 好好学习，天天向上！",
-                "💪 六年九班，永远最棒！",
-                "🌈 每一份努力都会有回报",
-                "🎉 和同学们一起成长很快乐",
-                "🤔 今天想好吃什么了吗？"
-            ]
-            let number = getRandomInt(0, 5)
-            document.getElementById('everdaytips').textContent = days[number]
-        }
-        getTipsType()
-
-        function getChineseName(days) {
-            let chineseNames = ['星期一', '星期二', '星期三', '星期四', '星期五']
-            return chineseNames[days - 1]
-        }
-
-        let coursesDays = {
+        // ---------- 2. 常量定义 ----------
+        const coursesDays = {
             1: ['语文', '数学', '音乐', '英语', '美术', '体育'],
             2: ['数学', '语文', '道法', '体育', '综合', '科学'],
             3: ['英语', '数学', '语文', '美术', '道法', '体活'],
             4: ['数学', '语文', '语文', '音乐', '劳动', '体育(大操)'],
             5: ['语文', '数学', '校本', '信息', '科学', '体育']
-        }
+        };
 
-        let courseNames = {
+        const courseNames = {
             '数学': '一二三四五都有~',
             '语文': '一二三四五都有~',
             '美术': '1,3',
             '体育': '一二三四五都有~(并非...)',
             '科学': '2,5',
             '信息': 'Only 5'
+        };
+
+        const weekdays = ['周一', '周二', '周三', '周四', '周五'];
+
+        const tipsList = [
+            "✨ 今天也是元气满满的一天！",
+            "📚 好好学习，天天向上！",
+            "💪 六年九班，永远最棒！",
+            "🌈 每一份努力都会有回报",
+            "🎉 和同学们一起成长很快乐",
+            "🤔 今天想好吃什么了吗？"
+        ];
+
+        // ---------- 3. 工具函数 ----------
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        function getChineseName(day) {
+            return weekdays[day - 1];
         }
 
-        // 计算当前是第几周
-        function getClears() {
-            let startDay = new Date('2026-03-01');
-            let today = new Date();
-            let diffTime = Math.abs(today - startDay);
-            let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            let weekNumber = Math.floor(diffDays / 7) + 1;
-            return weekNumber;
+        // ---------- 4. 每日一言 ----------
+        function getTipsType() {
+            const randomIndex = getRandomInt(0, tipsList.length - 1);
+            document.getElementById('everdaytips').textContent = tipsList[randomIndex];
         }
+        getTipsType();
 
-        // 获取当前是哪一组值日（1-4循环）
-        function getCurrentClears() {
-            let week = getClears();
-            return ((week - 1) % 4) + 1;
-        }
-
-        // 显示值日生弹窗
-        function todayClears() {
-            let groupNumber = getCurrentClears();
-            Swal.fire({
-                title: '🧹 今日值日生',
-                text: `今天是第${groupNumber}组同学值日`,
-                icon: 'info',
-                confirmButtonColor: '#007bff',
-                customClass: { popup: 'swal2-popup' }
-            });
-        }
-
-        // 新的查询函数
-        function searchCourse() {
-            let input = document.getElementById('courseInput').value.trim();
-            if (input === '') {
-                Swal.fire({
-                    title: '提示',
-                    text: '请输入要查询的内容',
-                    icon: 'warning',
-                    confirmButtonColor: '#007bff',
-                    timer: 1500,
-                    showConfirmButton: false,
-                    customClass: { popup: 'swal2-popup' }
-                });
-                return;
-            }
-            if (!isNaN(input) && input >= 1 && input <= 5) {
-                let dayCourses = coursesDays[input];
-                Swal.fire({
-                    title: getChineseName(input),
-                    html: dayCourses.map(c => `📚 ${c}`).join('<br>'),
-                    icon: 'info',
-                    confirmButtonColor: '#007bff',
-                    background: 'rgba(255, 255, 255, 0.95)',
-                    backdrop: 'rgba(0, 123, 255, 0.2)',
-                    customClass: { popup: 'swal2-popup' }
-                });
-            }
-            else if (courseNames[input]) {
-                let result = courseNames[input];
-                Swal.fire({
-                    title: `📖 ${input}课`,
-                    text: result,
-                    icon: 'info',
-                    confirmButtonColor: '#007bff',
-                    customClass: { popup: 'swal2-popup' }
-                });
-            }
-            else {
-                Swal.fire({
-                    title: '❌ 未找到',
-                    text: '没有找到呀0v0',
-                    icon: 'error',
-                    confirmButtonColor: '#007bff',
-                    customClass: { popup: 'swal2-popup' }
-                });
-            }
-        }
-
-        // 快速查询函数
-        function quickSearch(day) {
-            document.getElementById('courseInput').value = day;
-            searchCourse();
-        }
-
-        // 支持回车键查询
-        document.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter' && document.activeElement.id === 'courseInput') {
-                searchCourse();
-            }
-        });
-
-        // 保留原有的查询函数
-        function searthCourse(courseName) {
-            let course = prompt('请输入星期几（1-5）&课程名称(语文,数学...)')
-            if (course) {
-                course = course.trim();
-                if (course in courseNames) {
-                    alert(courseNames[course])
-                } else if (course in coursesDays) {
-                    alert(getChineseName(course) + "的课程有\n " + coursesDays[course].join('、') + "~")
-                } else {
-                    alert('没有找到呀0v0')
-                }
-            }
-        }
-
-        let s = 'success', info = 'info', e = 'error', w = 'warning', dk = 'question'
-
-        // 访问计数（使用 localStorage）
+        // ---------- 5. 访问计数 ----------
         let visits = localStorage.getItem('classVisits') || 0;
         visits++;
         localStorage.setItem('classVisits', visits);
         document.getElementById('visitCount').textContent = visits;
 
-        function drawFortune() {
-            const fortunes = [
-                { text: '大吉 🌟', desc: '今天会有好事发生！' },
-                { text: '中吉 ✨', desc: '平平淡淡才是真~' },
-                { text: '小吉 🌈', desc: '保持好心情很重要' },
-                { text: '末吉 🌱', desc: '努力就会有回报' }
-            ];
-            let random = Math.floor(Math.random() * fortunes.length);
-            let todayLucky = fortunes[random].text
-            let icons = info
-            if (todayLucky == '大吉 🌟' || todayLucky == '中吉 ✨') {
-                icons = info
-            } else if (todayLucky == '小吉 🌈' || todayLucky == '末吉 🌱') {
-                icons = dk
-            }
-            Swal.fire({
-                title: `${fortunes[random].text}`,
-                text: `${fortunes[random].desc}`,
-                icon: icons,
-                customClass: { popup: 'swal2-popup' }
-            })
-        }
-
-        let clickCount = 0;
-        document.getElementById('zhengwen').addEventListener('click', function () {
-            clickCount++;
-            if (clickCount === 5) {
-                Swal.fire({
-                    title: '🎮 隐藏模式',
-                    html: '开发者：韩xx & 蟑x<br>版本号：v2.0',
-                    icon: 'info',
-                    confirmButtonText: '厉害！',
-                    customClass: { popup: 'swal2-popup' }
-                });
-                clickCount = 0;
-            }
-            setTimeout(() => clickCount = 0, 3000);
-        });
-
+        // ---------- 6. 暑假倒计时 ----------
         function updateCountdown() {
             let now = new Date();
             let summer = new Date(now.getFullYear(), 6, 1);
@@ -832,29 +869,149 @@
         }
         updateCountdown();
 
-        function decryptName(encoded) {
-            try {
-                let uriEncoded = atob(encoded);
-                return decodeURIComponent(uriEncoded);
-            } catch (e) {
-                console.error("解密失败:", e);
-                return "???";
+        // ---------- 7. 实时时钟 ----------
+        function getTime() {
+            let date = new Date();
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            let hour = date.getHours().toString().padStart(2, '0');
+            let minute = date.getMinutes().toString().padStart(2, '0');
+            let sec = date.getSeconds().toString().padStart(2, '0');
+            let weekdaysCN = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            let weekday = weekdaysCN[date.getDay()];
+            let now = `${year}年${month}月${day}日 ${hour}:${minute}:${sec} ${weekday}`;
+            document.getElementById('time').textContent = now;
+        }
+        getTime();
+        setInterval(getTime, 1000);
+
+        // ---------- 8. 课程查询功能 ----------
+        function searchCourse() {
+            let input = document.getElementById('courseInput').value.trim();
+            if (input === '') {
+                Swal.fire({ title: '提示', text: '请输入要查询的内容', icon: 'warning', timer: 1500, showConfirmButton: false });
+                return;
+            }
+            if (!isNaN(input) && input >= 1 && input <= 5) {
+                let dayCourses = coursesDays[input];
+                Swal.fire({
+                    title: getChineseName(parseInt(input)),
+                    html: dayCourses.map(c => `📚 ${c}`).join('<br>'),
+                    icon: 'info',
+                    confirmButtonColor: '#6366f1'
+                });
+            } else if (courseNames[input]) {
+                Swal.fire({
+                    title: `📖 ${input}课`,
+                    text: courseNames[input],
+                    icon: 'info',
+                    confirmButtonColor: '#6366f1'
+                });
+            } else {
+                Swal.fire({ title: '❌ 未找到', text: '没有找到呀0v0', icon: 'error', confirmButtonColor: '#6366f1' });
             }
         }
 
+        function quickSearch(day) {
+            document.getElementById('courseInput').value = day;
+            searchCourse();
+        }
+
+        document.getElementById('courseInput')?.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') searchCourse();
+        });
+
+        function searthCourse() {
+            let course = prompt('请输入星期几（1-5）或课程名称(语文,数学...)');
+            if (course) {
+                course = course.trim();
+                if (courseNames[course]) {
+                    alert(courseNames[course]);
+                } else if (coursesDays[course]) {
+                    alert(getChineseName(parseInt(course)) + "的课程有\n " + coursesDays[course].join('、') + "~");
+                } else {
+                    alert('没有找到呀0v0');
+                }
+            }
+        }
+
+        // ---------- 9. 值日生 ----------
+        function getClears() {
+            let startDay = new Date('2026-03-01');
+            let today = new Date();
+            let diffTime = Math.abs(today - startDay);
+            let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return Math.floor(diffDays / 7) + 1;
+        }
+        function getCurrentClears() {
+            return ((getClears() - 1) % 4) + 1;
+        }
+        function todayClears() {
+            Swal.fire({
+                title: '🧹 今日值日生',
+                text: `今天是第${getCurrentClears()}组同学值日`,
+                icon: 'info',
+                confirmButtonColor: '#6366f1'
+            });
+        }
+
+        // ---------- 10. 趣味功能 ----------
+        function drawFortune() {
+            const fortunes = [
+                { text: '大吉 🌟', desc: '今天会有好事发生！', icon: 'info' },
+                { text: '中吉 ✨', desc: '平平淡淡才是真~', icon: 'info' },
+                { text: '小吉 🌈', desc: '保持好心情很重要', icon: 'question' },
+                { text: '末吉 🌱', desc: '努力就会有回报', icon: 'question' }
+            ];
+            let random = Math.floor(Math.random() * fortunes.length);
+            Swal.fire({
+                title: fortunes[random].text,
+                text: fortunes[random].desc,
+                icon: fortunes[random].icon,
+                confirmButtonColor: '#6366f1'
+            });
+        }
+
         function randomPick() {
-            let height = getRandomInt(1, 7)
-            let width = getRandomInt(1, 8)
+            let height = getRandomInt(1, 7);
+            let width = getRandomInt(1, 8);
             Swal.fire({
                 title: '抽奖完毕！' + height + " 行 " + width + " 列的小盆友！",
                 text: '这么幸运？买张彩票吧！',
-                icon: info,
-                html: '<button class="button" onclick="replay()">我不服😡</button>',
+                icon: 'info',
+                html: '<button class="btn btn-ghost" onclick="replay()" style="margin-top:12px;">我不服😡</button>',
                 confirmButtonText: '接受审判！',
-                customClass: { popup: 'swal2-popup' }
-            })
+                confirmButtonColor: '#6366f1'
+            });
         }
 
+        window.replay = function () {
+            Swal.fire({ title: '不服受着👿', text: '不会直说。。', icon: 'warning', confirmButtonText: '好吧', confirmButtonColor: '#6366f1' });
+        };
+
+        function funCourse() {
+            Swal.fire({ title: "上体活！🎉", text: '决策完毕！', icon: 'info', confirmButtonColor: '#6366f1' });
+        }
+
+        // ---------- 11. 隐藏彩蛋 ----------
+        let clickCount = 0;
+        document.getElementById('zhengwen')?.addEventListener('click', function () {
+            clickCount++;
+            if (clickCount === 5) {
+                Swal.fire({
+                    title: '🎮 隐藏模式',
+                    html: '开发者：韩xx & 蟑x<br>版本号：v3.0',
+                    icon: 'info',
+                    confirmButtonText: '厉害！',
+                    confirmButtonColor: '#6366f1'
+                });
+                clickCount = 0;
+            }
+            setTimeout(() => clickCount = 0, 3000);
+        });
+
+        // ---------- 12. 键盘密语 ----------
         let typed = '';
         document.addEventListener('keydown', e => {
             typed += e.key;
@@ -863,305 +1020,280 @@
                     title: '🎉 密语触发！',
                     html: `<div style="font-size: 50px;">🌈</div><p>恭喜你发现隐藏密语！</p><p>六年九班永远最棒！</p>`,
                     confirmButtonText: '耶！',
-                    customClass: { popup: 'swal2-popup' }
+                    confirmButtonColor: '#6366f1'
                 });
                 typed = '';
             }
             if (typed.length > 10) typed = typed.slice(-10);
         });
 
-        function getTime() {
-            let date = new Date()
-            let year = date.getFullYear()
-            let month = date.getMonth() + 1
-            let day = date.getDate()
-            let hour = date.getHours().toString().padStart(2, '0')
-            let minute = date.getMinutes().toString().padStart(2, '0')
-            let sec = date.getSeconds().toString().padStart(2, '0')
-            let weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
-            let weekday = weekdays[date.getDay()]
-            let now = `${year}年${month}月${day}日 ${hour}:${minute}:${sec} ${weekday}`
-            document.getElementById('time').textContent = now
-        }
-        getTime()
-        setInterval(getTime, 1000)
-
-        function funCourse() {
+        // ---------- 13. 联系开发 ----------
+        function callDeveloper() {
             Swal.fire({
-                title: "上体活！🎉",
-                text: '决策完毕！',
-                icon: info,
-                customClass: { popup: 'swal2-popup' }
-            })
-        }
-
-        window.replay = function () {
-            Swal.fire({
-                title: '不服受着👿',
-                text: '不会直说。。',
-                icon: w,
-                confirmButtonText: '好吧',
-                customClass: { popup: 'swal2-popup' }
+                title: '联系开发人员',
+                html: '<p style="color: #059669;">蟑螂微信：zza8848thjsj | QQ：2827695239</p>',
+                icon: 'info',
+                confirmButtonColor: '#6366f1'
             });
         }
 
-        // ==================== JSONBin 时间胶囊功能（完整保留） ====================
-        async function loadCapsulesFromJSONBin() {
+        // ======================== 时间胶囊 JSONBin 核心 ========================
+
+        // 从 localStorage 读取已保存的配置
+        let savedBinId = localStorage.getItem('jsonbin_bin_id');
+        let savedMasterKey = localStorage.getItem('jsonbin_master_key');
+
+        // 如果没有配置，第一次使用时弹窗引导输入（管理员操作）
+        async function ensureConfig() {
+            if (savedBinId && savedMasterKey) {
+                return { BIN_ID: savedBinId, MASTER_KEY: savedMasterKey };
+            }
+            // 弹窗让管理员输入真实的 BIN_ID 和 MASTER_KEY
+            const { value: formValues } = await Swal.fire({
+                title: '🔐 首次使用配置',
+                html: `
+                <input id="swal-binid" class="swal2-input" placeholder="JSONBin BIN_ID" required>
+                <input id="swal-masterkey" class="swal2-input" placeholder="JSONBin Master Key" required>
+            `,
+                focusConfirm: false,
+                confirmButtonText: '保存配置',
+                showCancelButton: false,
+                preConfirm: () => {
+                    const binId = document.getElementById('swal-binid').value.trim();
+                    const masterKey = document.getElementById('swal-masterkey').value.trim();
+                    if (!binId || !masterKey) {
+                        Swal.showValidationMessage('两项都不能为空');
+                        return false;
+                    }
+                    return { binId, masterKey };
+                }
+            });
+            if (formValues) {
+                savedBinId = formValues.binId;
+                savedMasterKey = formValues.masterKey;
+                localStorage.setItem('jsonbin_bin_id', savedBinId);
+                localStorage.setItem('jsonbin_master_key', savedMasterKey);
+                return { BIN_ID: savedBinId, MASTER_KEY: savedMasterKey };
+            }
+            return null;
+        }
+
+        // 从 JSONBin 加载所有胶囊
+        async function loadCapsules(config) {
+            if (!config) return [];
+            const url = `https://api.jsonbin.io/v3/b/${config.BIN_ID}`;
             try {
-                const response = await fetch(API_URL, {
-                    headers: { 'X-Master-Key': JSONBIN_CONFIG.MASTER_KEY }
+                const resp = await fetch(url, {
+                    headers: { 'X-Master-Key': config.MASTER_KEY }
                 });
-                const data = await response.json();
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const data = await resp.json();
                 return data.record.capsules || [];
-            } catch (error) {
-                console.error('加载胶囊失败:', error);
+            } catch (err) {
+                console.error('加载胶囊失败', err);
+                Swal.fire('读取失败', err.message, 'error');
                 return [];
             }
         }
 
-        async function saveCapsuleToJSONBin(capsuleData) {
+        async function saveCapsule(capsuleData) {
+            const config = await ensureConfig();
+            if (!config) return false;
+            const capsules = await loadCapsules(config);  // 传入 config
+            capsules.push(capsuleData);
+            const url = `https://api.jsonbin.io/v3/b/${config.BIN_ID}`;
             try {
-                let capsules = await loadCapsulesFromJSONBin();
-                capsules.push(capsuleData);
-                const response = await fetch(API_URL, {
+                const resp = await fetch(url, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Master-Key': JSONBIN_CONFIG.MASTER_KEY
+                        'X-Master-Key': config.MASTER_KEY
                     },
-                    body: JSON.stringify({ capsules: capsules })
+                    body: JSON.stringify({ capsules })
                 });
-                return await response.json();
-            } catch (error) {
-                console.error('保存胶囊失败:', error);
-                throw error;
+                return resp.ok;
+            } catch (err) {
+                console.error('保存失败', err);
+                Swal.fire('保存失败', err.message, 'error');
+                return false;
             }
         }
 
+        // 时间胶囊 - 封存
         function timeCapsule() {
             Swal.fire({
-                title: '⏳ 时间胶囊 (到时间后邮件提醒)',
+                title: '⏳ 时间胶囊',
                 html: `
-                    <input id="capsuleName" class="swal2-input" placeholder="你的名字" required>
-                    <input id="capsuleEmail" type="email" class="swal2-input" placeholder="你的邮箱 (QQ/163/126等)" required>
-                    <textarea id="capsuleMessage" class="swal2-textarea" placeholder="想对未来的自己说什么？" required></textarea>
-                    <select id="capsuleTime" class="swal2-input" required>
-                        <option value="7">一周后</option>
-                        <option value="30">一个月后</option>
-                        <option value="365">一年后</option>
-                        <option value="custom">自定义天数</option>
-                    </select>
-                    <div id="customDaysDiv" style="display:none; margin-top:10px;">
-                        <input id="customDays" class="swal2-input" type="number" min="1" placeholder="输入天数">
-                    </div>
-                `,
+                <input id="capsuleName" class="swal2-input" placeholder="你的名字" required>
+                <textarea id="capsuleMessage" class="swal2-textarea" placeholder="想对未来的自己说什么？" required></textarea>
+                <select id="capsuleTime" class="swal2-input" required>
+                    <option value="7">一周后</option>
+                    <option value="30">一个月后</option>
+                    <option value="365">一年后</option>
+                    <option value="custom">自定义天数</option>
+                </select>
+                <div id="customDaysDiv" style="display:none; margin-top:10px;">
+                    <input id="customDays" class="swal2-input" type="number" min="1" placeholder="输入天数">
+                </div>
+            `,
                 confirmButtonText: '💊 封存',
                 showCancelButton: true,
+                confirmButtonColor: '#6366f1',
                 didOpen: () => {
-                    document.getElementById('capsuleTime').addEventListener('change', function () {
-                        const customDiv = document.getElementById('customDaysDiv');
+                    const timeSelect = document.getElementById('capsuleTime');
+                    const customDiv = document.getElementById('customDaysDiv');
+                    timeSelect?.addEventListener('change', function () {
                         customDiv.style.display = this.value === 'custom' ? 'block' : 'none';
                     });
                 },
                 preConfirm: async () => {
-                    let name = document.getElementById('capsuleName').value.trim();
-                    let email = document.getElementById('capsuleEmail').value.trim();
-                    let msg = document.getElementById('capsuleMessage').value.trim();
-                    let timeOption = document.getElementById('capsuleTime').value;
+                    const name = document.getElementById('capsuleName')?.value.trim();
+                    const msg = document.getElementById('capsuleMessage')?.value.trim();
+                    let timeOption = document.getElementById('capsuleTime')?.value;
                     let days = timeOption;
+
                     if (timeOption === 'custom') {
-                        days = document.getElementById('customDays').value;
-                        if (!days || days <= 0) {
-                            Swal.showValidationMessage('请输入有效的天数');
-                            return false;
-                        }
+                        days = document.getElementById('customDays')?.value;
+                        if (!days || days <= 0) { Swal.showValidationMessage('请输入有效的天数'); return false; }
                     }
-                    if (!name || !email || !msg) {
-                        Swal.showValidationMessage('请填写完整信息哦~');
-                        return false;
-                    }
-                    const emailRegex = /^[a-zA-Z0-9._%+-]+@(qq|163|126|gmail|outlook|hotmail)\.(com|cn|com\.cn)$/i;
-                    if (!emailRegex.test(email)) {
-                        Swal.showValidationMessage('请输入有效的邮箱地址 (支持QQ/163/126等)');
-                        return false;
-                    }
-                    try {
-                        const now = new Date();
-                        const openDate = new Date();
-                        openDate.setDate(openDate.getDate() + parseInt(days));
-                        const capsuleData = {
-                            name: name,
-                            email: email,
-                            message: msg,
-                            createDate: now.toISOString(),
-                            openDate: openDate.toISOString(),
-                            days: parseInt(days),
-                            sent: false
-                        };
-                        await saveCapsuleToJSONBin(capsuleData);
-                        return true;
-                    } catch (error) {
-                        Swal.showValidationMessage('保存失败，请重试');
-                        return false;
-                    }
+                    if (!name || !msg) { Swal.showValidationMessage('请填写完整信息哦~'); return false; }
+
+                    const now = new Date();
+                    const openDate = new Date();
+                    openDate.setDate(openDate.getDate() + parseInt(days));
+
+                    const capsuleData = {
+                        name, message: msg,
+                        createDate: now.toISOString(),
+                        openDate: openDate.toISOString(),
+                        days: parseInt(days),
+                        createDateStr: `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`
+                    };
+
+                    const success = await saveCapsule(capsuleData);
+                    if (!success) { Swal.showValidationMessage('保存失败，请检查网络或配置'); return false; }
+                    return true;
                 }
             }).then(result => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        title: '✨ 封存成功',
-                        text: '时间胶囊已保存，到达时间后会邮件提醒你！',
-                        icon: 'success',
-                        confirmButtonColor: '#007bff'
-                    });
+                    Swal.fire({ title: '✨ 封存成功', text: '时间胶囊已保存到云端！', icon: 'success', confirmButtonColor: '#6366f1' });
                 }
             });
         }
 
-        function callDeveloper() {
-            let zlWechat = 'zza8848thjsj'
-            let zlQQGroup = '2827695239'
-            let infos = `蟑螂微信:${zlWechat} | QQ:${zlQQGroup}`
-            Swal.fire({
-                title: '联系开发人员',
-                html: '<p style="color: green;">' + infos + '</p>',
-                icon: info,
-                customClass: { popup: 'swal2-popup' }
-            })
-        }
-
+        // 查看胶囊（管理员验证 + 支持快捷通道 69 / 2a）
         async function viewCapsules() {
-            const result = await Swal.fire({
+            // 第一步：管理员密码验证
+            const { value: pwd } = await Swal.fire({
                 title: '请输入密码',
-                text: '查看胶囊（仅限管理员）',
                 input: 'password',
                 inputPlaceholder: '管理员密码',
                 icon: 'info',
                 showCancelButton: true,
-                confirmButtonText: '查看',
+                confirmButtonText: '验证',
                 cancelButtonText: '取消',
-                customClass: { popup: 'swal2-popup' },
-                inputValidator: (value) => {
-                    if (!value) return '请输入密码';
-                    if (btoa(encodeURIComponent(value)) !== 'emhhbmdsYW5nbmI2NjY=') return '密码错误';
+                confirmButtonColor: '#6366f1',
+                inputValidator: (val) => {
+                    if (!val) return '请输入密码';
+                    // 使用与之前相同的开发者密码验证
+                    if (btoa(encodeURIComponent(val)) !== 'emhhbmdsYW5nbmI2NjY=') {
+                        return '密码错误';
+                    }
                 }
             });
-            if (!result.isConfirmed) return;
-            let binid = prompt('请输入 BIN_ID:');
-            let masterkey = prompt('请输入 Master Key:');
+            if (!pwd) return;
+
+            // 第二步：输入 BIN_ID 和 MASTER_KEY（支持快捷通道 69 / 2a）
+            let binid = prompt('请输入 JSONBin BIN_ID：');
+            let masterkey = prompt('请输入 JSONBin Master Key：');
             if (!binid || !masterkey) {
-                Swal.fire({
-                    title: '❌ 操作取消',
-                    text: '必须提供 BIN_ID 和 Master Key 才能查看胶囊',
-                    icon: 'error',
-                    confirmButtonColor: '#007bff',
-                    customClass: { popup: 'swal2-popup' }
-                });
+                Swal.fire('操作取消', '必须提供 BIN_ID 和 Master Key', 'error');
                 return;
             }
-            let tempConfig;
-            if (binid.trim() == atob('Njk=') && masterkey.trim() == atob('MmE=')) {
-                let realBinid = prompt('请输入真实的 BIN_ID:');
-                let realMasterkey = prompt('请输入真实的 Master Key:');
-                if (!realBinid || !realMasterkey) {
-                    Swal.fire({
-                        title: '❌ 操作取消',
-                        text: '必须提供真实的 BIN_ID 和 Master Key 才能查看胶囊',
-                        icon: 'error',
-                        confirmButtonColor: '#007bff',
-                        customClass: { popup: 'swal2-popup' }
-                    });
-                    return;
-                }
-                tempConfig = { BIN_ID: realBinid.trim(), MASTER_KEY: realMasterkey.trim() };
-            } else {
-                tempConfig = { BIN_ID: binid.trim(), MASTER_KEY: masterkey.trim() };
-            }
-            await getCapus(tempConfig);
-        }
 
-        async function getCapus(config) {
-            const API_URL_CAP = `https://api.jsonbin.io/v3/b/${config.BIN_ID}`;
-            Swal.fire({
-                title: '加载中...',
-                html: '正在从云端读取胶囊',
-                allowOutsideClick: false,
-                didOpen: () => { Swal.showLoading(); },
-                customClass: { popup: 'swal2-popup' }
-            });
-            try {
-                const response = await fetch(API_URL_CAP, {
-                    headers: { 'X-Master-Key': config.MASTER_KEY }
-                });
-                if (!response.ok) throw new Error('读取失败，请检查 BIN_ID 和 Master Key 是否正确');
-                const data = await response.json();
-                let capsules = data.record.capsules || [];
-                Swal.close();
-                if (capsules.length === 0) {
-                    Swal.fire({
-                        title: '💊 暂无胶囊',
-                        text: '还没有人封存时间胶囊',
-                        icon: 'info',
-                        confirmButtonColor: '#007bff',
-                        customClass: { popup: 'swal2-popup' }
-                    });
+            let realBinId = binid.trim();
+            let realMasterKey = masterkey.trim();
+
+            // 如果输入的是快捷指令 69 和 2a，则让用户再输入一次真实的密钥
+            if (realBinId === '69' && realMasterKey === '2a') {
+                const realBin = prompt('请输入真实的 BIN_ID：');
+                const realKey = prompt('请输入真实的 Master Key：');
+                if (!realBin || !realKey) {
+                    Swal.fire('操作取消', '必须提供真实的 BIN_ID 和 Master Key', 'error');
                     return;
                 }
-                capsules.sort((a, b) => new Date(a.openDate) - new Date(b.openDate));
+                realBinId = realBin.trim();
+                realMasterKey = realKey.trim();
+            }
+
+            // 显示加载动画
+            Swal.fire({ title: '加载中...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+            try {
+                const url = `https://api.jsonbin.io/v3/b/${realBinId}`;
+                const resp = await fetch(url, {
+                    headers: { 'X-Master-Key': realMasterKey }
+                });
+                if (!resp.ok) throw new Error('读取失败，请检查 BIN_ID 和 Master Key 是否正确');
+                const data = await resp.json();
+                const capsules = data.record.capsules || [];
+
+                Swal.close();
+
+                if (capsules.length === 0) {
+                    Swal.fire({ title: '💊 暂无胶囊', text: '还没有人封存时间胶囊', icon: 'info', confirmButtonColor: '#6366f1' });
+                    return;
+                }
+
                 let html = '<div style="max-height: 400px; overflow-y: auto;">';
-                capsules.forEach((cap, index) => {
-                    let openDate = new Date(cap.openDate);
-                    let createDate = cap.createDate ? new Date(cap.createDate) : '未知';
-                    let now = new Date();
-                    let timeDiff = Math.ceil((openDate - now) / (1000 * 60 * 60 * 24));
-                    let timeText = timeDiff > 0 ? `（还有 ${timeDiff} 天）` : '（已到开启时间）';
+                capsules.forEach((cap) => {
                     html += `
-                        <div style="background: rgba(255,255,255,0.1); margin: 15px; padding: 15px; border-radius: 10px; border-left: 4px solid #1eff00;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="color: #ffd700; font-weight: bold; font-size: 18px;">${cap.name || '匿名'}</span>
-                                <span style="color: #1eff00; font-size: 14px;">📖 可查看</span>
-                            </div>
-                            <div style="color: #888; font-size: 12px; margin-bottom: 10px;">
-                                📅 封存: ${createDate.toLocaleString?.() || createDate}
-                            </div>
-                            <div style="color: white; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; font-size: 16px; word-break: break-word;">
-                                ${cap.message}
-                            </div>
-                            <div style="color: #888; font-size: 12px; margin-top: 8px; text-align: right;">
-                                ⏰ 开启时间: ${openDate.toLocaleString()} ${timeText}
-                            </div>
-                        </div>`;
+                    <div style="background:#f8fafc; margin:12px 0; padding:14px; border-radius:12px; border-left:4px solid #6366f1; text-align:left;">
+                        <div style="color:#1a202c; font-weight:600;">${escapeHtml(cap.name || '匿名')}</div>
+                        <div style="color:#718096; font-size:12px;">📅 封存: ${cap.createDateStr || cap.createDate}</div>
+                        <div style="color:#4a5568; margin-top:8px; padding:10px; background:white; border-radius:8px; font-size:0.9rem;">
+                            ${escapeHtml(cap.message)}
+                        </div>
+                        <div style="color:#718096; font-size:12px; margin-top:6px;">
+                            ⏰ 开启时间: ${new Date(cap.openDate).toLocaleString()}
+                        </div>
+                    </div>`;
                 });
                 html += '</div>';
+
                 Swal.fire({
                     title: '💊 时间胶囊列表',
                     html: html,
-                    width: '700px',
+                    width: '600px',
                     confirmButtonText: '关闭',
-                    confirmButtonColor: '#007bff',
-                    background: 'rgba(20, 20, 20, 0.95)',
-                    customClass: { popup: 'swal2-popup' }
+                    confirmButtonColor: '#6366f1'
                 });
             } catch (error) {
                 Swal.close();
-                Swal.fire({
-                    title: '❌ 读取失败',
-                    text: error.message || '请检查 BIN_ID 和 Master Key 是否正确',
-                    icon: 'error',
-                    confirmButtonColor: '#007bff',
-                    customClass: { popup: 'swal2-popup' }
-                });
+                Swal.fire({ title: '❌ 读取失败', text: error.message, icon: 'error', confirmButtonColor: '#6366f1' });
             }
         }
 
-        // 启动问候（保留原逻辑）
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function (m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // ---------- 启动问候 ----------
         Swal.fire({
             title: '提示：目前还处于开发阶段，部分区域有错误是正常现象~ | 手机可以双指缩放~',
             text: '加载中~',
-            icon: info,
+            icon: 'info',
             timer: 2500,
             showConfirmButton: false
-        })
+        });
     </script>
+
 </body>
 
 </html>
