@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>🍦 赞助雪糕 · 六年九班 🍦</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(145deg, #f5f0ff 0%, #e8edf5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* 背景装饰 - 雪糕元素 */
+        body::before {
+            content: '🍦🍧🍨🍦🍧🍨';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 28px;
+            color: rgba(99, 102, 241, 0.05);
+            pointer-events: none;
+            white-space: pre;
+            overflow: hidden;
+            z-index: 0;
+            letter-spacing: 20px;
+        }
+
+        /* 主卡片 */
+        .sponsor-card {
+            max-width: 680px;
+            width: 100%;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(10px);
+            border-radius: 48px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 32px 55px -16px rgba(99, 102, 241, 0.25);
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        /* 顶部装饰条 */
+        .card-header {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 40%, #f59e0b 100%);
+            padding: 20px 24px;
+            text-align: center;
+        }
+
+        .card-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .card-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        /* 内容区域 */
+        .card-content {
+            padding: 32px 28px;
+        }
+
+        /* 说明区块 */
+        .info-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(6, 182, 212, 0.04));
+            border-radius: 24px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(99, 102, 241, 0.12);
+        }
+
+        .info-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #f59e0b;
+            padding-left: 14px;
+        }
+
+        .highlight-red {
+            color: #e25c5c;
+            font-weight: 800;
+            background: linear-gradient(120deg, #fff0f0, transparent);
+            padding: 2px 10px;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 1.05rem;
+        }
+
+        .highlight-orange {
+            color: #d97706;
+            font-weight: 800;
+            background: linear-gradient(120deg, #fff7ed, transparent);
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .amount-badge {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            color: white;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 999px;
+            display: inline-block;
+            font-size: 1rem;
+            margin: 0 4px;
+        }
+
+        .info-text {
+            font-size: 0.96rem;
+            line-height: 1.65;
+            color: #334155;
+            margin: 12px 0;
+            font-weight: 500;
+        }
+
+        /* 重点强调框 */
+        .emphasis-box {
+            background: linear-gradient(135deg, #fff7ed, #fffbeb);
+            border-left: 6px solid #f59e0b;
+            border-radius: 20px;
+            padding: 18px 22px;
+            margin: 20px 0;
+        }
+
+        .emphasis-text {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #b45309;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .emphasis-text .icon {
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        .emphasis-sub {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #92400e;
+            margin-top: 10px;
+            padding-left: 32px;
+        }
+
+        /* 二维码区域 - 重点放大 */
+        .qrcode-section {
+            text-align: center;
+            margin: 32px 0 24px;
+            padding: 24px 20px;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 32px;
+            border: 2px dashed rgba(99, 102, 241, 0.3);
+        }
+
+        .qrcode-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #6366f1;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .qrcode-label span {
+            background: #eef2ff;
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+
+        .qrcode-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .qrcode-image img {
+            width: 280px;
+            max-width: 70%;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            background: white;
+            padding: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .qrcode-image img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 40px -12px rgba(99, 102, 241, 0.3);
+        }
+
+        .qrcode-hint {
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+            background: rgba(255,255,255,0.7);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 999px;
+        }
+
+        /* 底部强调 */
+        .footer-note {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-radius: 20px;
+            padding: 18px 22px;
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .footer-note strong {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #dc2626;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .footer-note .small-note {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+        }
+
+        /* 响应式 */
+        @media (max-width: 520px) {
+            body {
+                padding: 1rem;
+            }
+            .card-content {
+                padding: 24px 20px;
+            }
+            .qrcode-image img {
+                width: 220px;
+                padding: 8px;
+            }
+            .emphasis-text {
+                font-size: 0.9rem;
+            }
+            .info-title {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sponsor-card">
+        <div class="card-header">
+            <h1>
+                <span>🍦</span> 赞助雪糕计划 <span>🍦</span>
+            </h1>
+            <p>让全班同学一起分享清凉甜蜜</p>
+        </div>
+
+        <div class="card-content">
+            <!-- 说明区域 -->
+            <div class="info-box">
+                <div class="info-title">
+                    📋 赞助说明
+                </div>
+                <p class="info-text">
+                    赞助方式：<span class="highlight-red">扫描下方二维码</span>，根据雪糕的数量支付具体金额
+                </p>
+                <p class="info-text">
+                    推荐金额：<span class="amount-badge">💰 48~50元</span> <span class="highlight-orange">（够全班同学吃雪糕）</span>
+                </p>
+                <p class="info-text">
+                    🛒 雪糕由网站开发者统一购买（使用赞助金额），如果有不足情况我们自己补足，<span class="highlight-red">保证每位同学都能吃到雪糕</span>。
+                </p>
+            </div>
+
+            <!-- 重点强调 - 资金去向 -->
+            <div class="emphasis-box">
+                <div class="emphasis-text">
+                    <span class="icon">❤️</span>
+                    <span>如果有剩余的金额，我们会选择捐赠山区 / 留到下次购买使用！<br>绝对不会自己留下的！因为如果谋私，就违背了我们的初心。</span>
+                </div>
+            </div>
+
+            <!-- 二维码区域 - 放大版 -->
+            <div class="qrcode-section">
+                <div class="qrcode-label">
+                    <span>📱 微信 扫码支付 📱</span>
+                </div>
+                <div class="qrcode-image">
+                    <img src="./easypay.png" alt="收款二维码 - 扫码赞助雪糕">
+                </div>
+                <div class="qrcode-hint">
+                    💡 长按识别或截图后扫码
+                </div>
+            </div>
+
+            <!-- 底部时间说明 -->
+            <div class="footer-note">
+                <strong>⏰ 送达时间承诺</strong>
+                <strong>收到赞助后的 <span style="color:#f59e0b; font-size:1.1rem;">2~3天</span> 的中午（非休息日）送到雪糕 🍦</strong>
+                <div class="small-note">
+                    * 如果遇到特殊情况会提前说明，感谢理解与支持 🙏
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

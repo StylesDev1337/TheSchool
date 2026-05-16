@@ -8,11 +8,193 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.all.min.js"></script>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init({
+                publicKey: "XLPrkNW5esnt8Fgs9",
+            });
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <meta name="description" content="工农小学 - 六年九班班级网">
     <style>
+        /* ===== 原有样式保持不变，只添加意见箱相关样式 ===== */
+
+        /* 意见箱弹窗 - 背景遮罩动画 */
+        .feedback-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(3px);
+            /* 添加背景模糊效果 */
+        }
+
+        /* 意见箱弹窗内容样式 */
+        .feedback-container {
+            background: white;
+            border-radius: 28px;
+            width: 90%;
+            max-width: 500px;
+            padding: 28px 24px;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            backdrop-filter: none;
+        }
+
+        .feedback-container h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+            text-align: center;
+        }
+
+        .feedback-input-group {
+            margin-bottom: 20px;
+        }
+
+        .feedback-input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .feedback-input-group input,
+        .feedback-input-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: #f8fafc;
+        }
+
+        .feedback-input-group input:focus,
+        .feedback-input-group textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            background: white;
+        }
+
+        .feedback-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .feedback-buttons button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font);
+        }
+
+        .feedback-submit {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+        }
+
+        .feedback-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(99, 102, 241, 0.3);
+        }
+
+        .feedback-cancel {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feedback-cancel:hover {
+            background: #e2e8f0;
+        }
+
+        /* 弹窗出现时的动画 */
+        .feedback-modal.show {
+            display: flex;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        /* 弹窗容器动画 */
+        .feedback-modal.show .feedback-container {
+            animation: slideUp 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* 关闭时的淡出动画 */
+        .feedback-modal.fade-out {
+            animation: fadeOut 0.2s ease-out forwards;
+        }
+
+        .feedback-modal.fade-out .feedback-container {
+            animation: slideDown 0.2s ease-out forwards;
+        }
+
+        /* 动画定义 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.98) translateY(10px);
+            }
+        }
+
         /* ===== Reset & Base ===== */
         *,
         *::before,
@@ -23,11 +205,11 @@
         }
 
         :root {
-            --bg: #f0f4f8;
-            --surface: #ffffff;
-            --surface2: #f7f9fc;
-            --border: #e2e8f0;
-            --text-primary: #1a202c;
+            --bg: linear-gradient(145deg, #f5f0ff 0%, #e8edf5 100%);
+            --surface: rgba(255, 255, 255, 0.92);
+            --surface2: rgba(247, 249, 252, 0.8);
+            --border: rgba(226, 232, 240, 0.6);
+            --text-primary: #1a1a2e;
             --text-secondary: #4a5568;
             --text-muted: #718096;
             --accent: #6366f1;
@@ -36,13 +218,13 @@
             --accent2-soft: #ecfeff;
             --success: #10b981;
             --warning: #f59e0b;
-            --radius-sm: 10px;
-            --radius: 16px;
-            --radius-lg: 24px;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, .07), 0 1px 2px rgba(0, 0, 0, .05);
-            --shadow: 0 4px 16px rgba(0, 0, 0, .08);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, .10);
-            --transition: 0.2s ease;
+            --radius-sm: 12px;
+            --radius: 20px;
+            --radius-lg: 28px;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+            --shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
+            --transition: 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             --font: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
         }
 
@@ -56,327 +238,413 @@
             color: var(--text-primary);
             min-height: 100vh;
             line-height: 1.6;
+            position: relative;
+        }
+
+        /* 背景装饰小星星 */
+        body::before {
+            content: '✨🌟⭐✨🌟⭐';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 24px;
+            color: rgba(99, 102, 241, 0.03);
+            pointer-events: none;
+            white-space: pre;
+            overflow: hidden;
+            z-index: 0;
         }
 
         /* ===== Layout ===== */
         .page-wrapper {
-            max-width: 760px;
+            max-width: 780px;
             margin: 0 auto;
             padding: 24px 16px 80px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .card {
             background: var(--surface);
+            backdrop-filter: blur(8px);
             border-radius: var(--radius-lg);
             border: 1px solid var(--border);
             box-shadow: var(--shadow-sm);
             padding: 28px 24px;
-            transition: box-shadow var(--transition);
+            transition: all var(--transition);
         }
 
         .card:hover {
             box-shadow: var(--shadow);
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.96);
         }
 
         /* ===== Hero Header ===== */
         .hero {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 40%, #06b6d4 100%);
             border-radius: var(--radius-lg);
-            padding: 40px 24px 32px;
+            padding: 48px 24px 36px;
             text-align: center;
             color: white;
             border: none;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(99, 102, 241, 0.35);
         }
 
         .hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '🎈🎉🎊';
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            font-size: 40px;
+            opacity: 0.15;
             pointer-events: none;
         }
 
         .hero-badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.18);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 999px;
-            padding: 4px 14px;
-            font-size: 0.78rem;
-            letter-spacing: 0.05em;
-            margin-bottom: 16px;
-            backdrop-filter: blur(4px);
+            padding: 5px 16px;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+            backdrop-filter: blur(8px);
+            font-weight: 600;
         }
 
         .hero h1 {
-            font-size: clamp(1.5rem, 5vw, 2.2rem);
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            margin-bottom: 8px;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .hero-sub {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 4px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 6px;
+            font-weight: 500;
         }
 
         /* ===== Navbar ===== */
         .navbar {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
             justify-content: center;
-            padding: 16px 20px;
+            padding: 0;
         }
 
         .nav-link {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 7px 14px;
+            gap: 6px;
+            padding: 8px 16px;
             border-radius: 999px;
-            font-size: 0.84rem;
-            font-weight: 500;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: var(--text-secondary);
             text-decoration: none;
-            background: var(--surface2);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
             border: 1px solid var(--border);
             transition: all var(--transition);
             cursor: pointer;
         }
 
         .nav-link:hover {
-            background: var(--accent-soft);
-            color: var(--accent);
-            border-color: #c7d2fe;
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(99, 102, 241, 0.25);
         }
 
         .nav-link.danger {
             color: #ef4444;
-            background: #fff5f5;
+            background: rgba(255, 245, 245, 0.8);
             border-color: #fecaca;
         }
 
         .nav-link.danger:hover {
-            background: #fee2e2;
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
         }
 
         /* ===== Stats Bar ===== */
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            padding: 0 4px;
+            gap: 14px;
+            padding: 0;
         }
 
         .stat-item {
-            background: var(--surface2);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 14px 16px;
+            padding: 16px 12px;
             text-align: center;
+            transition: all var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px);
+            background: white;
+            box-shadow: var(--shadow-sm);
         }
 
         .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
             line-height: 1.2;
         }
 
         .stat-label {
             font-size: 0.78rem;
             color: var(--text-muted);
-            margin-top: 3px;
+            margin-top: 4px;
+            font-weight: 500;
         }
 
         .stat-motto {
             grid-column: 1 / -1;
-            background: linear-gradient(135deg, var(--accent-soft), var(--accent2-soft));
-            border-color: #c7d2fe;
-            padding: 12px 16px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(6, 182, 212, 0.08));
+            border-color: rgba(99, 102, 241, 0.2);
+            padding: 14px 20px;
             border-radius: var(--radius);
+            backdrop-filter: blur(4px);
         }
 
         .stat-motto p {
-            font-size: 0.88rem;
+            font-size: 0.92rem;
             color: var(--text-secondary);
+            font-weight: 500;
         }
 
         #time {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: 4px;
+            margin-top: 6px;
             font-variant-numeric: tabular-nums;
+            font-family: monospace;
         }
 
         #everdaytips {
-            font-weight: 500;
-            color: var(--accent);
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
         }
 
         /* ===== Section Heading ===== */
         .section-title {
-            font-size: 1.15rem;
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 800;
             color: var(--text-primary);
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .section-title::after {
             content: '';
             flex: 1;
-            height: 1px;
-            background: var(--border);
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            border-radius: 2px;
         }
 
         /* ===== Student List ===== */
         .student-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 10px;
+            margin-bottom: 14px;
         }
 
         .student-chip {
             display: inline-flex;
             align-items: center;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 999px;
             font-size: 0.82rem;
-            font-weight: 500;
+            font-weight: 600;
             border: 1px solid transparent;
+            transition: all 0.2s ease;
+            cursor: default;
+        }
+
+        .student-chip:hover {
+            transform: scale(1.02);
         }
 
         .student-chip.boy {
-            background: #eff6ff;
-            color: #2563eb;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            color: #1e40af;
             border-color: #bfdbfe;
         }
 
         .student-chip.gril {
-            background: #fdf2f8;
-            color: #db2777;
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+            color: #be185d;
             border-color: #fbcfe8;
         }
 
         .student-chip.dev {
-            background: linear-gradient(135deg, #f3e8ff, #e0f2fe);
-            color: #7c3aed;
-            border-color: #e9d5ff;
+            background: linear-gradient(135deg, #f3e8ff, #ede9fe);
+            color: #6d28d9;
+            border-color: #ddd6fe;
         }
 
         .legend {
             display: flex;
-            gap: 16px;
-            margin-bottom: 14px;
+            gap: 20px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.82rem;
+            gap: 8px;
+            font-size: 0.8rem;
             color: var(--text-secondary);
+            font-weight: 500;
         }
 
         .legend-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .legend-dot.boy {
-            background: #2563eb;
+            background: #3b82f6;
         }
 
         .legend-dot.gril {
-            background: #db2777;
+            background: #ec4899;
         }
 
         .legend-dot.dev {
-            background: #7c3aed;
+            background: #8b5cf6;
         }
 
         .divider {
             border: none;
-            border-top: 1px solid var(--border);
-            margin: 20px 0;
+            border-top: 2px dashed var(--border);
+            margin: 24px 0;
         }
 
         .teacher-list {
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
-            margin-bottom: 14px;
+            margin-bottom: 18px;
         }
 
         .teacher-chip {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            background: var(--surface2);
+            gap: 10px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, white, rgba(247, 249, 252, 0.9));
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.92rem;
+            font-weight: 600;
             color: var(--text-primary);
+            transition: all var(--transition);
+            cursor: default;
+        }
+
+        .teacher-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
         }
 
         .poem-block {
             background: linear-gradient(135deg, #f0fdf4, #ecfeff);
             border: 1px solid #a7f3d0;
             border-radius: var(--radius);
-            padding: 14px 18px;
+            padding: 16px 20px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poem-block::before {
+            content: '🌸';
+            position: absolute;
+            left: 10px;
+            bottom: 5px;
+            font-size: 30px;
+            opacity: 0.2;
         }
 
         .poem-text {
             font-size: 1rem;
             color: #065f46;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .poem-author {
             font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: 4px;
+            margin-top: 6px;
         }
 
         /* ===== Course Section ===== */
         .search-box {
             display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 10px;
+            margin-bottom: 16px;
         }
 
         .search-input {
             flex: 1;
-            padding: 10px 14px;
-            border: 1.5px solid var(--border);
+            padding: 12px 16px;
+            border: 2px solid var(--border);
             border-radius: var(--radius-sm);
             font-size: 0.9rem;
             font-family: var(--font);
-            background: var(--surface2);
+            background: rgba(255, 255, 255, 0.8);
             color: var(--text-primary);
             outline: none;
-            transition: border-color var(--transition), box-shadow var(--transition);
+            transition: all var(--transition);
         }
 
         .search-input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, .1);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, .15);
             background: white;
         }
 
@@ -388,11 +656,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            padding: 10px 18px;
+            gap: 6px;
+            padding: 12px 20px;
             border-radius: var(--radius-sm);
             font-size: 0.88rem;
-            font-weight: 600;
+            font-weight: 700;
             font-family: var(--font);
             border: none;
             cursor: pointer;
@@ -401,26 +669,28 @@
         }
 
         .btn-primary {
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent), #818cf8);
             color: white;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
         }
 
         .btn-primary:hover {
-            background: #4f46e5;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, .3);
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
         }
 
         .btn-ghost {
-            background: var(--surface2);
+            background: rgba(255, 255, 255, 0.7);
             color: var(--text-secondary);
-            border: 1px solid var(--border);
+            border: 2px solid var(--border);
         }
 
         .btn-ghost:hover {
             background: var(--accent-soft);
             color: var(--accent);
-            border-color: #c7d2fe;
+            border-color: var(--accent);
+            transform: translateY(-1px);
         }
 
         .btn-ghost.active {
@@ -431,20 +701,21 @@
 
         .weekday-buttons {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
+            margin-bottom: 12px;
         }
 
         .weekday-btn {
             flex: 1;
-            min-width: 52px;
-            padding: 8px 4px;
+            min-width: 55px;
+            padding: 10px 6px;
             border-radius: var(--radius-sm);
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             font-family: var(--font);
-            border: 1.5px solid var(--border);
-            background: var(--surface2);
+            border: 2px solid var(--border);
+            background: rgba(255, 255, 255, 0.7);
             color: var(--text-secondary);
             cursor: pointer;
             transition: all var(--transition);
@@ -452,58 +723,64 @@
         }
 
         .weekday-btn:hover {
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             color: white;
-            border-color: var(--accent);
+            border-color: transparent;
+            transform: translateY(-2px);
         }
 
         .course-preview {
-            background: var(--surface2);
+            background: rgba(247, 249, 252, 0.7);
+            backdrop-filter: blur(4px);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 14px 18px;
-            margin-top: 12px;
+            padding: 16px 20px;
+            margin-top: 16px;
         }
 
         .course-preview-title {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 10px;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
         }
 
         .course-row {
             display: flex;
             align-items: baseline;
-            gap: 10px;
-            margin-bottom: 6px;
+            gap: 12px;
+            margin-bottom: 8px;
             font-size: 0.86rem;
+            padding: 4px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
         }
 
         .course-day-label {
-            color: var(--text-muted);
-            min-width: 28px;
-            font-weight: 500;
+            color: var(--accent);
+            min-width: 36px;
+            font-weight: 700;
         }
 
         .course-items {
             color: var(--text-secondary);
+            font-weight: 500;
         }
 
         #searchResult {
-            min-height: 36px;
+            min-height: 42px;
             font-size: 0.9rem;
-            color: var(--text-secondary);
-            padding: 10px 0 4px;
+            color: var(--accent);
+            padding: 12px 0 6px;
+            font-weight: 500;
         }
 
         /* ===== Fun Section ===== */
         .fun-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+            gap: 14px;
         }
 
         .fun-btn {
@@ -511,14 +788,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             padding: 18px 10px;
             border-radius: var(--radius);
             font-size: 0.84rem;
-            font-weight: 600;
+            font-weight: 700;
             font-family: var(--font);
-            border: 1.5px solid var(--border);
-            background: var(--surface2);
+            border: 2px solid var(--border);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
             color: var(--text-primary);
             cursor: pointer;
             transition: all var(--transition);
@@ -526,83 +804,123 @@
         }
 
         .fun-btn .fun-icon {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
+            transition: transform 0.2s;
         }
 
         .fun-btn:hover {
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             color: white;
-            border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
+            border-color: transparent;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(99, 102, 241, 0.3);
+        }
+
+        .fun-btn:hover .fun-icon {
+            transform: scale(1.1);
         }
 
         #pickResult {
-            margin-top: 12px;
-            padding: 12px 16px;
+            margin-top: 16px;
+            padding: 14px 20px;
             background: linear-gradient(135deg, var(--accent-soft), var(--accent2-soft));
             border-radius: var(--radius);
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--accent);
             text-align: center;
             min-height: 0;
             display: none;
+            border: 1px solid rgba(99, 102, 241, 0.2);
         }
 
         #pickResult.show {
             display: block;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ===== Footer ===== */
         .footer {
             text-align: center;
-            padding: 20px;
-            background: var(--surface);
+            padding: 28px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
             border-radius: var(--radius-lg);
             border: 1px solid var(--border);
         }
 
         .footer-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 6px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
         }
 
         .footer-sub {
             font-size: 0.8rem;
             color: var(--text-muted);
+            font-weight: 500;
         }
 
         /* ===== Audio Player ===== */
         .audio-player {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 24px;
+            right: 24px;
             z-index: 999;
-            background: var(--surface);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
             border: 1px solid var(--border);
             border-radius: 999px;
             box-shadow: var(--shadow-lg);
             overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .audio-player:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
         }
 
         .audio-player audio {
             display: block;
-            width: 180px;
-            height: 36px;
-            opacity: 0.9;
+            width: 190px;
+            height: 38px;
+            opacity: 0.95;
+        }
+
+        /* 自定义音频控制器颜色 */
+        audio::-webkit-media-controls-panel {
+            background: linear-gradient(135deg, #f0f0ff, #ffffff);
         }
 
         /* ===== Privacy Note ===== */
         .privacy-note {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
-            margin-top: 8px;
+            margin-top: 12px;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.02);
+            padding: 6px 12px;
+            border-radius: 999px;
+            width: fit-content;
         }
 
         /* ===== Responsive ===== */
@@ -612,31 +930,59 @@
             }
 
             .hero {
-                padding: 32px 16px 24px;
+                padding: 32px 16px 28px;
             }
 
             .fun-grid {
                 grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .fun-btn {
+                padding: 14px 8px;
+            }
+
+            .fun-btn .fun-icon {
+                font-size: 1.5rem;
             }
         }
 
         /* ===== SweetAlert2 custom ===== */
         .swal2-popup {
             font-family: var(--font) !important;
-            border-radius: 20px !important;
+            border-radius: 28px !important;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2) !important;
         }
 
         .swal2-confirm {
-            background: var(--accent) !important;
-            border-radius: 10px !important;
+            background: linear-gradient(135deg, #6366f1, #06b6d4) !important;
+            border-radius: 14px !important;
             font-family: var(--font) !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4) !important;
+        }
+
+        .swal2-cancel {
+            border-radius: 14px !important;
         }
 
         .swal2-input,
         .swal2-textarea,
         .swal2-select {
-            border-radius: 10px !important;
+            border-radius: 14px !important;
             font-family: var(--font) !important;
+            border: 2px solid var(--border) !important;
+        }
+
+        .swal2-input:focus,
+        .swal2-textarea:focus {
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+        }
+
+        .swal2-container {
+            backdrop-filter: blur(6px) !important;
+            background-color: rgba(0, 0, 0, 0.4) !important;
         }
     </style>
 </head>
@@ -735,7 +1081,7 @@
             <button class="btn btn-ghost" onclick="searthCourse('course')" style="margin-bottom: 12px;">📖
                 传统查询（弹窗）</button>
             <div class="course-preview">
-                <div class="course-preview-title">课表速览</div>
+                <div class="course-preview-title">📖 课表速览</div>
                 <div class="course-row"><span class="course-day-label">周一</span><span class="course-items">语文 · 数学 · 音乐
                         · 英语 · 美术 · 体育</span></div>
                 <div class="course-row"><span class="course-day-label">周二</span><span class="course-items">数学 · 语文 · 道法
@@ -745,7 +1091,7 @@
                 <div class="course-row"><span class="course-day-label">周四</span><span class="course-items">数学 · 语文 · 语文
                         · 音乐 · 劳动 · 体育(大操)</span></div>
                 <div class="course-row"><span class="course-day-label">周五</span><span class="course-items">语文 · 数学 · 校本
-                        · 信息 · 科学 · 家乡</span></div>
+                        · 信息 · 科学 · 家乡/体活</span></div>
             </div>
         </div>
 
@@ -770,6 +1116,12 @@
                 </button>
                 <button class="fun-btn" onclick="viewCapsules()">
                     <span class="fun-icon">📦</span>胶囊仓库(半成品)
+                </button>
+                <button class="fun-btn" onclick="creamPay()">
+                    <span class="fun-icon">💵</span>赞助雪糕..？
+                </button>
+                <button class="fun-btn" onclick="openFeedback()">
+                    <span class="fun-icon">📬</span>意见箱
                 </button>
             </div>
             <div id="pickResult"></div>
@@ -1292,6 +1644,141 @@
             timer: 2500,
             showConfirmButton: false
         });
+
+        function creamPay() {
+            Swal.fire({
+                title: '感谢你的赞助，即将跳转支付界面',
+                text: '我们会非常感谢你的🙏',
+                icon: 'success',
+                timer: 2500,
+                timerProgressBar: true,
+                willClose: () => {
+                    window.open('creampaypage.html', '_blank');
+                }
+            });
+        }
+
+        function openFeedback() {
+            let modal = document.getElementById('feedbackModal');
+            if (modal) {
+                // 移除可能的淡出类
+                modal.classList.remove('fade-out');
+                // 清空之前的动画状态
+                modal.style.display = 'flex';
+                // 强制重绘，确保动画正常触发
+                void modal.offsetHeight;
+                modal.classList.add('show');
+                document.getElementById('feedbackNickname').value = '';
+                document.getElementById('feedbackMessage').value = '';
+            } else {
+                createFeedbackModal();
+            }
+        }
+
+        function closeFeedback() {
+            const modal = document.getElementById('feedbackModal');
+            if (modal) {
+                // 添加淡出动画类
+                modal.classList.remove('show');
+                modal.classList.add('fade-out');
+                // 等待动画结束后再隐藏
+                setTimeout(() => {
+                    if (modal.classList.contains('fade-out')) {
+                        modal.style.display = 'none';
+                        modal.classList.remove('fade-out');
+                    }
+                }, 250);
+            }
+        }
+
+        function createFeedbackModal() {
+            const modalHTML = `
+        <div id="feedbackModal" class="feedback-modal" onclick="if(event.target===this) closeFeedback()">
+            <div class="feedback-container">
+                <h2>📬 意见箱</h2>
+                <div class="feedback-input-group">
+                    <label>👤 你的昵称</label>
+                    <input type="text" id="feedbackNickname" placeholder="怎么称呼你呀？" maxlength="20">
+                </div>
+                <div class="feedback-input-group">
+                    <label>💬 留言内容</label>
+                    <textarea id="feedbackMessage" rows="4" placeholder="写下你想说的话～"></textarea>
+                </div>
+                <div class="feedback-buttons">
+                    <button class="feedback-cancel" onclick="closeFeedback()">取消</button>
+                    <button class="feedback-submit" onclick="submitFeedback()">提交</button>
+                </div>
+            </div>
+        </div>
+    `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+            // 创建完成后自动显示弹窗
+            setTimeout(() => {
+                const modal = document.getElementById('feedbackModal');
+                if (modal) {
+                    modal.classList.add('show');
+                    document.getElementById('feedbackNickname').value = '';
+                    document.getElementById('feedbackMessage').value = '';
+                }
+            }, 10);
+        }
+
+        async function submitFeedback() {
+            const nickname = document.getElementById('feedbackNickname').value.trim();
+            const message = document.getElementById('feedbackMessage').value.trim();
+
+            if (!nickname || !message) {
+                Swal.fire({ title: '提示', text: '请填写昵称和留言内容', icon: 'warning', confirmButtonColor: '#6366f1' });
+                return;
+            }
+
+            if (message.length > 500) {
+                Swal.fire({ title: '提示', text: '留言不能超过500字', icon: 'warning', confirmButtonColor: '#6366f1' });
+                return;
+            }
+
+            Swal.fire({ title: '发送中...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+            try {
+                const templateParams = {
+                    nickname: nickname,
+                    message: message,
+                    time: new Date().toLocaleString('zh-CN')
+                };
+
+                const response = await emailjs.send(
+                    'service_7vk5sac',
+                    'template_0l2kq9k',
+                    templateParams
+                );
+
+                Swal.close();
+
+                if (response.status === 200) {
+                    closeFeedback();
+                    Swal.fire({
+                        title: '✨ 提交成功',
+                        text: '你的留言已经飞到我的邮箱啦！感谢你的建议 🙏',
+                        icon: 'success',
+                        confirmButtonColor: '#6366f1',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                } else {
+                    throw new Error('发送失败');
+                }
+            } catch (error) {
+                Swal.close();
+                Swal.fire({
+                    title: '❌ 提交失败',
+                    text: '请稍后再试',
+                    icon: 'error',
+                    confirmButtonColor: '#6366f1'
+                });
+                console.error('EmailJS错误：', error);
+            }
+        }
     </script>
 
 </body>

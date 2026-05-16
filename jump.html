@@ -2,19 +2,172 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>关于后期的规划....</title>
-</head>
-<body>
+    <!-- 引入 Google Font 提升字体质感 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
-        .center {
-            text-align: center;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
+        body {
+            background: linear-gradient(145deg, #f9f3e6 0%, #fff5ea 100%);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e2a3e;
+        }
+
+        /* 主卡片容器 - 增加质感 */
+        .center {
+            max-width: 720px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 48px;
+            padding: 2.2rem 2rem 2.8rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 245, 215, 0.6);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .center:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 32px 48px -16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 标题区域美化 */
+        h1 {
+            font-size: 2.4rem;
+            background: linear-gradient(135deg, #c94f4f, #f9a26c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+            display: inline-block;
+            padding: 0 0.25rem;
+            border-bottom: 3px dashed #ffc8a2;
+        }
+
+        /* 段落默认样式 */
+        p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+            color: #2c3e44;
+            font-weight: 450;
+        }
+
+        /* 特殊红色文字 - 保留原 id，只改视觉 */
         #red {
-            color: red;
+            color: #e25c5c;
+            font-weight: 600;
+            background: linear-gradient(120deg, #fff0f0, transparent);
+            padding: 0 4px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* 水平分割线趣味化 */
+        hr {
+            margin: 2rem 0;
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, #ffcd94, #ffb347, #ffcd94);
+            border-radius: 4px;
+            width: 80px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 调用按钮样式（链接模拟卡片） */
+        a {
+            display: inline-block;
+            margin-top: 0.75rem;
+            background: #1e2a3e;
+            color: #ffefcf;
+            text-decoration: none;
+            padding: 0.9rem 1.6rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            transition: all 0.2s;
+            box-shadow: 0 8px 14px -8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 215, 150, 0.4);
+        }
+
+        a:hover {
+            background: #f0a25e;
+            color: #1e2a3e;
+            transform: scale(1.02);
+            box-shadow: 0 12px 18px -10px #f0a25e70;
+            border-color: #fff0cf;
+        }
+
+        /* 列表 / 强调区域  */
+        .center p br + span, 
+        .center p strong {
+            font-weight: 600;
+        }
+
+        /* 手机适配 */
+        @media (max-width: 540px) {
+            body {
+                padding: 1rem;
+            }
+            .center {
+                padding: 1.5rem;
+                border-radius: 32px;
+            }
+            h1 {
+                font-size: 1.9rem;
+            }
+            p {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* 蓝色文字保持原样但更柔和 */
+        p[style*="color: rgb(0, 17, 255)"] {
+            color: #3b7cbf !important;
+            font-weight: 500;
+            background: rgba(59, 124, 191, 0.08);
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            margin-top: 0.25rem;
+        }
+        
+        /* 让“随时欢迎你们呦👏”更醒目 */
+        .center p:last-of-type[style*="rgb(0, 17, 255)"] {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        /* 保留原有类，额外优化引号内容 */
+        .center p span#red,
+        .center p a {
+            transition: all 0.1s ease;
+        }
+
+        /* 小标签效果 (帮助“掌握HTML+CSS+JavaScript基础”更突出)*/
+        p #red, p span#red {
+            background: #fff0e0;
+            border-radius: 32px;
+            padding: 0.1rem 0.6rem;
+            box-shadow: inset 0 0 0 0.5px #ffb77c;
         }
     </style>
+</head>
+<body>
 
     <div class="center">
         <h1>
@@ -41,5 +194,6 @@
         </h1>
         <a href="./updates.html">查看近期更新</a>
     </div>
+
 </body>
 </html>

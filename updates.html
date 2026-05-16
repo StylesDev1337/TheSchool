@@ -3,127 +3,396 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Updates</title>
-</head>
-
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>更新总页面✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(145deg, #f5f0ff 0%, #e8edf5 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+
+        /* 背景装饰 */
+        body::before {
+            content: '✨🌟⭐📦✨🌟⭐';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 24px;
+            color: rgba(99, 102, 241, 0.04);
+            pointer-events: none;
+            white-space: pre;
+            overflow: hidden;
+            z-index: 0;
+        }
+
         .center {
             text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .beta,
+        .release,
+        .new {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            text-align: left;
+            border-left: 4px solid;
+            margin: 1rem auto;
+            width: 100%;
+            max-width: 680px;
+            height: auto;
+            padding: 1.5rem 1.8rem;
+            border-radius: 24px;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(226, 232, 240, 0.6);
         }
 
         .beta {
-            background-color: rgba(255, 0, 0, 0.151);
-            text-align: center;
-            border-left: 4px solid rgb(255, 82, 82);
-            backdrop-filter: blur(10px);
-            margin-left: auto;
-            margin-right: auto;
-            width: 600px;
-            height: auto;
-            padding: 10px 15px;
-            border-radius: 15px;
-            transform: translateY(0);
-            transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            border-left-color: #f59e0b;
         }
 
         .release {
-            background-color: rgba(0, 0, 0, 0.151);
-            text-align: center;
-            border-left: 4px solid rgb(102, 102, 102);
-            backdrop-filter: blur(10px);
-            margin-left: auto;
-            margin-right: auto;
-            width: 600px;
-            height: auto;
-            padding: 10px 15px;
-            border-radius: 15px;
-            transform: translateY(0);
-            transition: transform 0.3s ease;
+            border-left-color: #6366f1;
+        }
+
+        .new {
+            border-left-color: #10b981;
+        }
+
+        .beta:hover,
+        .release:hover,
+        .new:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .beta h1,
+        .release h1,
+        .new h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .beta h1 {
+            color: #d97706;
+        }
+
+        .release h1 {
+            color: #4f46e5;
+        }
+
+        .new h1 {
+            color: #10b981;
+        }
+
+        .beta p,
+        .release p,
+        .new p {
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin: 0.4rem 0;
+            color: #4a5568;
+            font-weight: 500;
+            padding-left: 1rem;
             position: relative;
-            overflow: hidden;
         }
 
-        .beta:hover {
-            transform: translateY(-4px);
-        }
-
-        .release:hover {
-            transform: translateY(-4px);
+        .beta p::before,
+        .release p::before,
+        .new p::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: inherit;
+            opacity: 0.7;
         }
 
         .aniFont {
-            animation: colorChange 10s infinite
+            animation: colorChange 10s infinite;
+            display: inline-block;
         }
 
         @keyframes colorChange {
             0% {
-                color: #b25bff;
+                color: #8b5cf6;
             }
 
             25% {
-                color: rgb(255, 175, 81);
+                color: #f59e0b;
             }
 
             50% {
-                color: #ff2525;
+                color: #ef4444;
             }
 
             75% {
-                color: #236aff;
+                color: #3b82f6;
             }
 
             100% {
-                color: #b25bff;
+                color: #8b5cf6;
+            }
+        }
+
+        hr {
+            margin: 2rem auto;
+            width: 80px;
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #6366f1, #06b6d4, transparent);
+            border-radius: 2px;
+        }
+
+        .header-title {
+            margin-bottom: 2rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            border-radius: 999px;
+            color: #4a5568;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+
+            .beta,
+            .release,
+            .new {
+                padding: 1rem 1.2rem;
+            }
+
+            .beta h1,
+            .release h1,
+            .new h1 {
+                font-size: 1rem;
+            }
+
+            .beta p,
+            .release p,
+            .new p {
+                font-size: 0.8rem;
             }
         }
     </style>
+</head>
 
-    <div class="center">
+<body>
+
+    <div class="center header-title">
         <div class="">
-            <h1>
-                Beta更新: 红色 | 正式版更新: 黑色
+            <h1 class="aniFont">
+                Beta更新: 🟠 橙色边 | 正式版更新: 🔵 紫色边 | 最新更新： 🟢 绿色边
             </h1>
         </div>
     </div>
 
-    <hr><br>
+    <hr>
 
-    <div class="center aniFont">
-        <div class="release">
-            <h1>正式版更新 - 26.3.3 完善基本功能，部署到CloudFlare,让国内访问更佳迅速。</h1>
-            <p>(Netfily + DNShe联合)</p>
-            <p>*对名字进行隐私化处理 删除公告栏</p>
-        </div>
+    <!-- 动态生成的更新内容会放在这里 -->
+    <div id="updatesContainer" class="center"></div>
 
-        <hr><br>
+    <script>
+        // ======================== 更新日志生成器 ========================
 
-        <div class="beta">
-            <h1>测试版更新 - 26.3.6 详细请见下</h1>
-            <p>[+] 值日生轮换显示</p>
-            <p>[-] 通知</p>
-            <p>[/] 对UI进行了更舒服的优化</p>
-            <p>[+] 时间胶囊查看功能</p>
-        </div>
+        // 用于存放所有更新项的容器
+        let updatesHTML = '';
 
-        <br>
+        // 转换时间格式：260217 -> 26.2.17
+        function formatTime(timeNum) {
+            const str = String(timeNum);
+            if (str.length !== 6) return str;
+            const year = str.slice(0, 2);
+            const month = str.slice(2, 4);
+            const day = str.slice(4, 6);
+            return `${year}.${month}.${day}`;
+        }
 
-        <div class="beta">
-            <h1>测试版更新 - 26.3.7 详细请见下</h1>
-            <p>[+] 对时间胶囊进行了最终优化 所有人可查看（因隐私保护 所以需验证）</p>
-        </div>
+        // 核心函数：update
+        // 参数说明：
+        //   type: 'beta' 或 'release'
+        //   date: 6位数时间，如 260515
+        //   updateTime: 可选，填 'new' 时变成绿色（最新更新），填 'last' 或不填则正常显示
+        //   callback: 回调函数，里面用 add/remove/edit
+        function update(type, date, updateTime, callback) {
+            // 参数重载：判断第三个参数是字符串还是函数
+            let isNew = false;
+            let userCallback;
+            
+            if (typeof updateTime === 'function') {
+                // 情况1：没有传 updateTime，直接传的是回调函数
+                isNew = false;
+                userCallback = updateTime;
+            } else if (typeof updateTime === 'string') {
+                // 情况2：传了 updateTime
+                if (updateTime === 'new') {
+                    isNew = true;
+                } else if (updateTime === 'last') {
+                    isNew = false;
+                } else {
+                    console.warn(`updateTime 参数只能填 'last' 或 'new'，你填了 "${updateTime}"，将使用默认值`);
+                    isNew = false;
+                }
+                userCallback = callback;
+            } else {
+                // 情况3：只传了两个参数
+                isNew = false;
+                userCallback = null;
+            }
 
-        <br>
+            // 确定版本类型标题和样式类
+            let versionTitle = '';
+            let versionClass = '';
+            
+            if (isNew) {
+                // 如果是最新更新，强制使用 green 样式
+                versionClass = 'new';
+                if (type === 'beta') {
+                    versionTitle = '测试版更新';
+                } else if (type === 'release') {
+                    versionTitle = '正式版更新';
+                } else {
+                    versionTitle = `${type}更新`;
+                }
+            } else {
+                // 普通更新，根据 type 决定样式
+                if (type === 'beta') {
+                    versionClass = 'beta';
+                    versionTitle = '测试版更新';
+                } else if (type === 'release') {
+                    versionClass = 'release';
+                    versionTitle = '正式版更新';
+                } else {
+                    console.error('type 只能是 beta 或 release');
+                    return;
+                }
+            }
 
-        <div class="beta">
-            <h1>测试版更新 - 26.3.20 详细请见下</h1>
-            <p>[/] 页面大改版</p>
-            <p>[+] 对开发人员列表进行了修改</p>
-        </div>
-    </div>
+            // 格式化日期
+            const formattedDate = formatTime(date);
+
+            // 开始构建这个版本的HTML
+            let versionHTML = `<div class="${versionClass}">\n`;
+            versionHTML += `    <h1>${versionTitle} - ${formattedDate} 详细请见下</h1>\n`;
+
+            // 临时存储当前版本的内容项
+            let contentItems = [];
+
+            // 重写 add 函数（局部作用域）
+            function add(content) {
+                contentItems.push(`<p>[+] ${content}</p>`);
+            }
+
+            // 重写 remove 函数
+            function remove(content) {
+                contentItems.push(`<p>[-] ${content}</p>`);
+            }
+
+            // 重写 edit 函数
+            function edit(content) {
+                contentItems.push(`<p>[/] ${content}</p>`);
+            }
+
+            // 执行回调，让用户调用 add/remove/edit
+            if (userCallback) {
+                userCallback({ add, remove, edit });
+            }
+
+            // 把所有内容项添加到版本HTML中
+            versionHTML += contentItems.join('\n');
+            versionHTML += `</div>\n\n`;
+
+            // 追加到全局容器
+            updatesHTML += versionHTML;
+        }
+
+        // 渲染所有更新到页面
+        function renderUpdates(containerId) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.innerHTML = updatesHTML;
+            } else {
+                console.error('找不到容器:', containerId);
+            }
+        }
+
+        // 清空所有更新（如果需要重新生成）
+        function clearUpdates() {
+            updatesHTML = '';
+        }
+
+        // ======================== 开始编写更新日志 ========================
+
+        // 清空旧数据
+        clearUpdates();
+
+        // 最新更新（绿色边框） - 使用 'new' 参数
+        update('release', 260516, 'new', function ({ add, edit }) {
+            add('新增 updateTime 参数，支持标记最新更新');
+            add('最新更新会显示绿色边框和标题');
+            edit('优化了卡片样式');
+        });
+
+        // 普通更新（不传 updateTime，或传 'last'）
+        update('release', 260515, function ({ add, edit }) {
+            add('新增更新日志自动生成器');
+            add('新增雪糕赞助页面');
+            edit('优化了整体视觉效果');
+        });
+
+        update('beta', 260320, function ({ add, edit }) {
+            edit('页面大改版');
+            add('对开发人员列表进行了修改');
+        });
+
+        update('beta', 260307, function ({ add }) {
+            add('对时间胶囊进行了最终优化，所有人可查看（因隐私保护，所以需验证）');
+        });
+
+        update('beta', 260306, function ({ add, remove, edit }) {
+            add('值日生轮换显示');
+            remove('通知');
+            edit('对UI进行了更舒服的优化');
+            add('时间胶囊查看功能');
+        });
+
+        update('release', 260303, function ({ add, remove }) {
+            add('完善基本功能，部署到CloudFlare，让国内访问更佳迅速');
+            add('对名字进行隐私化处理');
+            remove('公告栏');
+        });
+
+        // 渲染到页面
+        renderUpdates('updatesContainer');
+    </script>
 </body>
 
 </html>
