@@ -20,6 +20,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+        <link rel="stylesheet" href="./loaders.css">
+        <link rel="stylesheet" href="./moretheme.css">
     <meta name="description" content="工农小学 - 六年九班班级网">
     <style>
         /* ===== 原有样式保持不变，只添加意见箱相关样式 ===== */
@@ -479,6 +481,13 @@
             height: 2px;
             background: linear-gradient(90deg, var(--accent), transparent);
             border-radius: 2px;
+        }
+
+        .hr {
+            margin: 20px 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
         }
 
         /* ===== Student List ===== */
@@ -984,6 +993,18 @@
             backdrop-filter: blur(6px) !important;
             background-color: rgba(0, 0, 0, 0.4) !important;
         }
+
+        .introduction-backgroud {
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 15px;
+            backdrop-filter: blur(4px);
+            border-color: #00000036;
+            border: 2px, #00000020, solid;
+            color: black;
+            padding: 16px 12px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
     </style>
 </head>
 
@@ -995,7 +1016,7 @@
         <div class="hero" id="zhengwen">
             <div class="hero-badge">🏫 工农小学 · 六年九班</div>
             <h1>六年九班 · 班级空间</h1>
-            <p class="hero-sub">✨ 蟑螂 · 韩 · 冯 联合研发</p>
+            <p class="hero-sub">✨ Coder Zhang · 韩 · 冯 · Deepseek 联合研发</p>
             <p class="hero-sub">专属数字家园 · 每一帧都记录青春</p>
         </div>
 
@@ -1010,6 +1031,28 @@
                 <span onclick="callDeveloper()" class="nav-link danger">📞 联系开发</span>
             </div>
         </div>
+
+        <!-- 2.5 简介 -->
+         <div class="card center" id="introduction">
+            <div class="section-title">✍ 介绍</div>
+            <div class="introduction-backgroud" style="color: #000000;">
+                <strong style="font-size: 1.5em;">简单说说</strong>
+                <span style="color: black;">
+                    <strong>
+                        <p>网站<span style="color: #683737;">85%</span>由<span style="color: #683737;">Coder Zhang</span>开发,Deepseek等只开发部分</p>
+                        <p style="color: #296429;">网站框架、各种区域(哪些小功能等这个那个的服务)、上架、维护、套防护、基础功能 <br> 都是 <span style="color: #683737;">Coder Zhang</span> 干的</p>
+                        <hr class="hr">
+                        <p>详细说一下什么部分谁负责开发</p>
+                        <p><span style="color: #696c38;">主页面、更新页面、雪糕赞助页面、后期计划页面</span> for <span style="color: #683737;">Coder Zhang</span></p>
+                        <p>Deepseek大神负责修bug(😂)</p>
+                        <p style="color: #059669;">剩下的两个人随缘了想干啥干啥</p>
+                        <hr class="hr">
+                        <p>ok如果你想看源代码那就传送Github</p> <br>
+                        <button class="simple-button" onclick="skipToGithub()">Skip to Github</button>
+                    </strong>
+                </span>
+            </div>
+         </div>
 
         <!-- ③ Stats Bar -->
         <div class="card" id="daohang">
@@ -1145,7 +1188,7 @@
 
         // ---------- 1. 学生名单 ----------
         const students = {
-            dev: ['张xx', '韩xx', '冯xx'],
+            dev: ['张xx', '韩xx', '冯xx', 'Deepseek'],
             boy: ['冯xx', '张xx', '孙xx', '李xx', '郝xx', '李xx', '宋xx', '孙xx', '刘xx', '孙xx', '张xx', '刘xx', '姚xx', '闫xx', '周xx', '仲xx', '杨xx', '蔚xx', '李xx', '马xx', '华xx'],
             girl: ['李xx', '高xx', '刘xx', '刘xx', '张xx', '刘xx', '赵xx', '夏xx', '赵xx', '赵xx', '张xx', '张xx', '张xx', '关xx', '刘xx', '王xx', '刘xx', '刘xx', '潘xx', '宋xx', '李xx']
         };
@@ -1383,7 +1426,7 @@
         function callDeveloper() {
             Swal.fire({
                 title: '联系开发人员',
-                html: '<p style="color: #059669;">蟑螂微信：zza8848thjsj | QQ：2827695239</p>',
+                html: '<p style="color: #059669;">Coder Zhang微信：zza8848thjsj | QQ：2827695239</p>',
                 icon: 'info',
                 confirmButtonColor: '#6366f1'
             });
@@ -1533,9 +1576,7 @@
             });
         }
 
-        // 查看胶囊（管理员验证 + 支持快捷通道 69 / 2a）
         async function viewCapsules() {
-            // 第一步：管理员密码验证
             const { value: pwd } = await Swal.fire({
                 title: '请输入密码',
                 input: 'password',
@@ -1547,7 +1588,6 @@
                 confirmButtonColor: '#6366f1',
                 inputValidator: (val) => {
                     if (!val) return '请输入密码';
-                    // 使用与之前相同的开发者密码验证
                     if (btoa(encodeURIComponent(val)) !== 'emhhbmdsYW5nbmI2NjY=') {
                         return '密码错误';
                     }
@@ -1555,7 +1595,7 @@
             });
             if (!pwd) return;
 
-            // 第二步：输入 BIN_ID 和 MASTER_KEY（支持快捷通道 69 / 2a）
+
             let binid = prompt('请输入 JSONBin BIN_ID：');
             let masterkey = prompt('请输入 JSONBin Master Key：');
             if (!binid || !masterkey) {
@@ -1566,7 +1606,6 @@
             let realBinId = binid.trim();
             let realMasterKey = masterkey.trim();
 
-            // 如果输入的是快捷指令 69 和 2a，则让用户再输入一次真实的密钥
             if (realBinId === '69' && realMasterKey === '2a') {
                 const realBin = prompt('请输入真实的 BIN_ID：');
                 const realKey = prompt('请输入真实的 Master Key：');
@@ -1778,6 +1817,10 @@
                 });
                 console.error('EmailJS错误：', error);
             }
+        }
+
+        function skipToGithub() {
+            window.location.href = "https://github.com/StylesDev1337/TheSchool";
         }
     </script>
 

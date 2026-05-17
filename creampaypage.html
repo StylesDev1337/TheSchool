@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>🍦 赞助雪糕 · 六年九班 🍦</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="./moretheme.css">
     <style>
+        :root {
+            --bg: linear-gradient(145deg, #f5f0ff 0%, #e8edf5 100%);
+            --surface: rgba(255, 255, 255, 0.92);
+            --surface2: rgba(247, 249, 252, 0.8);
+            --border: rgba(226, 232, 240, 0.6);
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --accent: #6366f1;
+            --accent-soft: #eef2ff;
+            --accent2: #06b6d4;
+            --accent2-soft: #ecfeff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --radius-sm: 12px;
+            --radius: 20px;
+            --radius-lg: 28px;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+            --shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
+            --transition: 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            --font: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -74,7 +100,7 @@
             font-weight: 800;
             color: white;
             letter-spacing: -0.01em;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -82,7 +108,7 @@
         }
 
         .card-header p {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 0.85rem;
             margin-top: 8px;
         }
@@ -223,7 +249,7 @@
             background: white;
             padding: 12px;
             transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .qrcode-image img:hover {
@@ -236,7 +262,7 @@
             font-size: 0.85rem;
             color: #64748b;
             font-weight: 500;
-            background: rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.7);
             display: inline-block;
             padding: 6px 16px;
             border-radius: 999px;
@@ -279,22 +305,112 @@
             body {
                 padding: 1rem;
             }
+
             .card-content {
                 padding: 24px 20px;
             }
+
             .qrcode-image img {
                 width: 220px;
                 padding: 8px;
             }
+
             .emphasis-text {
                 font-size: 0.9rem;
             }
+
             .info-title {
                 font-size: 1.1rem;
             }
         }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem;
+            font-weight: 700;
+            font-family: var(--font);
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            white-space: nowrap;
+            background-color: #acadff;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #818cf8);
+            color: white;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .swal2-popup {
+            font-family: var(--font) !important;
+            border-radius: 28px !important;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .swal2-confirm {
+            background: linear-gradient(135deg, #6366f1, #06b6d4) !important;
+            border-radius: 14px !important;
+            font-family: var(--font) !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4) !important;
+        }
+
+        .swal2-cancel {
+            border-radius: 14px !important;
+        }
+
+        .swal2-input,
+        .swal2-textarea,
+        .swal2-select {
+            border-radius: 14px !important;
+            font-family: var(--font) !important;
+            border: 2px solid var(--border) !important;
+        }
+
+        .swal2-input:focus,
+        .swal2-textarea:focus {
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+        }
+
+        .swal2-container {
+            backdrop-filter: blur(6px) !important;
+            background-color: rgba(0, 0, 0, 0.4) !important;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="sponsor-card">
@@ -341,6 +457,10 @@
                 <div class="qrcode-hint">
                     💡 长按识别或截图后扫码
                 </div>
+
+                <hr>
+
+                <button class="classic-button" onclick="windowPay()">无法扫描❓点这里👋</button>
             </div>
 
             <!-- 底部时间说明 -->
@@ -350,9 +470,58 @@
                 <div class="small-note">
                     * 如果遇到特殊情况会提前说明，感谢理解与支持 🙏
                 </div>
+                <br>
+                <div>
+                    <button class="simple-button" onclick="toIndex()">Back</button>
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function windowPay() {
+            Swal.fire({
+                title: "微信支付二维码",
+                html: `
+            <div style="text-align: center;">
+                <img src="./easypay.png" alt="收款二维码" 
+                     style="width: 200px; border-radius: 16px; margin: 10px 0;">
+                <p style="margin-top: 12px; color: #666;">
+                    请使用微信扫码支付<br>
+                    推荐金额：<strong style="color: #f59e0b;">48~50元</strong>
+                </p>
+                <p style="font-size: 12px; color: #999; margin-top: 8px;">
+                    支付后请联系网站开发者确认
+                </p>
+            </div>
+        `,
+                icon: "info",
+                confirmButtonText: "我知道了",
+                confirmButtonColor: "#6366f1",
+                showCancelButton: true,
+                cancelButtonText: "复制金额",
+                cancelButtonColor: "#f59e0b"
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+                    // 用户点击了"复制金额"按钮
+                    navigator.clipboard.writeText("48");
+                    Swal.fire({
+                        title: "已复制",
+                        text: "建议金额 48 元已复制到剪贴板",
+                        icon: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        }
+
+        function toIndex() {
+            window.location.href = "./index.html";
+        }
+    </script>
 </body>
+
 </html>
